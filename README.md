@@ -3,7 +3,7 @@
 Ambiente de trabalho completo utilizando o Mate Desktop Environment como interface gráfica.
 Esta imagem, baseada no Debian Stretch, é focada na elaboração de um laboratório de informática de baixo custo. Ela provê uma ambiente de trabalho completo que é acessado remotamente via X2Go e terminais com o X2Go Cliente. É utilizado o Mate Desktop Environment como interface gráfica de usuário (GUI). O projeto é desenvolvido no Instituto Federal de Santa Catarina, no câmpus São José.
 
-== Aplicações ==
+## Aplicações
 
 Na imagem estão contidas aplicações que satizfaçam as necessidades dos alunos, sendo algumas delas listadas abaixo:
 
