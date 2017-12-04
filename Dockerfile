@@ -26,11 +26,9 @@ RUN apt update && \
     apt update && \
     apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 okular apt-xapian-index synaptic libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default spotify-client fritzing kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile arduino pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager libvirt0 playonlinux wine winetricks libxft2:i386 git clementine r-base r-base-dev less cmake libpng16-16 libpng16-16:i386 vivaldi-stable && \
     apt -y -q install -t stretch-backports octave liboctave-dev && \
-    apt -y -q install -t jessie libssl1.0.0 && \ 
-    cp /usr/lib/i386-linux-gnu/libpng16.so.16 /lib/i386-linux-gnu/libpng12.so.0 && \
-    cp /usr/lib/x86_64-linux-gnu/libpng16.so.16 /lib/x86_64-linux-gnu/libpng12.so.0 && \
+    apt -y -q install -t jessie libssl1.0.0 linpng12-0 libpng12-0:i386 && \ 
     ldconfig && \
-    echo "deb http://ftp.br.debian.org/debian stretch main contrib non-free" > /etc/apt/sources.list oracle-java8-set-default && \
+    echo "deb http://ftp.br.debian.org/debian stretch main contrib non-free" > /etc/apt/sources.list && \
     echo "deb http://ftp.br.debian.org/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://security.debian.org stretch/updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list && \
