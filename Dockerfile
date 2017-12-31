@@ -22,13 +22,17 @@ RUN apt update && \
     echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list && \
     echo "deb http://ftp.br.debian.org/debian stretch-backports main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://ftp.br.debian.org/debian/ jessie main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://ftp.br.debian.org/debian/ wheezy main" >> /etc/apt/sources.list && \
     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
     apt update && \
-    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 okular apt-xapian-index synaptic libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default spotify-client fritzing kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile arduino pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager libvirt0 playonlinux wine winetricks libxft2:i386 git clementine r-base r-base-dev less cmake libpng16-16 libpng16-16:i386 vivaldi-stable && \
+    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 okular apt-xapian-index synaptic libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default spotify-client fritzing kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile arduino pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager libvirt0 playonlinux wine winetricks libxft2:i386 git clementine r-base r-base-dev less cmake libpng16-16 libpng16-16:i386 vivaldi-stable unrar cutecom && \
     apt -y -q install -t stretch-backports octave liboctave-dev && \
-    apt -y -q install -t jessie libssl1.0.0 linpng12-0 libpng12-0:i386 && \ 
+    cp /usr/lib/i386-linux-gnu/libpng16.so.16 /lib/i386-linux-gnu/libpng12.so.0 && \
+    cp /usr/lib/x86_64-linux-gnu/libpng16.so.16 /lib/x86_64-linux-gnu/libpng12.so.0 && \
+    apt -y -q install -t jessie libssl1.0.0 && \ 
+    apt -y -q install -t wheezy libpng12-0 libpng12-0:i386 && \
     ldconfig && \
-    echo "deb http://ftp.br.debian.org/debian stretch main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb http://ftp.br.debian.org/debian stretch main contrib non-free" > /etc/apt/sources.list oracle-java8-set-default && \
     echo "deb http://ftp.br.debian.org/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://security.debian.org stretch/updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list && \
@@ -110,6 +114,30 @@ RUN apt update && \
     echo "Exec=/opt/eclipse/eclipse --launcher.GTK_version 2" >> /usr/share/applications/eclipsemodificado.desktop && \
     echo "Name[pt_BR]=Eclipse Modificado" >> /usr/share/applications/eclipsemodificado.desktop && \
     echo "Comment[pt_BR]=Eclipse Modificado" >> /usr/share/applications/eclipsemodificado.desktop && \
+    echo "[Desktop Entry]" > /usr/share/applications/vivaldi-stable.desktop && \
+    echo "Version=1.0" >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "Name=Vivaldi" >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "# Only KDE 4 seems to use GenericName, so we reuse the KDE strings." >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "# From Ubuntu's language-pack-kde-XX-base packages, version 9.04-20090413." >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "GenericName=Web Browser" >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "GenericName[pt]=Navegador Web" >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "GenericName[pt_BR]=Navegador da Internet" >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "GenericName[pt]=Navegador Web" >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "GenericName[pt_BR]=Navegador da Internet" >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "Exec=/usr/bin/vivaldi-stable --no-sandbox %U" >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "Icon=vivaldi" >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "Type=Application" >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "Categories=Network;WebBrowser;" >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "MimeType=text/html;text/xml;application/xhtml_xml;image/webp;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;" >> /usr/share/applications/vivaldi-stable.desktop && \
+    echo "[Desktop Entry]" >> /usr/share/applications/zoiper3-3.desktop && \
+    echo "Type=Application" >> /usr/share/applications/zoiper3-3.desktop && \
+    echo "Name=Zoiper Softphone" >> /usr/share/applications/zoiper3-3.desktop && \
+    echo "Comment=Zoiper Softphone" >> /usr/share/applications/zoiper3-3.desktop && \
+    echo "Exec=/opt/Zoiper64/zoiper" >> /usr/share/applications/zoiper3-3.desktop && \
+    echo "Icon=/usr/share/pixmaps/zoiper.png" >> /usr/share/applications/zoiper3-3.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/zoiper3-3.desktop && \
+    echo "MimeType=text/x-arduino" >> /usr/share/applications/zoiper3-3.desktop && \
     echo "export LM_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br" >> /etc/bash.bashrc && \
     echo "export MGLS_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br" >> /etc/bash.bashrc && \
     echo "export LD_LIBRARY_PATH=/opt/altera/13.0sp1/lib32" >> /etc/bash.bashrc && \
