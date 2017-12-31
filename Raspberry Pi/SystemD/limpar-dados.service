@@ -1,0 +1,9 @@
+[Unit]
+Description=Inicia o script em python que permite a limpeza de dados via botão
+
+[Service]
+Type=Oneshot
+ExecStart=/usr/bin/python /etc/limpar-dados.py
+
+[Install]
+WantedBy=multi-user.target
