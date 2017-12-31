@@ -1,0 +1,9 @@
+[Unit]
+Description=Inicia o script em python que permite o desligamento via botão
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/python /etc/desligar.py
+
+[Install]
+WantedBy=multi-user.target
