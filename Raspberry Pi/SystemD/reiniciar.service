@@ -1,0 +1,9 @@
+[Unit]
+Description=Inicia o script em python que permite o reinício via botão
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/python /etc/reiniciar.py
+
+[Install]
+WantedBy=multi-user.target
