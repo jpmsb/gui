@@ -138,6 +138,37 @@ RUN apt update && \
     echo "Icon=/usr/share/pixmaps/zoiper.png" >> /usr/share/applications/zoiper3-3.desktop && \
     echo "Terminal=false" >> /usr/share/applications/zoiper3-3.desktop && \
     echo "MimeType=text/x-arduino" >> /usr/share/applications/zoiper3-3.desktop && \
+    echo "[Desktop Entry]" > /usr/share/applications/netkit.desktop && \
+    echo "Encoding=UTF-8" >> /usr/share/applications/netkit.desktop && \
+    echo "Name=Gnome-Netkit2" >> /usr/share/applications/netkit.desktop && \
+    echo "Comment=Gnome interface to Netkit" >> /usr/share/applications/netkit.desktop && \
+    echo "Type=Application" >> /usr/share/applications/netkit.desktop && \
+    echo "Icon=/opt/netkit2/contrib/ifsc.png" >> /usr/share/applications/netkit.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/netkit.desktop && \
+    echo "Categories=GNOME;Application;Education;" >> /usr/share/applications/netkit.desktop && \
+    echo "StartupNotify=true" >> /usr/share/applications/netkit.desktop && \
+    echo "Exec=/usr/local/netkit2/bin/netkit2" >> /usr/share/applications/netkit.desktop && \
+    echo "Name[pt_BR]=Netkit2" >> /usr/share/applications/netkit.desktop && \
+    echo "Comment[pt_BR]=Gnome interface to Netkit2" >> /usr/share/applications/netkit.desktop && \
+    echo "[Desktop Entry]" >> /usr/share/applications/netbeans-8.2.desktop && \
+    echo "Encoding=UTF-8" >> /usr/share/applications/netbeans-8.2.desktop && \
+    echo "Name=NetBeans IDE 8.2" >> /usr/share/applications/netbeans-8.2.desktop && \
+    echo "Comment=The Smarter Way to Code" >> /usr/share/applications/netbeans-8.2.desktop && \
+    echo "Exec=/bin/sh '/opt/netbeans-8.2/bin/netbeans'" >> /usr/share/applications/netbeans-8.2.desktop && \
+    echo "Icon=/opt/netbeans-8.2/nb/netbeans.png" >> /usr/share/applications/netbeans-8.2.desktop && \
+    echo "Categories=Application;Development;Java;IDE" >> /usr/share/applications/netbeans-8.2.desktop && \
+    echo "Version=1.0" >> /usr/share/applications/netbeans-8.2.desktop && \
+    echo "Type=Application" >> /usr/share/applications/netbeans-8.2.desktop && \
+    echo "Terminal=0" >> /usr/share/applications/netbeans-8.2.desktop && \
+    echo "[Desktop Entry]" >> /usr/share/applications/astah.desktop && \
+    echo "Encoding=UTF-8" >> /usr/share/applications/astah.desktop && \
+    echo "Name=Astah Community" >> /usr/share/applications/astah.desktop && \
+    echo "Comment=Astah Community" >> /usr/share/applications/astah.desktop && \
+    echo "Exec=/opt/astah_community/astah" >> /usr/share/applications/astah.desktop && \
+    echo "Icon=/opt/astah_community/astah.ico" >> /usr/share/applications/astah.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/astah.desktop && \
+    echo "Type=Application" >> /usr/share/applications/astah.desktop && \
+    echo "Categories=Application;Development" >> /usr/share/applications/astah.desktop && \
     echo "export LM_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br" >> /etc/bash.bashrc && \
     echo "export MGLS_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br" >> /etc/bash.bashrc && \
     echo "export LD_LIBRARY_PATH=/opt/altera/13.0sp1/lib32" >> /etc/bash.bashrc && \
