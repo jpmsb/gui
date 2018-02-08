@@ -7,8 +7,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt update && \
     apt -y -q upgrade && \
     dpkg --add-architecture i386 && \
-    apt update && apt -y -q install curl dialog gnupg1 apt-utils htop nload nmap arp-scan wget tar unzip lib32z1 lib32ncurses5 nano vim bzip2 libbz2-1.0 dialog apt-utils locales vlc && \
-    curl 'https://pgp.mit.edu/pks/lookup?op=get&search=0xE1F958385BFE2B6E' | apt-key add - && \
+    apt update && apt -y -q install curl dialog gnupg1 apt-utils htop nload nmap arp-scan wget tar unzip lib32z1 lib32ncurses5 nano vim bzip2 libbz2-1.0 locales vlc && \
+    apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 0DF731E45CE24F27EEEB1450EFDC8610341D9410 && \
     wget -O - http://repo.vivaldi.com/stable/linux_signing_key.pub | apt-key add - && \
@@ -25,7 +25,7 @@ RUN apt update && \
     echo "deb http://ftp.br.debian.org/debian/ wheezy main" >> /etc/apt/sources.list && \
     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
     apt update && \
-    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 okular apt-xapian-index synaptic libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default spotify-client fritzing kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile arduino pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager libvirt0 playonlinux wine winetricks libxft2:i386 git clementine r-base r-base-dev less cmake libpng16-16 libpng16-16:i386 vivaldi-stable unrar cutecom && \
+    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 okular apt-xapian-index synaptic libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default spotify-client fritzing kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile arduino pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager libvirt0 playonlinux wine winetricks libxft2:i386 git clementine r-base r-base-dev less cmake libpng16-16 libpng16-16:i386 vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog && \
     apt -y -q install -t stretch-backports octave liboctave-dev && \
     cp /usr/lib/i386-linux-gnu/libpng16.so.16 /lib/i386-linux-gnu/libpng12.so.0 && \
     cp /usr/lib/x86_64-linux-gnu/libpng16.so.16 /lib/x86_64-linux-gnu/libpng12.so.0 && \
@@ -76,7 +76,7 @@ RUN apt update && \
     echo "Version=1.0" >> /usr/share/applications/matlab2015a.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/matlab2015a.desktop && \
     echo "Type=Application" >> /usr/share/applications/matlab2015a.desktop && \
-    echo "Icon=/opt/matlab/matlab_logo_preview.png" >> /usr/share/applications/matlab2015a.desktop && \
+    echo "Icon=/opt/matlab/R2015a/matlab_logo_preview.png" >> /usr/share/applications/matlab2015a.desktop && \
     echo "Name=Matlab 2015a" >> /usr/share/applications/matlab2015a.desktop && \
     echo "Comment=Start MATLAB 2015a - The Language of Technical Computing" >> /usr/share/applications/matlab2015a.desktop && \
     echo "Exec=/opt/matlab/R2015a/bin/matlab -desktop" >> /usr/share/applications/matlab2015a.desktop && \
@@ -135,7 +135,7 @@ RUN apt update && \
     echo "Name=Zoiper Softphone" >> /usr/share/applications/zoiper3-3.desktop && \
     echo "Comment=Zoiper Softphone" >> /usr/share/applications/zoiper3-3.desktop && \
     echo "Exec=/opt/Zoiper64/zoiper" >> /usr/share/applications/zoiper3-3.desktop && \
-    echo "Icon=/usr/share/pixmaps/zoiper.png" >> /usr/share/applications/zoiper3-3.desktop && \
+    echo "Icon=/opt/Zoiper64/zoiper.png" >> /usr/share/applications/zoiper3-3.desktop && \
     echo "Terminal=false" >> /usr/share/applications/zoiper3-3.desktop && \
     echo "MimeType=text/x-arduino" >> /usr/share/applications/zoiper3-3.desktop && \
     echo "[Desktop Entry]" > /usr/share/applications/netkit.desktop && \
@@ -147,7 +147,7 @@ RUN apt update && \
     echo "Terminal=false" >> /usr/share/applications/netkit.desktop && \
     echo "Categories=GNOME;Application;Education;" >> /usr/share/applications/netkit.desktop && \
     echo "StartupNotify=true" >> /usr/share/applications/netkit.desktop && \
-    echo "Exec=/usr/local/netkit2/bin/netkit2" >> /usr/share/applications/netkit.desktop && \
+    echo "Exec=/opt/netkit2/bin/netkit2" >> /usr/share/applications/netkit.desktop && \
     echo "Name[pt_BR]=Netkit2" >> /usr/share/applications/netkit.desktop && \
     echo "Comment[pt_BR]=Gnome interface to Netkit2" >> /usr/share/applications/netkit.desktop && \
     echo "[Desktop Entry]" >> /usr/share/applications/netbeans-8.2.desktop && \
@@ -165,10 +165,20 @@ RUN apt update && \
     echo "Name=Astah Community" >> /usr/share/applications/astah.desktop && \
     echo "Comment=Astah Community" >> /usr/share/applications/astah.desktop && \
     echo "Exec=/opt/astah_community/astah" >> /usr/share/applications/astah.desktop && \
-    echo "Icon=/opt/astah_community/astah.ico" >> /usr/share/applications/astah.desktop && \
+    echo "Icon=/opt/astah_community/astah-community.png" >> /usr/share/applications/astah.desktop && \
     echo "Terminal=false" >> /usr/share/applications/astah.desktop && \
     echo "Type=Application" >> /usr/share/applications/astah.desktop && \
     echo "Categories=Application;Development" >> /usr/share/applications/astah.desktop && \
+    echo "[Desktop Entry]" >> /usr/share/applications/modelsim.desktop && \
+    echo "Version=1.0" >> /usr/share/applications/modelsim.desktop && \
+    echo "Encoding=UTF-8" >> /usr/share/applications/modelsim.desktop && \
+    echo "Name=ModelSim Altera Edition 10.1d" >> /usr/share/applications/modelsim.desktop && \
+    echo "Comment=A simulation tool for Altera's FPGA" >> /usr/share/applications/modelsim.desktop && \
+    echo "Exec=/opt/altera/13.0sp1/modelsim_ae/linuxaloem/vsim" >> /usr/share/applications/modelsim.desktop && \
+    echo "Icon=/opt/altera/13.0sp1/modelsim_ae/modelsim-icon.png" >> /usr/share/applications/modelsim.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/modelsim.desktop && \
+    echo "Type=Application" >> /usr/share/applications/modelsim.desktop && \
+    echo "Categories=Development" >> /usr/share/applications/modelsim.desktop && \
     echo "export LM_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br" >> /etc/bash.bashrc && \
     echo "export MGLS_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br" >> /etc/bash.bashrc && \
     echo "export LD_LIBRARY_PATH=/opt/altera/13.0sp1/lib32" >> /etc/bash.bashrc && \
@@ -176,6 +186,21 @@ RUN apt update && \
     echo 'IP=`echo $SSH_CONNECTION | cut -f1 -d " "`' >> /etc/bash.bashrc && \
     echo 'echo "O endereço IP desta máquina é $IP"' >> /etc/bash.bashrc && \
     echo "America/Sao_Paulo" > /etc/timezone && \
+    echo 'export NETKIT2_HOME=/opt/netkit2' >> /etc/profile && \
+    echo 'export PATH=$NETKIT2_HOME/bin:$PATH' >> /etc/profile && \
+    echo 'export LANG=pt_BR.UTF-8' >> /etc/profile && \
+    echo 'ALL   ALL=(root) NOPASSWD: SETENV: /opt/netkit2/bin/tap.py' >> /etc/sudoers && \
+    echo "#!/bin/bash" >> /etc/iniciar && \
+    echo "" >> /etc/iniciar && \
+    echo "rsyslogd" >> /etc/iniciar && \
+    echo "/usr/sbin/sshd -D" >> /etc/iniciar && \
+    echo "PermitRootLogin prohibit-password" > /etc/ssh/sshd_config && \
+    echo "PasswordAuthentication no" >> /etc/ssh/sshd_config && \
+    echo "ChallengeResponseAuthentication no" >> /etc/ssh/sshd_config && \
+    echo "X11Forwarding yes" >> /etc/ssh/sshd_config && \
+    echo "PrintMotd no" >> /etc/ssh/sshd_config && \
+    echo "AcceptEnv LANG LC_*" >> /etc/ssh/sshd_config && \
+    echo "Subsystem	sftp	/usr/lib/openssh/sftp-server" >> /etc/ssh/sshd_config && \
     rm -r /etc/localtime && \
     ln -snf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
@@ -183,10 +208,11 @@ RUN apt update && \
     echo 'LANG="pt_BR.UTF-8"' > /etc/default/locale && \
     dpkg-reconfigure -f noninteractive locales && \
     update-locale LANG=pt_BR.UTF-8 && \
+    mkdir /root/.ssh && \
     apt update && \
     apt clean && \
     apt clean cache && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/* /root/.bash_history && \
     mkdir /var/run/sshd
 
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["bash", "/etc/iniciar"]
