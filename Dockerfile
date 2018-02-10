@@ -89,7 +89,7 @@ RUN apt update && \
     echo "Comment=Quartus II design software for Altera FPGA's" >> /usr/share/applications/quartus13.0sp1.desktop && \
     echo "Exec=/opt/altera/13.0sp1/quartus/bin/quartus" >> /usr/share/applications/quartus13.0sp1.desktop && \
     echo "Icon=/opt/altera/13.0sp1/quartus/adm/quartusii.png" >> /usr/share/applications/quartus13.0sp1.desktop && \
-    echo "Terminal=false" >> /usr/share/applications/quartus13.0sp1.desktop && \
+    echo "Terminal=true" >> /usr/share/applications/quartus13.0sp1.desktop && \
     echo "Type=Application" >> /usr/share/applications/quartus13.0sp1.desktop && \
     echo "Categories=Development" >> /usr/share/applications/quartus13.0sp1.desktop && \
     echo "[Desktop Entry]" > /usr/share/applications/quartus16.0.desktop && \
@@ -209,6 +209,7 @@ RUN apt update && \
     dpkg-reconfigure -f noninteractive locales && \
     update-locale LANG=pt_BR.UTF-8 && \
     mkdir /root/.ssh && \
+    echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDtzd/Z0D9Wm0J9rjAnT6QMahtU6rVd8QpSt3FQZgVZqF32og0xKOzdwHHd8CZ+clPLP9gDnJzEAqlEk9jshwJcr0jJ2Q/1M9nn1vkVFcoDJAXxvJSJl8YE9irnm9AtmbAErqM1cDgy31KSf05kisx6mLVL417s85eJ+0IPP9jbBKv2XP+5eu8VELsXHA62RmQYTIxZS6c1vUhYYjCRoWV6GP+hstUaTgv9zeTLJBVK7ZkEFLfRofxTkD4DfWUtQRS//YeQnzBZVpY45MxxZnm3zNyXoZSHC0Nc5Fht8X6y+fMAGrwqOKmyKjdxgqCGvhJHGvkLNhkjBIuIRqnRT7oY/Hov9jMvHekDUw7TSsPVJu79LHOJUDurJDJSSBUrVDUN+bAdDmrDQrAeyrDg4FGnR3hN9pQ0do+iMCSnrgxeiH0qbQp8hvsdl0higkdqgoCl9Ei6U/L3zCnn68zlpn3/RYqttZWD1r4IYdadLrdu6azxzEgja6eXlniNoWu1smzaBEkW9IG8TPoIidaltO3tZsuaGKhZyBwubPxKve4x8+kFvukz3VHo+RnTlJIUuoC1F+/D4UxX8yZMv/in7HT8S7Cq4f+f8VDKTcVKfonIgStsOPYROa+ouyHWBFiKYWJRN2uLbvibwYx1FxaQWOfjbxOGlmjZYCFLbkz0E0Ihjw== joaopedro@sj-lin-labalu-serv-37248" > /root/.ssh/authorized_keys && \
     apt update && \
     apt clean && \
     apt clean cache && \
