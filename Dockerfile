@@ -7,11 +7,16 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt update && \
     apt -y -q upgrade && \
     dpkg --add-architecture i386 && \
-    apt update && apt -y -q install curl dialog gnupg1 apt-utils htop nload nmap arp-scan wget tar unzip lib32z1 lib32ncurses5 nano vim bzip2 libbz2-1.0 locales vlc && \
+    apt update && apt -y -q install curl dialog gnupg1 apt-utils htop nload nmap arp-scan wget tar unzip lib32z1 lib32ncurses5 nano vim bzip2 libbz2-1.0 locales vlc wireshark gdb tcpdump apt-transport-https traceroute speedtest-cli telnet iperf whois libc6-i386 && \
     apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 0DF731E45CE24F27EEEB1450EFDC8610341D9410 && \
     wget -O - http://repo.vivaldi.com/stable/linux_signing_key.pub | apt-key add - && \
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    wget -q -O - https://deb.opera.com/archive.key | apt-key add - && \
+    wget -q -O - http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - && \
+    echo "deb https://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera.list && \
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
     echo "deb http://repo.vivaldi.com/stable/deb/ stable main" > /etc/apt/sources.list.d/vivaldi.list && \
     echo "deb http://packages.x2go.org/debian stretch main" > /etc/apt/sources.list.d/x2go.list && \
     echo "deb-src http://packages.x2go.org/debian stretch main" >> /etc/apt/sources.list.d/x2go.list && \
@@ -25,11 +30,12 @@ RUN apt update && \
     echo "deb http://ftp.br.debian.org/debian/ wheezy main" >> /etc/apt/sources.list && \
     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
     apt update && \
-    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 okular apt-xapian-index synaptic libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default spotify-client fritzing kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile arduino pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager libvirt0 playonlinux wine winetricks libxft2:i386 git clementine r-base r-base-dev less cmake libpng16-16 libpng16-16:i386 vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog && \
+    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 okular apt-xapian-index synaptic libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default spotify-client fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile arduino pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager libvirt0 playonlinux wine winetricks libxft2:i386 git clementine r-base r-base-dev less cmake libpng16-16 libpng16-16:i386 vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench && \
     apt -y -q install -t stretch-backports octave liboctave-dev && \
     cp /usr/lib/i386-linux-gnu/libpng16.so.16 /lib/i386-linux-gnu/libpng12.so.0 && \
     cp /usr/lib/x86_64-linux-gnu/libpng16.so.16 /lib/x86_64-linux-gnu/libpng12.so.0 && \
-    apt -y -q install -t jessie libssl1.0.0 && \ 
+    apt -y -q purge wireshark wireshark-common && \
+    apt -y -q install -t jessie libssl1.0.0 wireshark wireshark-common eagle && \ 
     apt -y -q install -t wheezy libpng12-0 libpng12-0:i386 && \
     ldconfig && \
     echo "deb http://ftp.br.debian.org/debian stretch main contrib non-free" > /etc/apt/sources.list oracle-java8-set-default && \
@@ -37,10 +43,43 @@ RUN apt update && \
     echo "deb http://security.debian.org stretch/updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list && \
     echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list && \
+    echo "deb http://archive.raspberrypi.org/debian/ stretch main ui" > /etc/apt/sources.list.d/raspi.list && \
     apt update && \
     wget https://github.com/KELiON/cerebro/releases/download/v0.3.1/cerebro_0.3.1_amd64.deb && \
     dpkg -i cerebro_0.3.1_amd64.deb && \
     rm -r cerebro_0.3.1_amd64.deb && \
+    wget 10.10.10.112/musixmatch_0.19.4_amd64.deb && \
+    bash -c 'echo -e "y\n" |gdebi musixmatch_0.19.4_amd64.deb' && \
+    rm musixmatch_0.19.4_amd64.deb && \
+    wget 10.10.10.112/google-earth-stable_current_amd64.deb && \
+    dpkg -i google-earth-stable_current_amd64.deb && \
+    rm google-earth-stable_current_amd64.deb && \
+    wget 10.10.10.112/armazenamento-mate -O /usr/local/bin/armazenamento && \
+    chmod 700 /usr/local/bin/armazenamento && \
+    apt -y -q install mu && \
+    echo "# deb http://archive.raspberrypi.org/debian/ stretch main ui" > /etc/apt/sources.list.d/raspi.list && \
+    apt update && \
+    echo "[Desktop Entry]" >> /usr/share/applications/armazenamento.desktop && \
+    echo "Version=1.0" >> /usr/share/applications/armazenamento.desktop && \
+    echo "Encoding=UTF-8" >> /usr/share/applications/armazenamento.desktop && \
+    echo "Name=Utilitário de Armazenamento" >> /usr/share/applications/armazenamento.desktop && \
+    echo "Comment=Gerenciador de armazenamento externo" >> /usr/share/applications/armazenamento.desktop && \
+    echo "Exec=sudo -E armazenamento" >> /usr/share/applications/armazenamento.desktop && \
+    echo "Icon=/usr/share/icons/Adwaita/256x256/devices/media-removable.png" >> /usr/share/applications/armazenamento.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/armazenamento.desktop && \
+    echo "Type=Application" >> /usr/share/applications/armazenamento.desktop && \
+    echo "Categories=System;" >> /usr/share/applications/armazenamento.desktop && \
+    echo "[Desktop Entry]" > /usr/share/applications/mu.desktop && \
+    echo "Type=Application" >> /usr/share/applications/mu.desktop && \
+    echo "Name=mu" >> /usr/share/applications/mu.desktop && \
+    echo "GenericName=A Python editor for beginner programmers " >> /usr/share/applications/mu.desktop && \
+    echo "Comment=A Python editor for beginner programmers" >> /usr/share/applications/mu.desktop && \
+    echo "Icon=/usr/share/icons/hicolor/256x256/apps/mu.png" >> /usr/share/applications/mu.desktop && \
+    echo "TryExec=mu" >> /usr/share/applications/mu.desktop && \
+    echo "Exec=/usr/bin/mu" >> /usr/share/applications/mu.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/mu.desktop && \
+    echo "Categories=Application;Development;" >> /usr/share/applications/mu.desktop && \
+    echo "Keywords=Python;Editor;microbit;micro:bit;" >> /usr/share/applications/mu.desktop && \
     echo '[Desktop Entry]' > /usr/share/applications/firefox.desktop && \
     echo 'Name=Mozilla Firefox' >> /usr/share/applications/firefox.desktop && \
     echo 'Name[pt_BR]=Navegador Web Mozilla Firefox' >> /usr/share/applications/firefox.desktop && \
@@ -49,7 +88,7 @@ RUN apt update && \
     echo 'Terminal=false' >> /usr/share/applications/firefox.desktop && \
     echo 'X-MultipleArgs=false' >> /usr/share/applications/firefox.desktop && \
     echo 'Type=Application' >> /usr/share/applications/firefox.desktop && \
-    echo 'Icon=/opt/firefox/browser/icons/mozicon128.png' >> /usr/share/applications/firefox.desktop && \
+    echo 'Icon=/opt/firefox/browser/chrome/icons/default/default128.png' >> /usr/share/applications/firefox.desktop && \
     echo 'Categories=Network;WebBrowser;' >> /usr/share/applications/firefox.desktop && \
     echo 'MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vnd.mozilla.xul+xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;' >> /usr/share/applications/firefox.desktop && \
     echo 'StartupWMClass=Firefox' >> /usr/share/applications/firefox.desktop && \
@@ -179,6 +218,33 @@ RUN apt update && \
     echo "Terminal=false" >> /usr/share/applications/modelsim.desktop && \
     echo "Type=Application" >> /usr/share/applications/modelsim.desktop && \
     echo "Categories=Development" >> /usr/share/applications/modelsim.desktop && \
+    echo "[Desktop Entry]" > /usr/share/applications/musixmatch.desktop && \
+    echo "Name=Musixmatch" >> /usr/share/applications/musixmatch.desktop && \
+    echo "Comment=Musixmatch Desktop App" >> /usr/share/applications/musixmatch.desktop && \
+    echo "Exec=/opt/Musixmatch/musixmatch" >> /usr/share/applications/musixmatch.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/musixmatch.desktop && \
+    echo "Type=Application" >> /usr/share/applications/musixmatch.desktop && \
+    echo "Icon=musixmatch" >> /usr/share/applications/musixmatch.desktop && \
+    echo "Categories=AudioVideo;Video;Player;TV;" >> /usr/share/applications/musixmatch.desktop && \
+    echo "[Desktop Entry]" >> /usr/share/applications/idea-IC.desktop && \
+    echo "Type=Application" >> /usr/share/applications/idea-IC.desktop && \
+    echo "Categories=Development;" >> /usr/share/applications/idea-IC.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/idea-IC.desktop && \
+    echo "Exec=/opt/idea-IC/bin/idea.sh" >> /usr/share/applications/idea-IC.desktop && \
+    echo "Name=Android Studio" >> /usr/share/applications/idea-IC.desktop && \
+    echo "Comment=Desenvolvimento de aplicativos para Smartphones Android" >> /usr/share/applications/idea-IC.desktop && \
+    echo "Icon=/opt/idea-IC/bin/idea.png" >> /usr/share/applications/idea-IC.desktop && \
+    echo "Name[pt_BR]=Idea-IC" >> /usr/share/applications/idea-IC.desktop && \
+    echo "[Desktop Entry]" >> /usr/share/applications/cmap.desktop && \
+    echo "Version=1.0" >> /usr/share/applications/cmap.desktop && \
+    echo "Encoding=UTF-8" >> /usr/share/applications/cmap.desktop && \
+    echo "Name=Cmap Tools" >> /usr/share/applications/cmap.desktop && \
+    echo "Comment=Cmap Tools" >> /usr/share/applications/cmap.desktop && \
+    echo "Exec=/opt/IHMCCmapTools/bin/CmapTools" >> /usr/share/applications/cmap.desktop && \
+    echo "Icon=/opt/IHMCCmapTools/cmap-logo.png" >> /usr/share/applications/cmap.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/cmap.desktop && \
+    echo "Type=Application" >> /usr/share/applications/cmap.desktop && \
+    echo "Categories=Development" >> /usr/share/applications/cmap.desktop && \
     echo "export LM_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br" >> /etc/bash.bashrc && \
     echo "export MGLS_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br" >> /etc/bash.bashrc && \
     echo "export LD_LIBRARY_PATH=/opt/altera/13.0sp1/lib32" >> /etc/bash.bashrc && \
@@ -190,6 +256,10 @@ RUN apt update && \
     echo 'export PATH=$NETKIT2_HOME/bin:$PATH' >> /etc/profile && \
     echo 'export LANG=pt_BR.UTF-8' >> /etc/profile && \
     echo 'ALL   ALL=(root) NOPASSWD: SETENV: /opt/netkit2/bin/tap.py' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: /usr/bin/traceroute' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: SETENV: /usr/local/bin/armazenamento' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: /usr/sbin/tcpdump' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: /usr/bin/wireshark' >> /etc/sudoers && \
     echo "#!/bin/bash" >> /etc/iniciar && \
     echo "" >> /etc/iniciar && \
     echo "rsyslogd" >> /etc/iniciar && \
@@ -201,6 +271,8 @@ RUN apt update && \
     echo "PrintMotd no" >> /etc/ssh/sshd_config && \
     echo "AcceptEnv LANG LC_*" >> /etc/ssh/sshd_config && \
     echo "Subsystem	sftp	/usr/lib/openssh/sftp-server" >> /etc/ssh/sshd_config && \
+    sed -i '85s/.*/unix_sock_group = "libvirt"/' /etc/libvirt/libvirtd.conf && \
+    sed -i '102s/.*/unix_sock_rw_perms = "0770"/' /etc/libvirt/libvirtd.conf && \
     rm -r /etc/localtime && \
     ln -snf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
@@ -216,4 +288,4 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/* /root/.bash_history && \
     mkdir /var/run/sshd
 
-CMD ["bash", "/etc/iniciar"]
+ENTRYPOINT rsyslogd && service libvirtd start && /usr/sbin/sshd -D
