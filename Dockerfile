@@ -48,10 +48,10 @@ RUN apt update && \
     wget https://github.com/KELiON/cerebro/releases/download/v0.3.1/cerebro_0.3.1_amd64.deb && \
     dpkg -i cerebro_0.3.1_amd64.deb && \
     rm -r cerebro_0.3.1_amd64.deb && \
-    wget 10.10.10.112/musixmatch_0.19.4_amd64.deb && \
+    wget jpmsb.sj.ifsc.edu.br/musixmatch_0.19.4_amd64.deb && \
     bash -c 'echo -e "y\n" |gdebi musixmatch_0.19.4_amd64.deb' && \
     rm musixmatch_0.19.4_amd64.deb && \
-    wget 10.10.10.112/google-earth-stable_current_amd64.deb && \
+    wget jpmsb.sj.ifsc.edu.br/google-earth-stable_current_amd64.deb && \
     dpkg -i google-earth-stable_current_amd64.deb && \
     rm google-earth-stable_current_amd64.deb && \
     wget https://download1.rstudio.org/rstudio-xenial-1.1.453-amd64.deb && \
@@ -60,11 +60,11 @@ RUN apt update && \
     wget https://code-industry.net/public/master-pdf-editor-5.0.23_qt5.amd64.deb && \
     bash -c 'echo -e "y\n" |gdebi master-pdf-editor-5.0.23_qt5.amd64.deb' && \
     rm -r master-pdf-editor-5.0.23_qt5.amd64.deb && \
-    wget 10.10.10.112/armazenamento-mate -O /usr/local/bin/armazenamento && \
+    wget jpmsb.sj.ifsc.edu.br/armazenamento-mate -O /usr/local/bin/armazenamento && \
     chmod 700 /usr/local/bin/armazenamento && \
-    wget 10.10.10.112/Ftool.exe -O /usr/local/bin/Ftool.exe && \
-    wget 10.10.10.112/ftoolicon.png -O /usr/share/icons/ftoolicon.png && \
-    wget 10.10.10.112/ftool.desktop -O /usr/share/applications/ftool.desktop && \
+    wget jpmsb.sj.ifsc.edu.br/Ftool.exe -O /usr/local/bin/Ftool.exe && \
+    wget jpmsb.sj.ifsc.edu.br/ftoolicon.png -O /usr/share/icons/ftoolicon.png && \
+    wget jpmsb.sj.ifsc.edu.br/ftool.desktop -O /usr/share/applications/ftool.desktop && \
     apt -y -q install mu && \
     echo "# deb http://archive.raspberrypi.org/debian/ stretch main ui" > /etc/apt/sources.list.d/raspi.list && \
     apt update && \
@@ -268,6 +268,16 @@ RUN apt update && \
     echo "Name=Android Studio" >> /usr/share/applications/android-studio.desktop && \
     echo "Comment=Desenvolvimento de aplicativos para Smartphones Android" >> /usr/share/applications/android-studio.desktop && \
     echo "Icon=/opt/ANDROID3/android-studio/bin/studio.png" >> /usr/share/applications/android-studio.desktop && \
+    echo "[Desktop Entry]" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
+    echo "Version=1.0" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
+    echo "Encoding=UTF-8" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
+    echo "Name=TRABALHOS COMPARTILHADOS" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
+    echo "Comment=Salve seus trabalhos aqui" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
+    echo "Exec=caja /Trabalhos-compartilhados" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
+    echo "Icon=/usr/share/icons/Adwaita/256x256/devices/drive-harddisk.png" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
+    echo "Terminal=true" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
+    echo "Type=Application" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
+    echo "Categories=System" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
     echo "[Desktop Entry]" >> /usr/share/applications/trabalhos.desktop && \
     echo "Version=1.0" >> /usr/share/applications/trabalhos.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/trabalhos.desktop && \
