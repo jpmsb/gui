@@ -54,8 +54,17 @@ RUN apt update && \
     wget 10.10.10.112/google-earth-stable_current_amd64.deb && \
     dpkg -i google-earth-stable_current_amd64.deb && \
     rm google-earth-stable_current_amd64.deb && \
+    wget https://download1.rstudio.org/rstudio-xenial-1.1.453-amd64.deb && \
+    dpkg -i rstudio-xenial-1.1.453-amd64.deb && \
+    rm -r rstudio-xenial-1.1.453-amd64.deb && \
+    wget https://code-industry.net/public/master-pdf-editor-5.0.23_qt5.amd64.deb && \
+    bash -c 'echo -e "y\n" |gdebi master-pdf-editor-5.0.23_qt5.amd64.deb' && \
+    rm -r master-pdf-editor-5.0.23_qt5.amd64.deb && \
     wget 10.10.10.112/armazenamento-mate -O /usr/local/bin/armazenamento && \
     chmod 700 /usr/local/bin/armazenamento && \
+    wget 10.10.10.112/Ftool.exe -O /usr/local/bin/Ftool.exe && \
+    wget 10.10.10.112/ftoolicon.png -O /usr/share/icons/ftoolicon.png && \
+    wget 10.10.10.112/ftool.desktop -O /usr/share/applications/ftool.desktop && \
     apt -y -q install mu && \
     echo "# deb http://archive.raspberrypi.org/debian/ stretch main ui" > /etc/apt/sources.list.d/raspi.list && \
     apt update && \
@@ -111,6 +120,11 @@ RUN apt update && \
     echo 'cd /opt/altera/${VERSAO}/quartus/bin' >> /usr/bin/quartus && \
     echo 'exec ./quartus' >> /usr/bin/quartus && \
     chmod +x /usr/bin/quartus && \
+    echo '#!/bin/bash' > /usr/local/bin/android-studio && \
+    echo ' ' >> /usr/local/bin/android-studio && \
+    echo 'sudo chmod 1766 /dev/kvm' >> /usr/local/bin/android-studio && \
+    echo '/opt/ANDROID3/android-studio/bin/studio.sh' >> /usr/local/bin/android-studio && \
+    chmod 755 /usr/local/bin/android-studio && \
     echo "[Desktop Entry]" > /usr/share/applications/matlab2015a.desktop && \
     echo "Version=1.0" >> /usr/share/applications/matlab2015a.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/matlab2015a.desktop && \
@@ -245,6 +259,25 @@ RUN apt update && \
     echo "Terminal=false" >> /usr/share/applications/cmap.desktop && \
     echo "Type=Application" >> /usr/share/applications/cmap.desktop && \
     echo "Categories=Development" >> /usr/share/applications/cmap.desktop && \
+    echo "#!/usr/bin/env xdg-open" >> /usr/share/applications/android-studio.desktop && \
+    echo "[Desktop Entry]" >> /usr/share/applications/android-studio.desktop && \
+    echo "Type=Application" >> /usr/share/applications/android-studio.desktop && \
+    echo "Categories=Development;" >> /usr/share/applications/android-studio.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/android-studio.desktop && \
+    echo "Exec=/usr/local/bin/android-studio" >> /usr/share/applications/android-studio.desktop && \
+    echo "Name=Android Studio" >> /usr/share/applications/android-studio.desktop && \
+    echo "Comment=Desenvolvimento de aplicativos para Smartphones Android" >> /usr/share/applications/android-studio.desktop && \
+    echo "Icon=/opt/ANDROID3/android-studio/bin/studio.png" >> /usr/share/applications/android-studio.desktop && \
+    echo "[Desktop Entry]" >> /usr/share/applications/trabalhos.desktop && \
+    echo "Version=1.0" >> /usr/share/applications/trabalhos.desktop && \
+    echo "Encoding=UTF-8" >> /usr/share/applications/trabalhos.desktop && \
+    echo "Name=SALVE SEUS TRABALHOS AQUI" >> /usr/share/applications/trabalhos.desktop && \
+    echo "Comment=Salve seus trabalhos aqui" >> /usr/share/applications/trabalhos.desktop && \
+    echo "Exec=caja /Trabalhos" >> /usr/share/applications/trabalhos.desktop && \
+    echo "Icon=/usr/share/icons/Adwaita/256x256/devices/drive-harddisk.png" >> /usr/share/applications/trabalhos.desktop && \
+    echo "Terminal=true" >> /usr/share/applications/trabalhos.desktop && \
+    echo "Type=Application" >> /usr/share/applications/trabalhos.desktop && \
+    echo "Categories=System" >> /usr/share/applications/trabalhos.desktop && \
     echo "export LM_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br" >> /etc/bash.bashrc && \
     echo "export MGLS_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br" >> /etc/bash.bashrc && \
     echo "export LD_LIBRARY_PATH=/opt/altera/13.0sp1/lib32" >> /etc/bash.bashrc && \
@@ -260,6 +293,7 @@ RUN apt update && \
     echo 'ALL   ALL=(root) NOPASSWD: SETENV: /usr/local/bin/armazenamento' >> /etc/sudoers && \
     echo 'ALL   ALL=(root) NOPASSWD: /usr/sbin/tcpdump' >> /etc/sudoers && \
     echo 'ALL   ALL=(root) NOPASSWD: /usr/bin/wireshark' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: /bin/chmod 1766 /dev/kvm' >> /etc/sudoers && \
     echo "#!/bin/bash" >> /etc/iniciar && \
     echo "" >> /etc/iniciar && \
     echo "rsyslogd" >> /etc/iniciar && \
@@ -288,4 +322,4 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/* /root/.bash_history && \
     mkdir /var/run/sshd
 
-ENTRYPOINT rsyslogd && service libvirtd start && /usr/sbin/sshd -D
+ENTRYPOINT rm -rf /var/run/rsyslogd.pid && rsyslogd && service libvirtd start && /usr/sbin/sshd -D
