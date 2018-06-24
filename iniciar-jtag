@@ -1,0 +1,9 @@
+# Localizado em /opt/jtag
+
+#!/bin/bash
+
+# Inicia o jtagd e o jtagconfig habilitando o acesso remoto
+
+/opt/jtag/bin/jtagd
+/opt/jtag/bin/jtagconfig --enableremote rancheros
+/usr/bin/ssh -i /root/.ssh/root -R 60000:localhost:1309 root@172.18.20.200 -p 8000 -N -f
