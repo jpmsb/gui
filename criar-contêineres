@@ -1,0 +1,44 @@
+#!/bin/bash
+
+imagem=$1
+
+docker rm -f labalu-cli-teste
+docker rm -f labalu-cli0-aluno
+docker rm -f labalu-cli1-aluno
+docker rm -f labalu-cli2-aluno
+docker rm -f labalu-cli3-aluno
+docker rm -f labalu-cli4-aluno
+docker rm -f labalu-cli5-aluno
+docker rm -f labalu-cli6-aluno
+
+docker run -dit --name labalu-cli-teste --net faixa10 --ip 10.10.10.100 -h labalu-cli --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=172.18.255.254 --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/cli/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/cli/trabalhos-aluno:/Trabalhos $imagem
+
+docker run -dit --name labalu-cli0-aluno --net faixa10 --ip 10.10.10.110 -h labalu-cli0 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=172.18.255.254 --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/cli0/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/cli0/trabalhos-aluno:/Trabalhos $imagem
+
+docker run -dit --name labalu-cli1-aluno --net faixa10 --ip 10.10.10.111 -h labalu-cli1 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=172.18.255.254 --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/cli1/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/cli1/trabalhos-aluno:/Trabalhos $imagem
+
+docker run -dit --name labalu-cli2-aluno --net faixa10 --ip 10.10.10.112 -h labalu-cli2 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=172.18.255.254 --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/cli2/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/cli2/trabalhos-aluno:/Trabalhos $imagem
+
+docker run -dit --name labalu-cli3-aluno --net faixa10 --ip 10.10.10.113 -h labalu-cli3 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=172.18.255.254 --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/cli3/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/cli3/trabalhos-aluno:/Trabalhos $imagem
+
+docker run -dit --name labalu-cli4-aluno --net faixa10 --ip 10.10.10.114 -h labalu-cli4 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=172.18.255.254 --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/cli4/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/cli4/trabalhos-aluno:/Trabalhos $imagem
+
+docker run -dit --name labalu-cli5-aluno --net faixa10 --ip 10.10.10.115 -h labalu-cli5 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=6.5g --dns=172.18.255.254 --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/cli5/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/cli5/trabalhos-aluno:/Trabalhos $imagem
+
+docker run -dit --name labalu-cli6-aluno --net faixa10 --ip 10.10.10.116 -h labalu-cli6 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=6.5g --dns=172.18.255.254 --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/cli6/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/cli6/trabalhos-aluno:/Trabalhos $imagem
+
+docker cp /home/joaopedro/chaves/privadas/cliente labalu-cli0-aluno:/root/.ssh/
+docker cp /home/joaopedro/chaves/privadas/cliente labalu-cli1-aluno:/root/.ssh/
+docker cp /home/joaopedro/chaves/privadas/cliente labalu-cli2-aluno:/root/.ssh/
+docker cp /home/joaopedro/chaves/privadas/cliente labalu-cli3-aluno:/root/.ssh/
+docker cp /home/joaopedro/chaves/privadas/cliente labalu-cli4-aluno:/root/.ssh/
+docker cp /home/joaopedro/chaves/privadas/cliente labalu-cli5-aluno:/root/.ssh/
+docker cp /home/joaopedro/chaves/privadas/cliente labalu-cli6-aluno:/root/.ssh/
+
+docker exec labalu-cli0-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+docker exec labalu-cli1-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+docker exec labalu-cli2-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+docker exec labalu-cli3-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+docker exec labalu-cli4-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+docker exec labalu-cli5-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+docker exec labalu-cli6-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
