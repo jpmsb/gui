@@ -1,0 +1,173 @@
+#!/bin/bash
+
+IP=`echo $SSH_CONNECTION | cut -f1 -d " "`
+USUARIO=$(echo $PWD |cut -f3 -d "/")
+
+ssh -oStrictHostKeyChecking=no -i /root/.ssh/cliente root@$IP "test -e /dev/sdb"
+if [ "$?" = "0" ]; then
+
+    resposta=$(zenity --list --title "Utilitário de Armazenamento" --column="Seleção" --column="Ação" --text="O que você deseja fazer com o armazenamento externo?" --radiolist FALSE "Abrir" FALSE "Formatar" FALSE "Ejetar")
+    
+	########## OPÇÃO ABRIR #########
+    
+    if [ "$resposta" = "Abrir" ]; then
+        echo "Escolheu abrir o gerenciador de arquivos."
+        ssh -i /root/.ssh/cliente root@$IP "test -e /dev/sdb"
+        if [ "$?" = "0" ]; then
+            mkdir /media/$USUARIO
+            chmod -R 400 /media/$USUARIO
+            ssh -i /root/.ssh/cliente root@$IP mkdir /media/$USUARIO
+            ssh -i /root/.ssh/cliente root@$IP mount /dev/sdb1 /media/$USUARIO
+            sshfs -o allow_other,IdentityFile=/root/.ssh/cliente root@$IP:/media/$USUARIO /media/$USUARIO
+            sudo -u $USUARIO caja /media/$USUARIO  
+   
+        elif [ "$?" = "1" ]; then
+            echo "O dispositivo não foi encontrado!!"
+            zenity --error --text "O dispositivo não foi encontrado!!"
+        fi
+ 
+    ########## OPÇÃO FORMATAR ##########
+    
+    elif [ "$resposta" = "Formatar" ]; then
+        ssh -i /root/.ssh/cliente root@$IP "test -e /dev/sdb"
+        if [ "$?" = "0" ]; then
+            formatar=$(zenity --list --title "Formatar" --height=260 --column="Seleção" --column="Ação" --text="Para qual sistema de arquivos?" --radiolist FALSE "EXT4" FALSE "EXT3" FALSE "BTRFS" FALSE "FAT32" FALSE "NTFS")
+
+    
+            ########## OPÇÃO FORMATAR EXT4 ##########
+    
+            if [ "$formatar" = "EXT4" ]; then
+                echo "Foi escolhido o sistema de arquivos EXT4."
+                zenity --question --title "Formatar para EXT4" --cancel-label="Não" --ok-label="Sim" --text "Isso apagará TODOS OS DADOS, você tem certeza?"
+    
+                if [ "$?" = "0" ]; then
+                    echo "Teve certeza que sim."
+                    umount /media/$USUARIO                                                                                                                # DESMONTA NO CONTÊINER
+                    ssh -i /root/.ssh/cliente root@$IP umount /dev/sdb1                                                                                   # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP 'echo -e "o\nn\np\n1\n\n\nw\n" | fdisk /dev/sdb'                                                       # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP mkfs -t ext4 -F /dev/sdb1 | tee >(zenity --progress --text="Formatando..." --auto-kill --pulsate)  # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP mount /dev/sdb1 /media/$USUARIO                                                                    # MONTA LOCAL
+                    sshfs -o allow_other,IdentityFile=/root/.ssh/cliente root@$IP:/media/$USUARIO /media/$USUARIO                                         # MONTA NO CONTÊINER
+                    sudo -u $USUARIO caja /media/$USUARIO                                                                                                 # ABRE O GERENCIADOR DE ARQUIVOS
+    
+                elif [ "$?" = "1" ]; then
+                    echo "Teve certeza que não."
+                fi
+            fi
+    
+            ########## OPÇÃO FORMATAR EXT3 ###########
+    
+            if [ "$formatar" = "EXT3" ]; then
+                echo "Foi escolhido o sistema de arquivos EXT3."
+                zenity --question --title "Formatar para EXT3" --cancel-label="Não" --ok-label="Sim" --text "Isso apagará TODOS OS DADOS, você tem certeza?"
+    
+                if [ "$?" = "0" ]; then
+                    echo "Teve certeza que sim."
+                    umount /media/$USUARIO                                                                                                                # DESMONTA NO CONTÊINER
+                    ssh -i /root/.ssh/cliente root@$IP umount /dev/sdb1                                                                                   # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP 'echo -e "o\nn\np\n1\n\n\nw\n" | fdisk /dev/sdb'                                                       # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP mkfs -t ext3 -F /dev/sdb1 | tee >(zenity --progress --text="Formatando..." --auto-kill --pulsate)  # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP mount /dev/sdb1 /media/$USUARIO                                                                    # MONTA LOCAL
+                    sshfs -o allow_other,IdentityFile=/root/.ssh/cliente root@$IP:/media/$USUARIO /media/$USUARIO                                         # MONTA NO CONTÊINER
+                    sudo -u $USUARIO caja /media/$USUARIO                                                                                                 # ABRE O GERENCIADOR DE ARQUIVOS
+    
+                elif [ "$?" = "1" ]; then
+                    echo "Teve certeza que não."
+                fi
+            fi
+    
+            ########## OPÇÃO FORMATAR BTRFS ##########
+    
+            if [ "$formatar" = "BTRFS" ]; then
+                echo "Foi escolhido o sistema de arquivos BTRFS."
+                zenity --question --title "Formatar para BTRFS" --cancel-label="Não" --ok-label="Sim" --text "Isso apagará TODOS OS DADOS, você tem certeza?"
+    
+                if [ "$?" = "0" ]; then
+                    echo "Teve certeza que sim."
+                    umount /media/$USUARIO                                                                                                              # DESMONTA NO CONTÊINER
+                    ssh -i /root/.ssh/cliente root@$IP umount /dev/sdb1                                                                                 # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP 'echo -e "o\nn\np\n1\n\n\nw\n" | fdisk /dev/sdb'                                                     # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP mkfs -t btrfs /dev/sdb1 | tee >(zenity --progress --text="Formatando..." --auto-kill --pulsate)  # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP mount /dev/sdb1 /media/$USUARIO                                                                  # MONTA LOCAL
+                    sshfs -o allow_other,IdentityFile=/root/.ssh/cliente root@$IP:/media/$USUARIO /media/$USUARIO                                       # MONTA NO CONTÊINER
+                    sudo -u $USUARIO caja /media/$USUARIO                                                                                               # ABRE O GERENCIADOR DE ARQUIVOS
+    
+                elif [ "$?" = "1" ]; then
+                    echo "Teve certeza que não."
+                fi
+            fi
+    
+            ########## OPÇÃO FORMATAR FAT32 ##########
+    
+            if [ "$formatar" = "FAT32" ]; then
+                echo "Foi escolhido o sistema de arquivos FAT32."
+                zenity --question --title "Formatar para FAT32" --cancel-label="Não" --ok-label="Sim" --text "Isso apagará TODOS OS DADOS, você tem certeza?"
+    
+                # trata a resposta
+                if [ "$?" = "0" ]; then
+                    echo "Teve certeza que sim."
+                    umount /media/$USUARIO                                                                                                             # DESMONTA NO CONTÊINER
+                    ssh -i /root/.ssh/cliente root@$IP umount /dev/sdb1                                                                                # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP 'echo -e "o\nn\np\n1\n\n\nw\n" | fdisk /dev/sdb'                                                    # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP mkfs -t vfat /dev/sdb1 | tee >(zenity --progress --text="Formatando..." --auto-kill --pulsate)  # TORQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP mount /dev/sdb1 /media/$USUARIO                                                                 # MONTA LOCAL
+                    sshfs -o allow_other,IdentityFile=/root/.ssh/cliente root@$IP:/media/$USUARIO /media/$USUARIO                                      # MONTA NO CONTÊINER
+                    sudo -u $USUARIO caja /media/$USUARIO                                                                                              # ABRE O GERENCIADOR DE ARQUIVOS
+    
+                elif [ "$?" = "1" ]; then
+                    echo "Teve certeza que não."
+                fi
+            fi
+    
+            ########## OPÇÃO FORMATAR NTFS ##########
+    
+            if [ "$formatar" = "NTFS" ]; then
+                echo "Foi escolhido o sistema de arquivos NTFS."
+                zenity --question --title "Formatar para NTFS" --cancel-label="Não" --ok-label="Sim" --text "Isso apagará TODOS OS DADOS, você tem certeza?"
+    
+                # trata a resposta
+                if [ "$?" = "0" ]; then
+                    echo "Teve certeza que sim."
+                    umount /media/$USUARIO                                                                                                                         # DESMONTA NO CONTÊINER
+                    ssh -i /root/.ssh/cliente root@$IP umount /dev/sdb1                                                                                            # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP 'echo -e "o\nn\np\n1\n\n\nw\n" | fdisk /dev/sdb'                                                                # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP mkfs -t ntfs -Q -v -F -C /dev/sdb1 | tee >(zenity --progress --text="Formatando..." --auto-kill --pulsate)  # TROQUE PELA UNIDADE CORRETA!!!!!
+                    ssh -i /root/.ssh/cliente root@$IP mount /dev/sdb1 /media/$USUARIO                                                                             # MONTA LOCAL
+                    sshfs -o allow_other,IdentityFile=/root/.ssh/cliente root@$IP:/media/$USUARIO /media/$USUARIO                                                  # MONTA NO CONTÊINER
+                    sudo -u $USUARIO caja /media/$USUARIO                                                                                                          # ABRE O GERENCIADOR DE ARQUIVOS
+    
+                elif [ "$?" = "1" ]; then
+                    echo "Teve certeza que não."
+                fi
+    
+            fi
+
+        elif [ "$?" = "1" ]; then
+            echo "O dispositivo não foi encontrado!!"
+            zenity --error --text "O dispositivo não foi encontrado!!"
+
+        fi
+    
+    ########### OPÇÃO EJETAR ##########
+    
+    elif [ "$resposta" = "Ejetar" ]; then
+        echo "O armazenamento será ejetado e estará pronto para ser removido."
+        ssh -i /root/.ssh/cliente root@$IP "test -e /dev/sdb"
+        if [ "$?" = "0" ]; then
+            umount /media/$USUARIO                                                                                                   # DESMONTA NO CONTÊINER
+            ssh -i /root/.ssh/cliente root@$IP umount /dev/sdb1                                                                      # DESMONTA LOCAL
+            ssh -i /root/.ssh/cliente root@$IP eject /dev/sdb | tee >(zenity --progress --text="Ejetando..." --auto-kill --pulsate)  # TROQUE PELA UNIDADE CORRETA!!!!!
+            ssh -i /root/.ssh/cliente root@$IP chmod -R 744 /media/$USUARIO                                                          # TROQUE PELO DIRETÓRIO CORRETO!!!!!
+            chmod 400 /media/$USUARIO                                                                                                # MUDA AS PERMISSÕES
+            ssh -i /root/.ssh/cliente root@$IP "test -e /dev/sdb"
+
+         elif [ "$?" = "1" ]; then
+             zenity --error --text "O dispositivo não foi encontrado!!"
+
+        fi
+    fi
+
+elif [ $? = 1 ]; then
+    zenity --error --text "O dispositivo não foi encontrado!!"
+
+fi
