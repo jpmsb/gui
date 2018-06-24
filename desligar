@@ -1,0 +1,26 @@
+#Localizado em /etc/init.d/desligar
+
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          networking ifupdown
+# Required-Start:    mountkernfs $local_fs urandom
+# Required-Stop:     $local_fs
+# Default-Start:     S
+# Default-Stop:      0 6
+# Short-Description: Raise network interfaces.
+# Description:       Prepare /run/network directory, ifstate file and raise network interfaces, or take them down.
+### END INIT INFO
+
+ssh -p 8000 -i /root/.ssh/root root@172.18.20.200 killall -9 mate-session
+# ssh -p 8000 -i /root/.ssh/root root@172.18.20.200 killall -9 mate-session
+# ssh -p 8000 -i /root/.ssh/root root@172.18.20.200 killall -9 mate-session
+# sleep 2
+ssh -p 8000 -i /root/.ssh/root root@172.18.20.200 rm -rf /home/aluno
+ssh -p 8000 -i /root/.ssh/root root@172.18.20.200 tar -zxvf /home/.aluno.tar.gz -C /home
+ssh -p 8000 -i /root/.ssh/root root@172.18.20.200 chown -R aluno:aluno /home/aluno
+ssh -p 8000 -i /root/.ssh/root root@172.18.20.200 chown -R root:root /home/aluno/.ssh/authorized_keys
+ssh -p 8000 -i /root/.ssh/root root@172.18.20.200 chown -R root:root /home/aluno/.jtag.conf
+rm -rf /home/sdr
+tar -zxvf /home/.sdr.tar.gz -C /home
+rm -rf /home/aluno
+tar -zxvf /home/.aluno.tar.gz -C /home
