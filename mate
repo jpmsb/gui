@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo -E /usr/local/bin/aviso &
+mate-session
