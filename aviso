@@ -1,0 +1,8 @@
+#!/bin/bash
+
+IP=`echo $SSH_CONNECTION | cut -f1 -d " "`
+yad --center --image='/home/joaopedro/informativo-audio.jpg' --text="O áudio está sendo compartilhado\natravés da aplicação SoundWire.\n\nO endereço IP desta máquina é\n<b>$IP</b>\n\nPara desativar, basta emudecer\no dispositivo de gravação.\n\nClique no botão abaixo para\nabrir o controle de volume." --button="Abrir controle de volume":"pavucontrol -t 2" --button="Terminar o compartilhamento de áudio":0 --no-escape --undecorated --buttons-layout=center --text-align=center --skip-taskbar --image-on-top
+
+if [ "$?" = "0" ]; then
+    ssh -oStrictHostKeyChecking=no -i /root/.ssh/cliente root@$IP killall SoundWireServer
+fi
