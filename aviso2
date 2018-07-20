@@ -2,7 +2,7 @@
 
 IP=`echo $SSH_CONNECTION | cut -f1 -d " "`
 
-yad --form --center --text="O áudio está sendo compartilhado através da aplicação SoundWire.\n\nO endereço IP desta máquina é\n<b>$IP</b>\n\nPara desativar, basta emudecer o dispositivo de gravação.\n\nClique no botão abaixo para abrir o controle de volume." --button="Abrir controle de volume":"pavucontrol -t 2" --button="Terminar o compartilhamento de áudio":0 --button="Como conectar":"como-conectar" --no-escape --undecorated --buttons-layout=center --text-align=center --skip-taskbar --image-on-top
+yad --form --center --text="O áudio está sendo compartilhado através da aplicação SoundWire e você pode ouvir no seu <i>smartphone</i>.\nClique em <b>Como conectar</b> para mais instruções.\n\nO endereço IP desta máquina é\n<b>$IP</b>\n\nPara desativar, basta emudecer o dispositivo de gravação.\n\nClique no botão abaixo para abrir o controle de volume." --button="Abrir controle de volume":"pavucontrol -t 2" --button="Terminar o compartilhamento de áudio":0 --button="Como conectar":"como-conectar" --no-escape --undecorated --buttons-layout=center --text-align=center --skip-taskbar --image-on-top
 
 if [ "$?" = "0" ]; then
     ssh -oStrictHostKeyChecking=no -i /root/.ssh/cliente root@$IP killall SoundWireServer
