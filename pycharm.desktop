@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=PyCharm
+Comment=All Python tools in one place
+Exec=/opt/pycharm-2018.1/bin/pycharm.sh
+Icon=/opt/pycharm-2018.1/bin/pycharm.png
+Terminal=false
+Type=Application
+Categories=Development
