@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=CLion
+Comment=A power tool For a power language
+Exec=/opt/clion-2018/bin/clion.sh
+Icon=/opt/clion-2018/bin/clion.svg
+Terminal=false
+Type=Application
+Categories=Development
