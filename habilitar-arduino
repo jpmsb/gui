@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "Conecte a placa Arduíno na máquina servidora (não é a máquina que você está)."
+read -p "Pressione Enter para continuar."
+sudo chmod 777 /dev/ttyACM* 2> /dev/null
+
+if [ "$?" = "0" ]; then
+    echo "Habilitado com sucesso!!"
+    dispositivo=$(ls /dev/ttyACM*)
+    echo "Você agora pode gravar o seu código na placa Arduíno selecionando o dispositivo /dev/$dispositivo"
+
+elif [ "$?" = "1" ]; then
+    echo "O dispositivo não foi encontrado!"
+    echo "Verifique se o conectou e se o conectou na máquina servidora e não a que você está usando."
+fi
