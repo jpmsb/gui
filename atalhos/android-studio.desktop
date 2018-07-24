@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Categories=Development;
+Terminal=false
+Exec=/usr/local/bin/android-studio
+Name=Android Studio
+Comment=Desenvolvimento de aplicativos para Smartphones Android
+Icon=/opt/ANDROID3/android-studio/bin/studio.png
