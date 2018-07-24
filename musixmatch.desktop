@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Musixmatch
+Comment=Musixmatch Desktop App
+Exec=/opt/Musixmatch/musixmatch
+Terminal=false
+Type=Application
+Icon=musixmatch
+Categories=AudioVideo;Video;Player;TV;

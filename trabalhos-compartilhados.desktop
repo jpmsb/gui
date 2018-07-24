@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=TRABALHOS COMPARTILHADOS
+Comment=Salve seus trabalhos aqui
+Exec=caja /Trabalhos-compartilhados
+Icon=/usr/share/icons/Adwaita/256x256/devices/drive-harddisk.png
+Terminal=true
+Type=Application
+Categories=System

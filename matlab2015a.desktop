@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Icon=/opt/matlab/R2015a/matlab_logo_preview.png
+Name=Matlab 2015a
+Comment=Start MATLAB 2015a - The Language of Technical Computing
+Exec=/opt/matlab/R2015a/bin/matlab -desktop
+Terminal=false
+Categories=Development;

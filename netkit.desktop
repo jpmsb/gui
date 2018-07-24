@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Gnome-Netkit2
+Comment=Gnome interface to Netkit
+Type=Application
+Icon=/opt/netkit2/contrib/ifsc.png
+Terminal=false
+Categories=GNOME;Application;Education;
+StartupNotify=true
+Exec=/opt/netkit2/bin/netkit2
+Name[pt_BR]=Netkit2
+Comment[pt_BR]=Gnome interface to Netkit2

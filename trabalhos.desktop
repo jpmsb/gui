@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=SALVE SEUS TRABALHOS AQUI
+Comment=Salve seus trabalhos aqui
+Exec=caja /Trabalhos
+Icon=/usr/share/icons/Adwaita/256x256/devices/drive-harddisk.png
+Terminal=true
+Type=Application
+Categories=System

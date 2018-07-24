@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=mu
+GenericName=A Python editor for beginner programmers 
+Comment=A Python editor for beginner programmers
+Icon=/usr/share/icons/hicolor/256x256/apps/mu.png
+TryExec=mu
+Exec=/usr/bin/mu
+Terminal=false
+Categories=Application;Development;
+Keywords=Python;Editor;microbit;micro:bit;
