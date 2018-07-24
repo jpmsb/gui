@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Utilitário de Armazenamento
+Comment=Gerenciador de armazenamento externo
+Exec=sudo -E armazenamento
+Icon=/usr/share/icons/Adwaita/256x256/devices/media-removable.png
+Terminal=false
+Type=Application
+Categories=System;
