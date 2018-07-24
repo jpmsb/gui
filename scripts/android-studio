@@ -1,0 +1,4 @@
+#!/bin/bash
+ 
+sudo chmod 1766 /dev/kvm
+/opt/ANDROID3/android-studio/bin/studio.sh
