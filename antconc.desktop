@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=AntConc 3.5.7 2018
+Comment=AntConc is a freeware, multiplatform tool for carrying out corpus linguistics research and data-driven learning.
+Exec=/usr/local/bin/AntConc_64bit
+Icon=/usr/share/icons/antconc_icon.png
+Terminal=false
+Type=Application
+Categories=Education;
