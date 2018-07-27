@@ -2,7 +2,7 @@
 
 echo "Conecte a placa Arduíno na máquina servidora (não é a máquina que você está)."
 read -p "Pressione Enter para continuar."
-sudo chmod 777 /dev/ttyACM* 2> /dev/null
+sudo chmod 1777 /dev/ttyACM* 2> /dev/null
 
 if [ "$?" = "0" ]; then
     echo "Habilitado com sucesso!!"
