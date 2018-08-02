@@ -10,30 +10,32 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     \
     apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 && \
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 0DF731E45CE24F27EEEB1450EFDC8610341D9410 && \
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 && \
     wget -O - http://repo.vivaldi.com/stable/linux_signing_key.pub | apt-key add - && \
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     wget -q -O - https://deb.opera.com/archive.key | apt-key add - && \
     wget -q -O - http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - && \
-    echo "deb https://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera.list && \
+    echo "deb https://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera-stable.list && \
     echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
     echo "deb http://repo.vivaldi.com/stable/deb/ stable main" > /etc/apt/sources.list.d/vivaldi.list && \
     echo "deb http://packages.x2go.org/debian stretch main" > /etc/apt/sources.list.d/x2go.list && \
     echo "deb-src http://packages.x2go.org/debian stretch main" >> /etc/apt/sources.list.d/x2go.list && \
-    echo "deb http://ftp.br.debian.org/debian stretch main contrib non-free" > /etc/apt/sources.list && \
-    echo "deb http://ftp.br.debian.org/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://debian.pop-sc.rnp.br/debian stretch main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb http://debian.pop-sc.rnp.br/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://security.debian.org stretch/updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list && \
     echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list && \
-    echo "deb http://ftp.br.debian.org/debian stretch-backports main contrib non-free" >> /etc/apt/sources.list && \
-    echo "deb http://ftp.br.debian.org/debian/ jessie main contrib non-free" >> /etc/apt/sources.list && \
-    echo "deb http://ftp.br.debian.org/debian/ wheezy main" >> /etc/apt/sources.list && \
+    echo "deb http://debian.pop-sc.rnp.br/debian stretch-backports main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://debian.pop-sc.rnp.br/debian/ jessie main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://debian.pop-sc.rnp.br/debian/ wheezy main" >> /etc/apt/sources.list && \
     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
     apt update && \
     \
-    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 okular apt-xapian-index synaptic libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default spotify-client fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile arduino pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager libvirt0 playonlinux wine winetricks libxft2:i386 git clementine r-base r-base-dev less cmake libpng16-16 libpng16-16:i386 vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench && \
+apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 && \
     \
-    apt -y -q install -t stretch-backports octave liboctave-dev && \
+    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes  okular apt-xapian-index synaptic libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core  x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default spotify-client fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager  playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad cmatrix neofetch aqemu && \
+    \
+    apt -y -q install -t stretch-backports octave liboctave-dev tilix && \
     cp /usr/lib/i386-linux-gnu/libpng16.so.16 /lib/i386-linux-gnu/libpng12.so.0 && \
     cp /usr/lib/x86_64-linux-gnu/libpng16.so.16 /lib/x86_64-linux-gnu/libpng12.so.0 && \
     apt -y -q purge wireshark wireshark-common && \
@@ -41,8 +43,8 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt -y -q install -t wheezy libpng12-0 libpng12-0:i386 && \
     ldconfig && \
     \
-    echo "deb http://ftp.br.debian.org/debian stretch main contrib non-free" > /etc/apt/sources.list oracle-java8-set-default && \
-    echo "deb http://ftp.br.debian.org/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://debian.pop-sc.rnp.br/debian stretch main contrib non-free" > /etc/apt/sources.list oracle-java8-set-default && \
+    echo "deb http://debian.pop-sc.rnp.br/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://security.debian.org stretch/updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list && \
     echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list && \
@@ -72,15 +74,37 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     wget jpmsb.sj.ifsc.edu.br/armazenamento-mate -O /usr/local/bin/armazenamento && \
     chmod 700 /usr/local/bin/armazenamento && \
     \
+    wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/aviso2 -O /usr/local/bin/aviso && \
+    chmod 700 /usr/local/bin/aviso && \
+    \
+    wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/mate -O /usr/local/bin/mate && \
+    chmod 755 /usr/local/bin/mate && \
+    \
+    wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/como-conectar -O /usr/local/bin/como-conectar && \
+    chmod 500 /usr/local/bin/como-conectar && \
+    \
+    wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/arduino -O /usr/local/bin/arduino && \
+    chmod 755 /usr/local/bin/arduino && \
+    \
+    wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/habilitar-arduino -O /usr/local/bin/habilitar-arduino && \
+    chmod 755 /usr/local/bin/habilitar-arduino && \
+    \
     wget jpmsb.sj.ifsc.edu.br/Ftool.exe -O /usr/local/bin/Ftool.exe && \
     wget jpmsb.sj.ifsc.edu.br/ftoolicon.png -O /usr/share/icons/ftoolicon.png && \
     wget jpmsb.sj.ifsc.edu.br/ftool.desktop -O /usr/share/applications/ftool.desktop && \
-    wget jpmsb.sj.ifsc.edu.br/SoundWire_Server_linux64.tar.gz -O /usr/local/SoundWire_Server_linux64.tar.gz && \
-    tar -xvf /usr/local/SoundWire_Server_linux64.tar.gz -C /opt && \
-    rm -r /usr/local/SoundWire_Server_linux64.tar.gz && \
-    chmod 555 /opt/SoundWireServer/SoundWireServer && \
     \
-    apt -y -q install mu && \
+    wget http://www.laurenceanthony.net/software/antconc/releases/AntConc357/AntConc_64bit.tar.gz && \
+    tar -xvf AntConc_64bit.tar.gz && \
+    mv AntConc_64bit /usr/local/bin/ && \
+    mv antconc_icon.png /usr/share/icons/ && \
+    rm help.pdf license.pdf version_history.pdf && \
+    chmod 755 /usr/local/bin/AntConc_64bit && \
+    chmod 444 /usr/share/icons/antconc_icon.png && \
+    \
+    wget https://github.com/jpmsb/gui/raw/master/informativo-audio.jpg -O /usr/share/images/informativo-audio.jpg && \
+    chmod 400 /usr/share/images/informativo-audio.jpg && \
+    \
+    apt -y -q install mu python-gpiozero python3-gpiozero && \
     echo "# deb http://archive.raspberrypi.org/debian/ stretch main ui" > /etc/apt/sources.list.d/raspi.list && \
     apt update && \
     \
@@ -91,6 +115,50 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     echo 'echo "Use a porta 5901$numero"' >> /usr/local/bin/SoundWireServer && \
     echo '/opt/SoundWireServer/SoundWireServer' >> /usr/local/bin/SoundWireServer && \
     chmod 555 /usr/local/bin/SoundWireServer && \
+    \
+    echo "[Desktop Entry]" >> /usr/share/applications/arduino.desktop && \
+    echo "Type=Application" >> /usr/share/applications/arduino.desktop && \
+    echo "Name=Arduino IDE" >> /usr/share/applications/arduino.desktop && \
+    echo "GenericName=Create physical computing projects" >> /usr/share/applications/arduino.desktop && \
+    echo "Exec=arduino" >> /usr/share/applications/arduino.desktop && \
+    echo "Icon=/opt/arduino-1.8.5/lib/icons/256x256/apps/arduino.png" >> /usr/share/applications/arduino.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/arduino.desktop && \
+    echo "Categories=Development;Engineering;Electronics;" >> /usr/share/applications/arduino.desktop && \
+    echo "MimeType=text/x-arduino" >> /usr/share/applications/arduino.desktop && \
+    echo "Keywords=embedded electronics;electronics;avr;microcontroller;" >> /usr/share/applications/arduino.desktop && \
+    \
+    echo "[Desktop Entry]" >> /usr/share/applications/clion.desktop && \
+    echo "Version=1.0" >> /usr/share/applications/clion.desktop && \
+    echo "Encoding=UTF-8" >> /usr/share/applications/clion.desktop && \
+    echo "Name=CLion " >> /usr/share/applications/clion.desktop && \
+    echo "Comment=A power tool For a power language" >> /usr/share/applications/clion.desktop && \
+    echo "Exec=/opt/clion-2018/bin/clion.sh" >> /usr/share/applications/clion.desktop && \
+    echo "Icon=/opt/clion-2018/bin/clion.svg" >> /usr/share/applications/clion.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/clion.desktop && \
+    echo "Type=Application" >> /usr/share/applications/clion.desktop && \
+    echo "Categories=Development" >> /usr/share/applications/clion.desktop && \
+    \
+    echo "[Desktop Entry]" >> /usr/share/applications/pycharm.desktop && \
+    echo "Version=1.0" >> /usr/share/applications/pycharm.desktop && \
+    echo "Encoding=UTF-8" >> /usr/share/applications/pycharm.desktop && \
+    echo "Name=PyCharm" >> /usr/share/applications/pycharm.desktop && \
+    echo "Comment=All Python tools in one place" >> /usr/share/applications/pycharm.desktop && \
+    echo "Exec=/opt/pycharm-2018.1/bin/pycharm.sh" >> /usr/share/applications/pycharm.desktop && \
+    echo "Icon=/opt/pycharm-2018.1/bin/pycharm.png" >> /usr/share/applications/pycharm.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/pycharm.desktop && \
+    echo "Type=Application" >> /usr/share/applications/pycharm.desktop && \
+    echo "Categories=Development" >> /usr/share/applications/pycharm.desktop && \
+    \
+    echo "[Desktop Entry]" >> /usr/share/applications/antconc.desktop && \
+    echo "Version=1.0" >> /usr/share/applications/antconc.desktop && \
+    echo "Encoding=UTF-8" >> /usr/share/applications/antconc.desktop && \
+    echo "Name=AntConc 3.5.7 2018" >> /usr/share/applications/antconc.desktop && \
+    echo "Comment=AntConc is a freeware, multiplatform tool for carrying out corpus linguistics research and data-driven learning." >> /usr/share/applications/antconc.desktop && \
+    echo "Exec=/usr/local/bin/AntConc_64bit" >> /usr/share/applications/antconc.desktop && \
+    echo "Icon=/usr/share/icons/antconc_icon.png" >> /usr/share/applications/antconc.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/antconc.desktop && \
+    echo "Type=Application" >> /usr/share/applications/antconc.desktop && \
+    echo "Categories=Education;" >> /usr/share/applications/antconc.desktop && \
     \
     echo "[Desktop Entry]" >> /usr/share/applications/armazenamento.desktop && \
     echo "Version=1.0" >> /usr/share/applications/armazenamento.desktop && \
@@ -338,7 +406,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     echo "export LD_LIBRARY_PATH=/opt/altera/13.0sp1/lib32" >> /etc/bash.bashrc && \
     echo "export PATH=$PATH:/etc/omnetpp/bin" >> /etc/bash.bashrc && \
     echo 'IP=`echo $SSH_CONNECTION | cut -f1 -d " "`' >> /etc/bash.bashrc && \
-    echo 'echo "O endereço IP desta máquina é $IP"' >> /etc/bash.bashrc \
+    echo 'echo "O endereço IP desta máquina é $IP"' >> /etc/bash.bashrc && \
     \
     echo "America/Sao_Paulo" > /etc/timezone && \
     echo 'export NETKIT2_HOME=/opt/netkit2' >> /etc/profile && \
@@ -351,6 +419,8 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     echo 'ALL   ALL=(root) NOPASSWD: /usr/sbin/tcpdump' >> /etc/sudoers && \
     echo 'ALL   ALL=(root) NOPASSWD: /usr/bin/wireshark' >> /etc/sudoers && \
     echo 'ALL   ALL=(root) NOPASSWD: /bin/chmod 1766 /dev/kvm' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: SETENV: /usr/local/bin/aviso' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: /bin/chmod 1777 /dev/ttyACM*' >> /etc/sudoers && \
     \
     echo "#!/bin/bash" >> /etc/iniciar && \
     echo "" >> /etc/iniciar && \
@@ -387,4 +457,4 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/* /root/.bash_history && \
     mkdir /var/run/sshd
 
-ENTRYPOINT rm -rf /var/run/rsyslogd.pid && rsyslogd && service libvirtd start && /usr/sbin/sshd -D
+ENTRYPOINT sudo chmod 1766 /dev/kvm ; rm -rf /var/run/rsyslogd.pid && rsyslogd && service libvirtd start && /usr/sbin/sshd -D
