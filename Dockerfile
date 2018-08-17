@@ -31,15 +31,15 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
     apt update && \
     \
-apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 && \
+apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 libtool libtool-bin libgamin0 && \
     \
-    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes  okular apt-xapian-index synaptic libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core  x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default spotify-client fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager  playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu && \
+    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta && \
     \
     apt -y -q install -t stretch-backports octave liboctave-dev tilix && \
     cp /usr/lib/i386-linux-gnu/libpng16.so.16 /lib/i386-linux-gnu/libpng12.so.0 && \
     cp /usr/lib/x86_64-linux-gnu/libpng16.so.16 /lib/x86_64-linux-gnu/libpng12.so.0 && \
     apt -y -q purge wireshark wireshark-common && \
-    apt -y -q install -t jessie libssl1.0.0 wireshark wireshark-common eagle && \ 
+    apt -y -q install -t jessie libssl1.0.0 wireshark wireshark-common eagle flashplugin-nonfree && \ 
     apt -y -q install -t wheezy libpng12-0 libpng12-0:i386 && \
     ldconfig && \
     \
@@ -59,17 +59,13 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     bash -c 'echo -e "y\n" |gdebi musixmatch_0.19.4_amd64.deb' && \
     rm musixmatch_0.19.4_amd64.deb && \
     \
-    wget jpmsb.sj.ifsc.edu.br/google-earth-stable_current_amd64.deb && \
-    dpkg -i google-earth-stable_current_amd64.deb && \
-    rm google-earth-stable_current_amd64.deb && \
-    \
     wget https://download1.rstudio.org/rstudio-xenial-1.1.453-amd64.deb && \
     dpkg -i rstudio-xenial-1.1.453-amd64.deb && \
     rm -r rstudio-xenial-1.1.453-amd64.deb && \
     \
-    wget https://code-industry.net/public/master-pdf-editor-5.0.36_qt5.amd64.deb && \
-    bash -c 'echo -e "y\n" |gdebi master-pdf-editor-5.0.36_qt5.amd64.deb' && \
-    rm -r master-pdf-editor-5.0.36_qt5.amd64.deb && \
+    wget https://code-industry.net/public/master-pdf-editor-5.1.12_qt5.amd64.deb && \
+    bash -c 'echo -e "y\n" |gdebi master-pdf-editor-5.1.12_qt5.amd64.deb' && \
+    rm -r master-pdf-editor-5.1.12_qt5.amd64.deb && \
     \
     wget jpmsb.sj.ifsc.edu.br/armazenamento-mate -O /usr/local/bin/armazenamento && \
     chmod 700 /usr/local/bin/armazenamento && \
@@ -100,6 +96,17 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     rm help.pdf license.pdf version_history.pdf && \
     chmod 755 /usr/local/bin/AntConc_64bit && \
     chmod 444 /usr/share/icons/antconc_icon.png && \
+    rm -rf AntConc_64bit.tar.gz && \
+    \
+    mkdir /codeblocks && \
+    wget https://ufpr.dl.sourceforge.net/project/codeblocks/Binaries/17.12/Linux/Debian%20stable/codeblocks_17.12-1_amd64_stable.tar.xz -O /codeblocks/codeblocks.tar.xz && \
+    tar -xvf /codeblocks/codeblocks.tar.xz -C /codeblocks/ && \
+    dpkg -i /codeblocks/*.deb && \
+    rm -r /codeblocks && \
+    \
+    wget http://kdl1.cache.wps.com/ksodl/download/linux/a21//wps-office_10.1.0.5707~a21_amd64.deb -O /wpsoffice.deb && \
+    dpkg -i /wpsoffice.deb && \
+    rm -rf wpsoffice.deb && \
     \
     wget https://github.com/jpmsb/gui/raw/master/informativo-audio.jpg -O /usr/share/images/informativo-audio.jpg && \
     chmod 400 /usr/share/images/informativo-audio.jpg && \
@@ -427,7 +434,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "AcceptEnv LANG LC_*" >> /etc/ssh/sshd_config && \
     echo "Subsystem	sftp	/usr/lib/openssh/sftp-server" >> /etc/ssh/sshd_config && \
     \
-    sed -i '85s/.*/unix_sock_group = "libvirt"/' /etc/libvirt/libvirtd.conf && \
+    sed -i '85s/.*/unix_sock_group = "aluno"/' /etc/libvirt/libvirtd.conf && \
     sed -i '102s/.*/unix_sock_rw_perms = "0770"/' /etc/libvirt/libvirtd.conf && \
     \
     rm -r /etc/localtime && \
@@ -449,4 +456,4 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/* /root/.bash_history && \
     mkdir /var/run/sshd
 
-ENTRYPOINT sudo chmod 1766 /dev/kvm ; echo \"0 2147483647\" > /proc/sys/net/ipv4/ping_group_range ; rm -rf /var/run/rsyslogd.pid && rsyslogd && service libvirtd start && /usr/sbin/sshd -D
+ENTRYPOINT  service libvirtd start && rm -rf /var/run/rsyslogd.pid && rsyslogd ; chmod 1766 /dev/kvm ; echo "0 2147483647" > /proc/sys/net/ipv4/ping_group_range ; /usr/sbin/sshd -D
