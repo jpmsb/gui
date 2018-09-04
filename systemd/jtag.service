@@ -1,0 +1,12 @@
+[Unit]
+Description=Inicia o jtagd e o jtagconfig habilitando o acesso remoto
+After=networking.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStartPre=/bin/sleep 20
+ExecStart=/bin/bash /opt/jtag/iniciar-jtag
+
+[Install]
+WantedBy=multi-user.target
