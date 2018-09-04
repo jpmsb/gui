@@ -1,0 +1,12 @@
+[Unit]
+Description=Apaga os arquivos remotos do usuário aluno
+After=networking.service
+Before=shutdown.target reboot.target halt.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStop=/bin/bash /etc/init.d/desligar
+
+[Install]
+WantedBy=multi-user.target
