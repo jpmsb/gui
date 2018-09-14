@@ -1,0 +1,338 @@
+#!/bin/bash
+
+######### Variáveis ##################################################
+
+interface=$1
+ip=$2
+porta=$3
+nomedehost=$4
+
+######################################################################
+### Remover alguns arquivos ###
+
+rm -f /home/aluno/.x2goclient/sessions
+rm -f /opt/jtag/iniciar-jtag
+rm -f /etc/init.d/desligar
+rm -f /etc/network/interfaces
+rm -f /usr/local/bin/matar
+
+######################################################################
+# criar /etc/network/interfaces
+
+cat << EOF >> /etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+auto $interface
+iface $interface inet dhcp
+EOF
+
+####################################################################
+### Criar /home/aluno/.x2goclient/sessions #########################
+
+cat << EOF >> /home/aluno/.x2goclient/sessions
+[rancher]
+speed=3
+pack=16m-jpeg
+quality=9
+fstunnel=true
+export=
+iconvto=UTF-8
+iconvfrom=ISO8859-1
+useiconv=false
+fullscreen=true
+multidisp=false
+display=1
+maxdim=false
+rdpclient=rdesktop
+directrdpsettings=
+width=800
+height=600
+dpi=96
+setdpi=true
+xinerama=false
+clipboard=both
+usekbd=true
+type=auto
+sound=true
+soundsystem=pulse
+startsoundsystem=true
+soundtunnel=true
+defsndport=true
+sndport=4713
+print=true
+name=JPMSB
+icon=:/img/icons/128x128/x2gosession.png
+host=$ip
+user=aluno
+key=/home/aluno/.ssh/labalu-cli-aluno
+rdpport=3389
+sshport=$porta
+autologin=false
+krblogin=false
+krbdelegation=false
+directrdp=false
+rootless=false
+published=false
+applications=WWWBROWSER, MAILCLIENT, OFFICE, TERMINAL
+command=MATE
+rdpoptions=
+rdpserver=
+xdmcpserver=localhost
+usesshproxy=false
+sshproxytype=SSH
+sshproxyuser=
+sshproxykeyfile=
+sshproxyhost=
+sshproxyport=22
+sshproxysamepass=false
+sshproxysameuser=false
+sshproxyautologin=false
+sshproxykrblogin=false
+EOF
+
+###################################################################################
+
+chmod 550 /home/aluno/.x2goclient/sessions
+
+###################################################################################
+
+cat << EOF >> /opt/jtag/iniciar-jtag
+# Inicia o jtagd e o jtagconfig habilitando o acesso remoto
+
+/opt/jtag/bin/jtagd
+/opt/jtag/bin/jtagconfig --enableremote rancheros
+/usr/bin/ssh -i /root/.ssh/root -R 60000:localhost:1309 root@$ip -p $porta -N -f
+EOF
+
+###################################################################################
+
+chmod 500 /opt/jtag/iniciar-jtag
+
+###################################################################################
+
+cat << EOF >> /etc/init.d/desligar
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          networking ifupdown
+# Required-Start:    mountkernfs $local_fs urandom
+# Required-Stop:     $local_fs
+# Default-Start:     S
+# Default-Stop:      0 6
+# Short-Description: Raise network interfaces.
+# Description:       Prepare /run/network directory, ifstate file and raise network interfaces, or take them down.
+### END INIT INFO
+
+ssh -p $porta -i /root/.ssh/root root@$ip killall -9 mate-session
+# ssh -p $porta -i /root/.ssh/root root@$ip killall -9 mate-session
+# ssh -p $porta -i /root/.ssh/root root@$ip killall -9 mate-session
+# sleep 2
+ssh -p $porta -i /root/.ssh/root root@$ip rm -rf /home/aluno
+ssh -p $porta -i /root/.ssh/root root@$ip tar -zxvf /home/.aluno.tar.gz -C /home
+ssh -p $porta -i /root/.ssh/root root@$ip chown -R aluno:aluno /home/aluno
+ssh -p $porta -i /root/.ssh/root root@$ip chown -R root:root /home/aluno/.ssh/authorized_keys
+ssh -p $porta -i /root/.ssh/root root@$ip chown -R root:root /home/aluno/.jtag.conf
+ssh -p $porta -i /root/.ssh/root root@$ip echo "O sistema foi desligado em $(date)" >> /var/log/desligar.log
+rm -rf /home/sdr
+tar -zxvf /home/.sdr.tar.gz -C /home
+rm -rf /home/aluno
+tar -zxvf /home/.aluno.tar.gz -C /home
+echo "O sistema foi desligado em $(date)" >> /var/log/desligar.log
+EOF
+
+############################################################################################
+
+chmod 500 /etc/init.d/desligar
+
+############################################################################################
+
+cat << EOF >> /usr/local/bin/matar
+#!/bin/bash
+
+if [ -z "${1}" ]; then
+
+    echo "Sintaxe:"
+    echo "sudo matar [APLICAÇÂO]"
+    echo ""
+    echo "    Aplicações:"
+    echo ""
+    echo "    firefox"
+    echo "    spotify"
+    echo "    vivaldi"
+
+elif [ "$1" == "firefox" ]; then
+    ssh -p $porta -i /root/.ssh/root root@172.18.20.200 killall -9 firefox
+
+elif [ "$1" == "spotify" ]; then
+    ssh -p $porta -i /root/.ssh/root root@$ip killall -9 spotify
+
+elif [ "$1" == "vivaldi" ]; then
+    ssh -p $porta -i /root/.ssh/root root@$ip killall -9 vivaldi
+    ssh -p $porta -i /root/.ssh/root root@$ip killall -9 vivaldi-stable
+
+else 
+    echo "Não implementado."
+fi
+EOF
+
+#########################################################################################
+
+chmod 500 /usr/local/bin/matar
+
+#########################################################################################
+
+> /home/aluno/.xsession
+
+#########################################################################################
+
+cat << EOF >> /home/aluno/.xsession
+#!/bin/bash
+
+xterm -geometry 500x500 -bg black -fg black -e "exit"
+yad --center --image="/usr/share/images/conectando.jpg" --no-buttons --auto-close --no-escape --undecorated &
+timeout 1 ping -q -i 0.2 -c 2 $ip
+ping="$?"
+echo $ping
+nc -z -w5 $ip $porta
+nc="$?"
+killall -9 yad
+
+if [ "$ping" = "124" ]; then
+    yad --center --image="/usr/share/images/conexao-servidor-fora.jpg" --button="Tentar novamente":0 --button="Desligar":"systemctl poweroff -i" --buttons-layout=center --no-escape --timeout=60 --timeout-indicator=bottom
+    if [ "$?" = "0" ]; then
+        sudo dhclient $interface
+        /home/aluno/.xsession
+
+    fi
+
+elif [ "$nc" = "0" ]; then
+    test -e /home/aluno/.jpmsb
+
+    if [ "$?" = "0" ]; then
+        echo "Arquivo .jpmsb encontrado!!"
+        conteudo_arquivo=$(cat /home/aluno/.jpmsb)
+            if [ "$conteudo_arquivo" = "rancher" ]; then
+                echo "Restaurando ambiente sem compartilhamento de som"
+                yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
+                sleep 30 && killall -9 yad &
+                x2goclient --hide --sessionid=rancher
+
+            elif [ "$conteudo_arquivo" = "rancher-som" ]; then
+                echo "Restaurando ambiente com compartilhamento de som"
+                yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
+                /opt/SoundWireServer/SoundWireServer &
+                sleep 30 && killall -9 yad &
+                x2goclient --hide --sessionid=rancher-som
+
+            fi
+    elif [ "$?" = "1" ]; then
+        echo "Início normal"
+        xterm -geometry 500x500 -bg black -fg black -e "exit"
+        yad --center --button="Cancelar":1 --button="Entendido":0 --image='/usr/share/images/informativo600.jpg'  --timeout=240 --timeout-indicator=bottom
+
+        if [ "$?" = "0" ]; then
+            yad --center --image="/usr/share/images/informativo-audio-permitir.jpg" --button="Recusar":1 --button="Permitir":0
+
+            if [ "$?" = "0" ]; then
+                echo "rancher-som" > /home/aluno/.jpmsb
+                yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
+                /opt/SoundWireServer/SoundWireServer &
+                sleep 30 && killall -9 yad &
+                x2goclient --hide --sessionid=rancher-som
+
+            elif [ "$?" = "1" ]; then
+                echo "rancher" > /home/aluno/.jpmsb
+                yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
+                sleep 30 && killall -9 yad &
+                x2goclient --hide --sessionid=rancher
+
+            fi
+
+        elif [ "$?" = "1" ]; then
+            systemctl poweroff -i
+
+        fi
+    fi
+
+elif [ "$ping" = "0" ] && [ "$nc" = "1" ]; then
+    yad --center --image="/usr/share/images/conexao-porta-fora.jpg" --button="Ok":"systemctl poweroff -i" --buttons-layout=center --no-escape --timeout=60 --timeout-indicator=bottom
+
+fi
+EOF
+
+##########################################################################################
+
+rm -f /etc/sudoers
+
+##########################################################################################
+
+cat << EOF >> /etc/sudoers
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults	env_reset
+Defaults	mail_badpass
+Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root	ALL=(ALL:ALL) ALL
+sdr     ALL=(ALL) NOPASSWD: /usr/bin/rtl_tcp
+aluno   ALL=(ALL) NOPASSWD: /sbin/dhclient $interface
+
+# Allow members of group sudo to execute any command
+%sudo	ALL=(ALL:ALL) ALL
+
+# See sudoers(5) for more information on "#include" directives:
+
+#includedir /etc/sudoers.d
+EOF
+
+##########################################################################################
+
+chmod 440 /etc/sudores
+
+##########################################################################################
+
+echo "$nomedehost" > /etc/hostname
+
+##########################################################################################
+
+rm -r /root/.ssh/known_hosts
+rm -r /home/aluno/.x2go
+# tar -zcvf /home/.aluno.tar.gz -C /home aluno
+# tar -zxvf /home/.aluno.tar.gz -C /home
+chown root:especial /home/aluno/.profile
+chmod 550 /home/aluno/.profile
+chown root:especial /home/aluno/.bash_profile
+chmod 550 /home/aluno/.bash_profile
+chown root:especial /home/aluno/.xinitrc
+chmod 550 /home/aluno/.xinitrc
+chown root:especial /home/aluno/.xsession
+chmod 550 /home/aluno/.xsession
+chown -R root:especial /home/aluno/.x2goclient
+chmod -R 550 /home/aluno/.x2goclient
+chown root:especial /home/aluno/.ssh/labalu-cli-aluno
+chmod 440 /home/aluno/.ssh/labalu-cli-aluno
+chown root:especial /home/aluno/.bashrc
+chmod 550 /home/aluno/.bashrc
+
+###########################################################################################
+rm -r /home/aluno/.jpmsb
+rm -r /home/aluno/.x2go
+tar -zcvf /home/.aluno.tar.gz -C /home aluno
