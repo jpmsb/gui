@@ -190,15 +190,24 @@ chmod 500 /usr/local/bin/matar
 
 #########################################################################################
 
-cat << EOF >> /home/aluno/.xsession
+cat << EOF >> /home/joaopedro/gui/saida
 #!/bin/bash
 
 xterm -geometry 500x500 -bg black -fg black -e "exit"
 yad --center --image="/usr/share/images/conectando.jpg" --no-buttons --auto-close --no-escape --undecorated &
 timeout 1 ping -q -i 0.2 -c 2 $ip
+EOF
+
+cat << \EOF >> /home/joaopedro/gui/saida
 ping="$?"
+EOF
+
+cat << EOF >> /home/joaopedro/gui/saida
 echo $ping
 nc -z -w5 $ip $porta
+EOF
+
+cat << \EOF >> /home/joaopedro/gui/saida
 nc="$?"
 killall -9 yad
 
