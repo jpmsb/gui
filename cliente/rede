@@ -190,7 +190,7 @@ chmod 500 /usr/local/bin/matar
 
 #########################################################################################
 
-cat << EOF >> /home/joaopedro/gui/saida
+cat << EOF >> /home/aluno/.xsession
 #!/bin/bash
 
 xterm -geometry 500x500 -bg black -fg black -e "exit"
@@ -198,27 +198,30 @@ yad --center --image="/usr/share/images/conectando.jpg" --no-buttons --auto-clos
 timeout 1 ping -q -i 0.2 -c 2 $ip
 EOF
 
-cat << \EOF >> /home/joaopedro/gui/saida
+cat << \EOF >> /home/aluno/.xsession
 ping="$?"
 EOF
 
-cat << EOF >> /home/joaopedro/gui/saida
+cat << EOF >> /home/aluno/.xsession
 echo $ping
 nc -z -w5 $ip $porta
 EOF
 
-cat << \EOF >> /home/joaopedro/gui/saida
+cat << \EOF >> /home/aluno/.xsession
 nc="$?"
 killall -9 yad
 
 if [ "$ping" = "124" ] || [ "$ping" = "2" ]; then
     yad --center --image="/usr/share/images/conexao-servidor-fora.jpg" --button="Tentar novamente":0 --button="Desligar":"systemctl poweroff -i" --buttons-layout=center --no-escape --timeout=60 --timeout-indicator=bottom
     if [ "$?" = "0" ]; then
+EOF
+cat << EOF >> /home/aluno/.xsession
         sudo dhclient $interface
         /home/aluno/.xsession
 
     fi
-
+EOF
+cat << \EOF >> /home/aluno/.xsession
 elif [ "$nc" = "0" ]; then
     test -e /home/aluno/.jpmsb
 
