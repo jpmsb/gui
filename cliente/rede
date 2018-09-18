@@ -95,7 +95,7 @@ sshproxysameuser=false
 sshproxyautologin=false
 sshproxykrblogin=false
 
-[rancher]
+[rancher-som]
 speed=3
 pack=16m-jpeg
 quality=9
