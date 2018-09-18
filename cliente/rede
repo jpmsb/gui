@@ -211,7 +211,7 @@ cat << \EOF >> /home/joaopedro/gui/saida
 nc="$?"
 killall -9 yad
 
-if [ "$ping" = "124" ]; then
+if [ "$ping" = "124" ] || [ "$ping" = "2" ]; then
     yad --center --image="/usr/share/images/conexao-servidor-fora.jpg" --button="Tentar novamente":0 --button="Desligar":"systemctl poweroff -i" --buttons-layout=center --no-escape --timeout=60 --timeout-indicator=bottom
     if [ "$?" = "0" ]; then
         sudo dhclient $interface
