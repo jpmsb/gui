@@ -215,12 +215,14 @@ if [ "$ping" = "124" ] || [ "$ping" = "2" ]; then
     yad --center --image="/usr/share/images/conexao-servidor-fora.jpg" --button="Tentar novamente":0 --button="Desligar":"systemctl poweroff -i" --buttons-layout=center --no-escape --timeout=60 --timeout-indicator=bottom
     if [ "$?" = "0" ]; then
 EOF
+
 cat << EOF >> /home/aluno/.xsession
         sudo dhclient $interface
         /home/aluno/.xsession
 
     fi
 EOF
+
 cat << \EOF >> /home/aluno/.xsession
 elif [ "$nc" = "0" ]; then
     test -e /home/aluno/.jpmsb
