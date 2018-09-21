@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Microsoft Visual Studio Code
+Comment=IDE Microsoft Visual Studio Code
+Exec=/opt/opt/VSCode-linux-x64/code
+Icon=/opt/VSCode-linux-x64/resources/app/resources/linux/code.png
+Terminal=false
+Type=Application
+Categories=Development
