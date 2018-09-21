@@ -16,6 +16,7 @@ wget -O - http://repo.vivaldi.com/stable/linux_signing_key.pub | apt-key add -
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
 wget -q -O - https://deb.opera.com/archive.key | apt-key add -
 wget -q -O - http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -
+wget -O - http://download.videolan.org/pub/debian/videolan-apt.asc | apt-key add -
 
 cat << EOF > /etc/apt/sources.list
 # Repositório padrão
@@ -44,12 +45,13 @@ echo "deb http://packages.x2go.org/debian stretch main" > /etc/apt/sources.list.
 echo "deb-src http://packages.x2go.org/debian stretch main" >> /etc/apt/sources.list.d/x2go.list
 echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list
 echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+echo "deb http://download.videolan.org/pub/debian/stable/ /" > /etc/apt/sources.list.d/videolancenter.list
 
 apt update
 
 echo "Instalando bibliotecas..."
 
-apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 libtool libtool-bin libgamin0 libgtkmm-3.0-dev
+apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 libtool libtool-bin libgamin0 libgtkmm-3.0-dev libdvdcss2
 
 echo "Instalando o ambiente gráfico bem como demais aplicações..."
 
@@ -82,7 +84,7 @@ dpkg -i /rstudio.deb
 rm -f /rstudio.deb
 
 wget https://code-industry.net/public/master-pdf-editor-5.1.12_qt5.amd64.deb -O /master-pdf-editor.deb
-bash -c 'echo -e "y\n" |gdebi master-pdf-editor.deb'
+bash -c 'echo -e "y\n" |gdebi /master-pdf-editor.deb'
 rm -r /master-pdf-editor.deb
 
 wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/arduino -O /usr/local/bin/arduino
@@ -96,7 +98,7 @@ wget jpmsb.sj.ifsc.edu.br/ftoolicon.png -O /usr/share/icons/ftoolicon.png
 wget jpmsb.sj.ifsc.edu.br/ftool.desktop -O /usr/share/applications/ftool.desktop
 
 wget http://www.laurenceanthony.net/software/antconc/releases/AntConc357/AntConc_64bit.tar.gz -O /AntConc_64bit.tar.gz
-tar -xvf /AntConc_64bit.tar.gz
+tar -xvf /AntConc_64bit.tar.gz -C /
 mv /AntConc_64bit /usr/local/bin/
 mv /antconc_icon.png /usr/share/icons/
 rm /help.pdf /license.pdf /version_history.pdf
