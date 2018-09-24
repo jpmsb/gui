@@ -46,6 +46,7 @@ echo "deb-src http://packages.x2go.org/debian stretch main" >> /etc/apt/sources.
 echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list
 echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
 echo "deb http://download.videolan.org/pub/debian/stable/ /" > /etc/apt/sources.list.d/videolancenter.list
+echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list.d/webup8java.list
 
 apt update
 
