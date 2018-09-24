@@ -138,6 +138,28 @@ apt -y -q install mu python-gpiozero python3-gpiozero
 echo "# deb http://archive.raspberrypi.org/debian/ stretch main ui" > /etc/apt/sources.list.d/raspi.list
 apt update
 
+echo "Criando comando quartus..."
+
+cat << EOF > /usr/local/bin/quartus
+#!/bin/bash
+ 
+case ${1} in
+    "-16")
+        VERSAO="16.0"
+        ;;
+    "-h")
+        echo "Use: quartus [-13|-16]."
+        exit 1
+        ;;
+    *)
+        VERSAO="13.0sp1"
+        ;;
+esac
+ 
+cd /opt/altera/${VERSAO}/quartus/bin
+exec ./quartus
+EOF
+
 echo "Criando atalho do Android Studio..."
 
 cat << EOF > /usr/share/applications/android-studio.desktop
@@ -165,28 +187,6 @@ Icon=/usr/share/icons/antconc_icon.png
 Terminal=false
 Type=Application
 Categories=Education;
-EOF
-
-echo "Criando comando quartus..."
-
-cat << EOF > /usr/local/bin/quartus
-#!/bin/bash
- 
-case ${1} in
-    "-16")
-        VERSAO="16.0"
-        ;;
-    "-h")
-        echo "Use: quartus [-13|-16]."
-        exit 1
-        ;;
-    *)
-        VERSAO="13.0sp1"
-        ;;
-esac
- 
-cd /opt/altera/${VERSAO}/quartus/bin
-exec ./quartus
 EOF
 
 echo "Criando atalho do Arduino..."
