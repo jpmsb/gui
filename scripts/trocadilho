@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl -sL https://raw.githubusercontent.com/jpmsb/dicas/master/trocadilhos | shuf -n 1
