@@ -94,6 +94,9 @@ chmod 755 /usr/local/bin/arduino
 wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/habilitar-arduino -O /usr/local/bin/habilitar-arduino
 chmod 755 /usr/local/bin/habilitar-arduino
 
+wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/trocadilho -O /usr/local/bin/trocadilho
+chmod 755 /usr/local/bin/trocadilho
+
 wget jpmsb.sj.ifsc.edu.br/Ftool.exe -O /usr/local/bin/Ftool.exe
 wget jpmsb.sj.ifsc.edu.br/ftoolicon.png -O /usr/share/icons/ftoolicon.png
 wget jpmsb.sj.ifsc.edu.br/ftool.desktop -O /usr/share/applications/ftool.desktop
