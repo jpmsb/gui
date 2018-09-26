@@ -31,9 +31,9 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
     apt update && \
     \
-apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 libtool libtool-bin libgamin0 libgtkmm-3.0-dev && \
+apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 libtool libtool-bin libgamin0 libgtkmm-3.0-dev libpulse-dev libfftw3-dev libncursesw5-dev && \
     \
-    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag && \
+    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles && \
     \
     apt -y -q install -t stretch-backports octave liboctave-dev tilix && \
     cp /usr/lib/i386-linux-gnu/libpng16.so.16 /lib/i386-linux-gnu/libpng12.so.0 && \
@@ -54,10 +54,6 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     wget https://github.com/KELiON/cerebro/releases/download/v0.3.1/cerebro_0.3.1_amd64.deb && \
     dpkg -i cerebro_0.3.1_amd64.deb && \
     rm -r cerebro_0.3.1_amd64.deb && \
-    \
-    wget jpmsb.sj.ifsc.edu.br/musixmatch_0.19.4_amd64.deb && \
-    bash -c 'echo -e "y\n" |gdebi musixmatch_0.19.4_amd64.deb' && \
-    rm musixmatch_0.19.4_amd64.deb && \
     \
     wget https://download1.rstudio.org/rstudio-xenial-1.1.453-amd64.deb && \
     dpkg -i rstudio-xenial-1.1.453-amd64.deb && \
@@ -88,6 +84,9 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/habilitar-arduino -O /usr/local/bin/habilitar-arduino && \
     chmod 755 /usr/local/bin/habilitar-arduino && \
     \
+    wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/trocadilho -O /usr/local/bin/trocadilho && \
+    chmod 755 /usr/local/bin/trocadilho && \
+    \
     wget jpmsb.sj.ifsc.edu.br/Ftool.exe -O /usr/local/bin/Ftool.exe && \
     wget jpmsb.sj.ifsc.edu.br/ftoolicon.png -O /usr/share/icons/ftoolicon.png && \
     wget jpmsb.sj.ifsc.edu.br/ftool.desktop -O /usr/share/applications/ftool.desktop && \
@@ -109,7 +108,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     \
     wget http://kdl1.cache.wps.com/ksodl/download/linux/a21//wps-office_10.1.0.5707~a21_amd64.deb -O /wpsoffice.deb && \
     dpkg -i /wpsoffice.deb && \
-    rm -rf wpsoffice.deb && \
+    rm -rf /wpsoffice.deb && \
     \
     wget https://github.com/jpmsb/gui/raw/master/informativo-audio.jpg -O /usr/share/images/informativo-audio.jpg && \
     chmod 400 /usr/share/images/informativo-audio.jpg && \
@@ -117,6 +116,23 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     apt -y -q install mu python-gpiozero python3-gpiozero && \
     echo "# deb http://archive.raspberrypi.org/debian/ stretch main ui" > /etc/apt/sources.list.d/raspi.list && \
     apt update && \
+    \
+    echo '[Desktop Entry]' >> /usr/share/applications/packettracer7.desktop && \
+    echo 'Exec=/opt/pt/packettracer' >> /usr/share/applications/packettracer7.desktop && \
+    echo 'Icon=/opt/pt/art/app.png' >> /usr/share/applications/packettracer7.desktop && \
+    echo 'Type=Application' >> /usr/share/applications/packettracer7.desktop && \
+    echo 'Terminal=false' >> /usr/share/applications/packettracer7.desktop && \
+    echo 'Name=Packet Tracer 7' >> /usr/share/applications/packettracer7.desktop && \
+    echo 'Categories=Network;' >> /usr/share/applications/packettracer7.desktop && \
+    \
+    echo '[Desktop Entry]' >> /usr/share/applications/musixmatch.desktop && \
+    echo 'Name=Musixmatch' >> /usr/share/applications/musixmatch.desktop && \
+    echo 'Comment=Musixmatch Desktop App' >> /usr/share/applications/musixmatch.desktop && \
+    echo 'Exec=/opt/Musixmatch/musixmatch' >> /usr/share/applications/musixmatch.desktop && \
+    echo 'Terminal=false' >> /usr/share/applications/musixmatch.desktop && \
+    echo 'Type=Application' >> /usr/share/applications/musixmatch.desktop && \
+    echo 'Icon=/opt/Musixmatch/resources/app/assets/mxm-icon@2x.png' >> /usr/share/applications/musixmatch.desktop && \
+    echo 'Categories=AudioVideo;Video;Player;TV;' >> /usr/share/applications/musixmatch.desktop && \
     \
     echo "[Desktop Entry]" >> /usr/share/applications/arduino.desktop && \
     echo "Type=Application" >> /usr/share/applications/arduino.desktop && \
@@ -295,6 +311,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Icon=/opt/Zoiper64/zoiper.png" >> /usr/share/applications/zoiper3-3.desktop && \
     echo "Terminal=false" >> /usr/share/applications/zoiper3-3.desktop && \
     echo "MimeType=text/x-arduino" >> /usr/share/applications/zoiper3-3.desktop && \
+    echo "Categories=Network;" >> /usr/share/applications/packettracer7.desktop && \
     \
     echo "[Desktop Entry]" > /usr/share/applications/netkit.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/netkit.desktop && \
@@ -433,6 +450,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "PasswordAuthentication no" >> /etc/ssh/sshd_config && \
     echo "ChallengeResponseAuthentication no" >> /etc/ssh/sshd_config && \
     echo "X11Forwarding yes" >> /etc/ssh/sshd_config && \
+    echo "X11UseLocalhost no" >> /etc/ssh/sshd_config && \
     echo "PrintMotd no" >> /etc/ssh/sshd_config && \
     echo "AcceptEnv LANG LC_*" >> /etc/ssh/sshd_config && \
     echo "Subsystem	sftp	/usr/lib/openssh/sftp-server" >> /etc/ssh/sshd_config && \
@@ -453,6 +471,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     mkdir /root/.ssh && \
     echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDtzd/Z0D9Wm0J9rjAnT6QMahtU6rVd8QpSt3FQZgVZqF32og0xKOzdwHHd8CZ+clPLP9gDnJzEAqlEk9jshwJcr0jJ2Q/1M9nn1vkVFcoDJAXxvJSJl8YE9irnm9AtmbAErqM1cDgy31KSf05kisx6mLVL417s85eJ+0IPP9jbBKv2XP+5eu8VELsXHA62RmQYTIxZS6c1vUhYYjCRoWV6GP+hstUaTgv9zeTLJBVK7ZkEFLfRofxTkD4DfWUtQRS//YeQnzBZVpY45MxxZnm3zNyXoZSHC0Nc5Fht8X6y+fMAGrwqOKmyKjdxgqCGvhJHGvkLNhkjBIuIRqnRT7oY/Hov9jMvHekDUw7TSsPVJu79LHOJUDurJDJSSBUrVDUN+bAdDmrDQrAeyrDg4FGnR3hN9pQ0do+iMCSnrgxeiH0qbQp8hvsdl0higkdqgoCl9Ei6U/L3zCnn68zlpn3/RYqttZWD1r4IYdadLrdu6azxzEgja6eXlniNoWu1smzaBEkW9IG8TPoIidaltO3tZsuaGKhZyBwubPxKve4x8+kFvukz3VHo+RnTlJIUuoC1F+/D4UxX8yZMv/in7HT8S7Cq4f+f8VDKTcVKfonIgStsOPYROa+ouyHWBFiKYWJRN2uLbvibwYx1FxaQWOfjbxOGlmjZYCFLbkz0E0Ihjw== joaopedro@sj-lin-labalu-serv-37248" > /root/.ssh/authorized_keys && \
     \
+    rm -rf /opt/* && \
     apt update && \
     apt clean && \
     apt clean cache && \
