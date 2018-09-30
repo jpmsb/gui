@@ -6,8 +6,10 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt update && \
     apt -y -q upgrade && \
     dpkg --add-architecture i386 && \
-    apt update && apt -y -q install curl dialog gnupg1 apt-utils htop nload nmap arp-scan wget tar unzip lib32z1 lib32ncurses5 nano vim bzip2 libbz2-1.0 locales vlc wireshark gdb tcpdump apt-transport-https traceroute speedtest-cli telnet iperf whois libc6-i386 lzop && \
     \
+    # Instalando algumas aplicacoes basicas
+    apt update && apt -y -q install curl dialog gnupg1 apt-utils htop nload nmap arp-scan wget tar unzip lib32z1 lib32ncurses5 nano vim bzip2 libbz2-1.0 locales vlc wireshark gdb tcpdump apt-transport-https traceroute speedtest-cli telnet iperf whois libc6-i386 lzop && \
+    # Adicioando fontes de aplicativos
     apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 && \
@@ -31,10 +33,13 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
     apt update && \
     \
+    # Instalando algumas bibliotecas
 apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 libtool libtool-bin libgamin0 libgtkmm-3.0-dev libpulse-dev libfftw3-dev libncursesw5-dev && \
     \
-    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles && \
+    # Pacotes principais
+    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles golang && \
     \
+    # Alguns pacotes de repositorios fora da versao estavel
     apt -y -q install -t stretch-backports octave liboctave-dev tilix && \
     cp /usr/lib/i386-linux-gnu/libpng16.so.16 /lib/i386-linux-gnu/libpng12.so.0 && \
     cp /usr/lib/x86_64-linux-gnu/libpng16.so.16 /lib/x86_64-linux-gnu/libpng12.so.0 && \
@@ -43,6 +48,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     apt -y -q install -t wheezy libpng12-0 libpng12-0:i386 && \
     ldconfig && \
     \
+    # Refazendo a lista de repositorios
     echo "deb http://debian.pop-sc.rnp.br/debian stretch main contrib non-free" > /etc/apt/sources.list oracle-java8-set-default && \
     echo "deb http://debian.pop-sc.rnp.br/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://security.debian.org stretch/updates main contrib non-free" >> /etc/apt/sources.list && \
@@ -51,46 +57,59 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "deb http://archive.raspberrypi.org/debian/ stretch main ui" > /etc/apt/sources.list.d/raspi.list && \
     apt update && \
     \
+    # Instalando o pacote Cerebro
     wget https://github.com/KELiON/cerebro/releases/download/v0.3.1/cerebro_0.3.1_amd64.deb && \
     dpkg -i cerebro_0.3.1_amd64.deb && \
     rm -r cerebro_0.3.1_amd64.deb && \
     \
+    # Instalando o RStudio
     wget https://download1.rstudio.org/rstudio-xenial-1.1.453-amd64.deb && \
     dpkg -i rstudio-xenial-1.1.453-amd64.deb && \
     rm -r rstudio-xenial-1.1.453-amd64.deb && \
     \
+    # Master PDF Editor
     wget https://code-industry.net/public/master-pdf-editor-5.1.12_qt5.amd64.deb && \
     bash -c 'echo -e "y\n" |gdebi master-pdf-editor-5.1.12_qt5.amd64.deb' && \
     rm -r master-pdf-editor-5.1.12_qt5.amd64.deb && \
     \
+    # Script para lidar com o armazenamento
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/armazenamento -O /usr/local/bin/armazenamento && \
     chmod 700 /usr/local/bin/armazenamento && \
     \
+    # Aviso de compartilhamento de audio
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/aviso2 -O /usr/local/bin/aviso && \
     chmod 700 /usr/local/bin/aviso && \
     \
+    # Script que inicia a interface sem compartilhamento de audio
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/rancher -O /usr/local/bin/rancher && \
     chmod 755 /usr/local/bin/rancher && \
     \
+    # Script que inicia a interface com compartilhamento de audio
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/rancher-som -O /usr/local/bin/rancher-som && \
     chmod 755 /usr/local/bin/rancher-som && \
     \
+    # Script com a interface explicativa de como fazer a conexao no celular
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/como-conectar -O /usr/local/bin/como-conectar && \
     chmod 500 /usr/local/bin/como-conectar && \
     \
+    # Script para iniciar a IDE do Arduino
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/arduino -O /usr/local/bin/arduino && \
     chmod 755 /usr/local/bin/arduino && \
     \
+    # Script que muda as permissoes da porta do Arduino
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/habilitar-arduino -O /usr/local/bin/habilitar-arduino && \
     chmod 755 /usr/local/bin/habilitar-arduino && \
     \
+    # Uma piadinha minha
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/trocadilho -O /usr/local/bin/trocadilho && \
     chmod 755 /usr/local/bin/trocadilho && \
     \
+    # Obtendo o Ftool, precisa ser mudado!!
     wget jpmsb.sj.ifsc.edu.br/Ftool.exe -O /usr/local/bin/Ftool.exe && \
     wget jpmsb.sj.ifsc.edu.br/ftoolicon.png -O /usr/share/icons/ftoolicon.png && \
     wget jpmsb.sj.ifsc.edu.br/ftool.desktop -O /usr/share/applications/ftool.desktop && \
     \
+    # Obtendo o AntConc
     wget http://www.laurenceanthony.net/software/antconc/releases/AntConc357/AntConc_64bit.tar.gz && \
     tar -xvf AntConc_64bit.tar.gz && \
     mv AntConc_64bit /usr/local/bin/ && \
@@ -100,23 +119,29 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     chmod 444 /usr/share/icons/antconc_icon.png && \
     rm -rf AntConc_64bit.tar.gz && \
     \
+    # Code Blocks 17
     mkdir /codeblocks && \
     wget https://ufpr.dl.sourceforge.net/project/codeblocks/Binaries/17.12/Linux/Debian%20stable/codeblocks_17.12-1_amd64_stable.tar.xz -O /codeblocks/codeblocks.tar.xz && \
     tar -xvf /codeblocks/codeblocks.tar.xz -C /codeblocks/ && \
     dpkg -i /codeblocks/*.deb && \
     rm -r /codeblocks && \
     \
+    # O WPS Office
     wget http://kdl1.cache.wps.com/ksodl/download/linux/a21//wps-office_10.1.0.5707~a21_amd64.deb -O /wpsoffice.deb && \
     dpkg -i /wpsoffice.deb && \
     rm -rf /wpsoffice.deb && \
     \
+    # Script com a mensagem que permanece na area do trabalho quando o compartilhamento de audio esta ativo
     wget https://github.com/jpmsb/gui/raw/master/informativo-audio.jpg -O /usr/share/images/informativo-audio.jpg && \
     chmod 400 /usr/share/images/informativo-audio.jpg && \
     \
+    # Instalacao da IDE MU para Python
     apt -y -q install mu python-gpiozero python3-gpiozero && \
     echo "# deb http://archive.raspberrypi.org/debian/ stretch main ui" > /etc/apt/sources.list.d/raspi.list && \
     apt update && \
     \
+    # Feitio do atalhos
+    # Atalho do Packet Tracer
     echo '[Desktop Entry]' >> /usr/share/applications/packettracer7.desktop && \
     echo 'Exec=/opt/pt/packettracer' >> /usr/share/applications/packettracer7.desktop && \
     echo 'Icon=/opt/pt/art/app.png' >> /usr/share/applications/packettracer7.desktop && \
@@ -125,6 +150,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo 'Name=Packet Tracer 7' >> /usr/share/applications/packettracer7.desktop && \
     echo 'Categories=Network;' >> /usr/share/applications/packettracer7.desktop && \
     \
+    # Atalho do Musixmatch, provavelmente sera removido caso nao volte a funcionar
     echo '[Desktop Entry]' >> /usr/share/applications/musixmatch.desktop && \
     echo 'Name=Musixmatch' >> /usr/share/applications/musixmatch.desktop && \
     echo 'Comment=Musixmatch Desktop App' >> /usr/share/applications/musixmatch.desktop && \
@@ -134,6 +160,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo 'Icon=/opt/Musixmatch/resources/app/assets/mxm-icon@2x.png' >> /usr/share/applications/musixmatch.desktop && \
     echo 'Categories=AudioVideo;Video;Player;TV;' >> /usr/share/applications/musixmatch.desktop && \
     \
+    # Atalho da IDE do Arduino. Optou-se por utilizar a versãodo site oficial por ser mais atual
     echo "[Desktop Entry]" >> /usr/share/applications/arduino.desktop && \
     echo "Type=Application" >> /usr/share/applications/arduino.desktop && \
     echo "Name=Arduino IDE" >> /usr/share/applications/arduino.desktop && \
@@ -145,6 +172,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "MimeType=text/x-arduino" >> /usr/share/applications/arduino.desktop && \
     echo "Keywords=embedded electronics;electronics;avr;microcontroller;" >> /usr/share/applications/arduino.desktop && \
     \
+    # Atalho do Clion
     echo "[Desktop Entry]" >> /usr/share/applications/clion.desktop && \
     echo "Version=1.0" >> /usr/share/applications/clion.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/clion.desktop && \
@@ -156,6 +184,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Type=Application" >> /usr/share/applications/clion.desktop && \
     echo "Categories=Development" >> /usr/share/applications/clion.desktop && \
     \
+    # Atalho do PyCharm
     echo "[Desktop Entry]" >> /usr/share/applications/pycharm.desktop && \
     echo "Version=1.0" >> /usr/share/applications/pycharm.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/pycharm.desktop && \
@@ -167,6 +196,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Type=Application" >> /usr/share/applications/pycharm.desktop && \
     echo "Categories=Development" >> /usr/share/applications/pycharm.desktop && \
     \
+    # Atalho do AntConc
     echo "[Desktop Entry]" >> /usr/share/applications/antconc.desktop && \
     echo "Version=1.0" >> /usr/share/applications/antconc.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/antconc.desktop && \
@@ -178,6 +208,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Type=Application" >> /usr/share/applications/antconc.desktop && \
     echo "Categories=Education;" >> /usr/share/applications/antconc.desktop && \
     \
+    # Atalho do armazenamento
     echo "[Desktop Entry]" >> /usr/share/applications/armazenamento.desktop && \
     echo "Version=1.0" >> /usr/share/applications/armazenamento.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/armazenamento.desktop && \
@@ -189,6 +220,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Type=Application" >> /usr/share/applications/armazenamento.desktop && \
     echo "Categories=System;" >> /usr/share/applications/armazenamento.desktop && \
     \
+    # Atalho da IDE Mu
     echo "[Desktop Entry]" > /usr/share/applications/mu.desktop && \
     echo "Type=Application" >> /usr/share/applications/mu.desktop && \
     echo "Name=mu" >> /usr/share/applications/mu.desktop && \
@@ -201,6 +233,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Categories=Application;Development;" >> /usr/share/applications/mu.desktop && \
     echo "Keywords=Python;Editor;microbit;micro:bit;" >> /usr/share/applications/mu.desktop && \
     \
+    # Atalho do Firefox
     echo '[Desktop Entry]' > /usr/share/applications/firefox.desktop && \
     echo 'Name=Mozilla Firefox' >> /usr/share/applications/firefox.desktop && \
     echo 'Name[pt_BR]=Navegador Web Mozilla Firefox' >> /usr/share/applications/firefox.desktop && \
@@ -215,6 +248,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo 'StartupWMClass=Firefox' >> /usr/share/applications/firefox.desktop && \
     echo 'StartupNotify=true' >> /usr/share/applications/firefox.desktop && \
     \
+    # Script para a facil chamada do Quartus 13 ou 16 atraves do terminal
     echo '#!/bin/bash' > /usr/bin/quartus && \
     echo ' ' >> /usr/bin/quartus && \
     echo 'case ${1} in' >> /usr/bin/quartus && \
@@ -234,12 +268,14 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo 'exec ./quartus' >> /usr/bin/quartus && \
     chmod +x /usr/bin/quartus && \
     \
+    # Script para inicio do Android Studio, talvez seja removido ja que so foi criado para resolver as permissoes no KVM
     echo '#!/bin/bash' > /usr/local/bin/android-studio && \
     echo ' ' >> /usr/local/bin/android-studio && \
     echo 'sudo chmod 1766 /dev/kvm' >> /usr/local/bin/android-studio && \
     echo '/opt/ANDROID3/android-studio/bin/studio.sh' >> /usr/local/bin/android-studio && \
     chmod 755 /usr/local/bin/android-studio && \
     \
+    # Atalho do MatLAb
     echo "[Desktop Entry]" > /usr/share/applications/matlab2015a.desktop && \
     echo "Version=1.0" >> /usr/share/applications/matlab2015a.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/matlab2015a.desktop && \
@@ -251,6 +287,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Terminal=false" >> /usr/share/applications/matlab2015a.desktop && \
     echo "Categories=Development;" >> /usr/share/applications/matlab2015a.desktop && \
     \
+    # Atalho do Quartus 13
     echo "[Desktop Entry]" > /usr/share/applications/quartus13.0sp1.desktop && \
     echo "Version=1.0" >> /usr/share/applications/quartus13.0sp1.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/quartus13.0sp1.desktop && \
@@ -262,6 +299,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Type=Application" >> /usr/share/applications/quartus13.0sp1.desktop && \
     echo "Categories=Development" >> /usr/share/applications/quartus13.0sp1.desktop && \
     \
+    # Atalho do Quartus 16
     echo "[Desktop Entry]" > /usr/share/applications/quartus16.0.desktop && \
     echo "Version=1.0" >> /usr/share/applications/quartus16.0.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/quartus16.0.desktop && \
@@ -273,6 +311,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Type=Application" >> /usr/share/applications/quartus16.0.desktop && \
     echo "Categories=Development" >> /usr/share/applications/quartus16.0.desktop && \
     \
+    # Atalho para o Eclipse
     echo "[Desktop Entry]" > /usr/share/applications/eclipsemodificado.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/eclipsemodificado.desktop && \
     echo "Name=Eclipse Modificado" >> /usr/share/applications/eclipsemodificado.desktop && \
@@ -286,6 +325,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Name[pt_BR]=Eclipse Modificado" >> /usr/share/applications/eclipsemodificado.desktop && \
     echo "Comment[pt_BR]=Eclipse Modificado" >> /usr/share/applications/eclipsemodificado.desktop && \
     \
+    # Atalho para o Vivaldi, necessario caso o conteiner seja criado em modo nao privilegiado
     echo "[Desktop Entry]" > /usr/share/applications/vivaldi-stable.desktop && \
     echo "Version=1.0" >> /usr/share/applications/vivaldi-stable.desktop && \
     echo "Name=Vivaldi" >> /usr/share/applications/vivaldi-stable.desktop && \
@@ -303,6 +343,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Categories=Network;WebBrowser;" >> /usr/share/applications/vivaldi-stable.desktop && \
     echo "MimeType=text/html;text/xml;application/xhtml_xml;image/webp;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;" >> /usr/share/applications/vivaldi-stable.desktop && \
     \
+    # Atalho do Zoiper
     echo "[Desktop Entry]" >> /usr/share/applications/zoiper3-3.desktop && \
     echo "Type=Application" >> /usr/share/applications/zoiper3-3.desktop && \
     echo "Name=Zoiper Softphone" >> /usr/share/applications/zoiper3-3.desktop && \
@@ -313,6 +354,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "MimeType=text/x-arduino" >> /usr/share/applications/zoiper3-3.desktop && \
     echo "Categories=Network;" >> /usr/share/applications/packettracer7.desktop && \
     \
+    # Atalho do NetKit
     echo "[Desktop Entry]" > /usr/share/applications/netkit.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/netkit.desktop && \
     echo "Name=Gnome-Netkit2" >> /usr/share/applications/netkit.desktop && \
@@ -326,6 +368,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Name[pt_BR]=Netkit2" >> /usr/share/applications/netkit.desktop && \
     echo "Comment[pt_BR]=Gnome interface to Netkit2" >> /usr/share/applications/netkit.desktop && \
     \
+    # Atalho do Netbeans
     echo "[Desktop Entry]" >> /usr/share/applications/netbeans-8.2.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/netbeans-8.2.desktop && \
     echo "Name=NetBeans IDE 8.2" >> /usr/share/applications/netbeans-8.2.desktop && \
@@ -337,6 +380,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Type=Application" >> /usr/share/applications/netbeans-8.2.desktop && \
     echo "Terminal=0" >> /usr/share/applications/netbeans-8.2.desktop && \
     \
+    # Atalho do Astah
     echo "[Desktop Entry]" >> /usr/share/applications/astah.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/astah.desktop && \
     echo "Name=Astah Community" >> /usr/share/applications/astah.desktop && \
@@ -347,6 +391,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Type=Application" >> /usr/share/applications/astah.desktop && \
     echo "Categories=Application;Development" >> /usr/share/applications/astah.desktop && \
     \
+    # Atalho para o Modelsim, talvez seja removido ja que geralmente e usado junto com o Quartus
     echo "[Desktop Entry]" >> /usr/share/applications/modelsim.desktop && \
     echo "Version=1.0" >> /usr/share/applications/modelsim.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/modelsim.desktop && \
@@ -358,6 +403,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Type=Application" >> /usr/share/applications/modelsim.desktop && \
     echo "Categories=Development" >> /usr/share/applications/modelsim.desktop && \
     \
+    # Atalho do Musixmatch, sera descontinuado caso o programa nao volte a funcionar
     echo "[Desktop Entry]" > /usr/share/applications/musixmatch.desktop && \
     echo "Name=Musixmatch" >> /usr/share/applications/musixmatch.desktop && \
     echo "Comment=Musixmatch Desktop App" >> /usr/share/applications/musixmatch.desktop && \
@@ -367,6 +413,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Icon=musixmatch" >> /usr/share/applications/musixmatch.desktop && \
     echo "Categories=AudioVideo;Video;Player;TV;" >> /usr/share/applications/musixmatch.desktop && \
     \
+    # Atalho para o IntelliJ
     echo "[Desktop Entry]" >> /usr/share/applications/idea-IC.desktop && \
     echo "Type=Application" >> /usr/share/applications/idea-IC.desktop && \
     echo "Categories=Development;" >> /usr/share/applications/idea-IC.desktop && \
@@ -377,6 +424,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Icon=/opt/idea-IC/bin/idea.png" >> /usr/share/applications/idea-IC.desktop && \
     echo "Name[pt_BR]=Idea-IC" >> /usr/share/applications/idea-IC.desktop && \
     \
+    # Atalho para o CMaps
     echo "[Desktop Entry]" >> /usr/share/applications/cmap.desktop && \
     echo "Version=1.0" >> /usr/share/applications/cmap.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/cmap.desktop && \
@@ -388,6 +436,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Type=Application" >> /usr/share/applications/cmap.desktop && \
     echo "Categories=Development" >> /usr/share/applications/cmap.desktop && \
     \
+    # Atalho para o Android Studio
     echo "#!/usr/bin/env xdg-open" >> /usr/share/applications/android-studio.desktop && \
     echo "[Desktop Entry]" >> /usr/share/applications/android-studio.desktop && \
     echo "Type=Application" >> /usr/share/applications/android-studio.desktop && \
@@ -398,6 +447,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Comment=Desenvolvimento de aplicativos para Smartphones Android" >> /usr/share/applications/android-studio.desktop && \
     echo "Icon=/opt/ANDROID3/android-studio/bin/studio.png" >> /usr/share/applications/android-studio.desktop && \
     \
+    # Atalho para a pasta /Trabalhos-compartilhados
     echo "[Desktop Entry]" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
     echo "Version=1.0" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
@@ -409,6 +459,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Type=Application" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
     echo "Categories=System" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
     \
+    # Atalho para pasta /Trabalhos
     echo "[Desktop Entry]" >> /usr/share/applications/trabalhos.desktop && \
     echo "Version=1.0" >> /usr/share/applications/trabalhos.desktop && \
     echo "Encoding=UTF-8" >> /usr/share/applications/trabalhos.desktop && \
@@ -420,6 +471,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Type=Application" >> /usr/share/applications/trabalhos.desktop && \
     echo "Categories=System" >> /usr/share/applications/trabalhos.desktop && \
     \
+    # Adicionando algumas decalaracoes de variaveis
     echo "export LM_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br" >> /etc/bash.bashrc && \
     echo "export MGLS_LICENSE_FILE=1800@vm-lan2.sj.ifsc.edu.br" >> /etc/bash.bashrc && \
     echo "export LD_LIBRARY_PATH=/opt/altera/13.0sp1/lib32" >> /etc/bash.bashrc && \
@@ -427,11 +479,12 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo 'IP=`echo $SSH_CONNECTION | cut -f1 -d " "`' >> /etc/bash.bashrc && \
     echo 'echo "O endereço IP desta máquina é $IP"' >> /etc/bash.bashrc && \
     \
-    echo "America/Sao_Paulo" > /etc/timezone && \
+    # Variavel do Netkit, definindo o idioma 
     echo 'export NETKIT2_HOME=/opt/netkit2' >> /etc/profile && \
     echo 'export PATH=$NETKIT2_HOME/bin:$PATH' >> /etc/profile && \
     echo 'export LANG=pt_BR.UTF-8' >> /etc/profile && \
     \
+    # Regras no arquivo sudoers
     echo 'ALL   ALL=(root) NOPASSWD: SETENV: /opt/netkit2/bin/tap.py' >> /etc/sudoers && \
     echo 'ALL   ALL=(root) NOPASSWD: /usr/bin/traceroute' >> /etc/sudoers && \
     echo 'ALL   ALL=(root) NOPASSWD: SETENV: /usr/local/bin/armazenamento' >> /etc/sudoers && \
@@ -441,11 +494,13 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo 'ALL   ALL=(root) NOPASSWD: SETENV: /usr/local/bin/aviso' >> /etc/sudoers && \
     echo 'ALL   ALL=(root) NOPASSWD: /bin/chmod 1777 /dev/ttyACM*' >> /etc/sudoers && \
     \
+    # Script que provavelmente sera descontinuado
     echo "#!/bin/bash" >> /etc/iniciar && \
     echo "" >> /etc/iniciar && \
     echo "rsyslogd" >> /etc/iniciar && \
     echo "/usr/sbin/sshd -D" >> /etc/iniciar && \
     \
+    # Ajustes no SSH
     echo "PermitRootLogin prohibit-password" > /etc/ssh/sshd_config && \
     echo "PasswordAuthentication no" >> /etc/ssh/sshd_config && \
     echo "ChallengeResponseAuthentication no" >> /etc/ssh/sshd_config && \
@@ -455,22 +510,28 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "AcceptEnv LANG LC_*" >> /etc/ssh/sshd_config && \
     echo "Subsystem	sftp	/usr/lib/openssh/sftp-server" >> /etc/ssh/sshd_config && \
     \
+    # Ajustes no libvirt e no X2Go. No caso do X2Go, sem esse ajuste, algumas aplicacoes nao funcionarao
     sed -i '85s/.*/unix_sock_group = "aluno"/' /etc/libvirt/libvirtd.conf && \
     sed -i '102s/.*/unix_sock_rw_perms = "0770"/' /etc/libvirt/libvirtd.conf && \
     sed -i '35s/.*/#X2GO_NXAGENT_DEFAULT_OPTIONS+=" -extension BIG-REQUESTS"/' /etc/x2go/x2goagent.options && \
     \
+    # Ajustes no fuso para BRT
+    echo "America/Sao_Paulo" > /etc/timezone && \
     rm -r /etc/localtime && \
     ln -snf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
     \
+    # Ajustes na localizaco
     echo "pt_BR.UTF-8 UTF-8" > /etc/locale.gen && \
     echo 'LANG="pt_BR.UTF-8"' > /etc/default/locale && \
     dpkg-reconfigure -f noninteractive locales && \
     update-locale LANG=pt_BR.UTF-8 && \
     \
+    # Criar pasta .ssh na pasta pessoal do root para a chave publica autorizada
     mkdir /root/.ssh && \
     echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDtzd/Z0D9Wm0J9rjAnT6QMahtU6rVd8QpSt3FQZgVZqF32og0xKOzdwHHd8CZ+clPLP9gDnJzEAqlEk9jshwJcr0jJ2Q/1M9nn1vkVFcoDJAXxvJSJl8YE9irnm9AtmbAErqM1cDgy31KSf05kisx6mLVL417s85eJ+0IPP9jbBKv2XP+5eu8VELsXHA62RmQYTIxZS6c1vUhYYjCRoWV6GP+hstUaTgv9zeTLJBVK7ZkEFLfRofxTkD4DfWUtQRS//YeQnzBZVpY45MxxZnm3zNyXoZSHC0Nc5Fht8X6y+fMAGrwqOKmyKjdxgqCGvhJHGvkLNhkjBIuIRqnRT7oY/Hov9jMvHekDUw7TSsPVJu79LHOJUDurJDJSSBUrVDUN+bAdDmrDQrAeyrDg4FGnR3hN9pQ0do+iMCSnrgxeiH0qbQp8hvsdl0higkdqgoCl9Ei6U/L3zCnn68zlpn3/RYqttZWD1r4IYdadLrdu6azxzEgja6eXlniNoWu1smzaBEkW9IG8TPoIidaltO3tZsuaGKhZyBwubPxKve4x8+kFvukz3VHo+RnTlJIUuoC1F+/D4UxX8yZMv/in7HT8S7Cq4f+f8VDKTcVKfonIgStsOPYROa+ouyHWBFiKYWJRN2uLbvibwYx1FxaQWOfjbxOGlmjZYCFLbkz0E0Ihjw== joaopedro@sj-lin-labalu-serv-37248" > /root/.ssh/authorized_keys && \
     \
+    # Fazendo uma limpeza geral, note que todas a aplicacoes que foram instaladas em /opt sao removidas e por isso devem ser obtidas externamente
     rm -rf /opt/* && \
     apt update && \
     apt clean && \
