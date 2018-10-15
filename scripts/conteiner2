@@ -1,0 +1,56 @@
+#!/bin/bash
+
+entrada=$1
+tipodevolume=$2
+imagem=$3
+
+if [ -z "${entrada}" ]; then
+    echo "Sem opção válida!"
+    echo "Escolha entre:"
+    echo "    criar"
+    echo "    excluir"
+
+elif [ "$entrada" = "criar" ] && [ -z "${tipodevolume}" ]; then
+    echo "Falta definir o tipo de volume!"
+    echo "Escolha entre:"
+    echo "    montagem"
+    echo "    volume"
+
+elif [ -z "${imagem}" ]; then
+    echo "Falta definir qual imagem será usada!!"
+
+elif [ "$entrada" = "criar" ] && [ "$tipodevolume" = "montagem" ]; then
+    echo "Criação dos contêineres usando ponto de montagem como volume..."
+    echo "Excluindo contêineres antigos..."
+    docker rm -f labalu-cli2-aluno
+
+    echo "Criando novos contêineres usando a imagem $imagem..."
+    
+    docker run -dit --name labalu-cli2-aluno --net faixa10 --ip 10.10.10.112 -h labalu-cli2 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/cli2/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/cli2/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    echo "Copiando a chave privada de acesso ao cliente..."
+    docker cp /home/joaopedro/chaves/privadas/cliente labalu-cli2-aluno:/root/.ssh/
+    
+    echo "Criando usuário aluno..."
+    docker exec labalu-cli2-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+
+elif [ "$entrada" = "criar" ] && [ "$tipodevolume" = "volume" ]; then
+    echo "Criação de contêineres usando volume gerenciado pelo Docker...."
+    echo "Excluindo contêineres antigos..."
+    docker rm -f labalu-cli2-aluno
+
+    echo "Criando novos contêineres usando a imagem $imagem..."    
+    
+    docker run -dit --name labalu-cli2-aluno --net faixa10 --ip 10.10.10.112 -h labalu-cli2 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g -dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/cli2/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-cli2:/Trabalhos $imagem
+    
+    echo "Copiando a chave privada de acesso ao cliente..."
+    docker cp /home/joaopedro/chaves/privadas/cliente labalu-cli2-aluno:/root/.ssh/
+    
+    echo "Criando usuário aluno..."
+    docker exec labalu-cli2-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+
+elif [ "$entrada" = "excluir" ]; then
+    echo "Excluindo contêineres..."
+    docker rm -f labalu-cli2-aluno
+
+fi
