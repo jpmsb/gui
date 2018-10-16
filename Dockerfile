@@ -3,6 +3,11 @@ FROM debian:stretch
 MAINTAINER João Pedro Menegali Salvan Bitencourt (joao.ms@aluno.ifsc.edu.br)
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
+    \
+    # Adicionando os repos da RNP por ser mais rapido
+    echo "deb http://debian.pop-sc.rnp.br/debian stretch main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb http://debian.pop-sc.rnp.br/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://security.debian.org stretch/updates main contrib non-free" >> /etc/apt/sources.list && \
     apt update && \
     apt -y -q upgrade && \
     dpkg --add-architecture i386 && \
@@ -17,19 +22,18 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     wget -q -O - https://deb.opera.com/archive.key | apt-key add - && \
     wget -q -O - http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F88F6D313016330404F710FC9A2FD067A2E3EF7B && \
     echo "deb https://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera-stable.list && \
     echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
     echo "deb http://repo.vivaldi.com/stable/deb/ stable main" > /etc/apt/sources.list.d/vivaldi.list && \
     echo "deb http://packages.x2go.org/debian stretch main" > /etc/apt/sources.list.d/x2go.list && \
     echo "deb-src http://packages.x2go.org/debian stretch main" >> /etc/apt/sources.list.d/x2go.list && \
-    echo "deb http://debian.pop-sc.rnp.br/debian stretch main contrib non-free" > /etc/apt/sources.list && \
-    echo "deb http://debian.pop-sc.rnp.br/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
-    echo "deb http://security.debian.org stretch/updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list && \
     echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list && \
     echo "deb http://debian.pop-sc.rnp.br/debian stretch-backports main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://debian.pop-sc.rnp.br/debian/ jessie main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://debian.pop-sc.rnp.br/debian/ wheezy main" >> /etc/apt/sources.list && \
+    echo "deb http://ppa.launchpad.net/gns3/ppa/ubuntu xenial main" >> /etc/apt/sources.list.d/gns3.list && \
     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
     apt update && \
     \
@@ -37,10 +41,10 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 libtool libtool-bin libgamin0 libgtkmm-3.0-dev libpulse-dev libfftw3-dev libncursesw5-dev && \
     \
     # Pacotes principais
-    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles golang && \
+    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles genius gnome-builder gns3-gui && \
     \
     # Alguns pacotes de repositorios fora da versao estavel
-    apt -y -q install -t stretch-backports octave liboctave-dev tilix && \
+    apt -y -q install -t stretch-backports octave liboctave-dev tilix golang && \
     cp /usr/lib/i386-linux-gnu/libpng16.so.16 /lib/i386-linux-gnu/libpng12.so.0 && \
     cp /usr/lib/x86_64-linux-gnu/libpng16.so.16 /lib/x86_64-linux-gnu/libpng12.so.0 && \
     apt -y -q purge wireshark wireshark-common && \
@@ -56,6 +60,9 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list && \
     echo "deb http://archive.raspberrypi.org/debian/ stretch main ui" > /etc/apt/sources.list.d/raspi.list && \
     apt update && \
+    \
+    apt -y -q install gns3-gui gns3 && \
+    chmod 755 /usr/bin/ubridge && \
     \
     # Instalando o pacote Cerebro
     wget https://github.com/KELiON/cerebro/releases/download/v0.3.1/cerebro_0.3.1_amd64.deb && \
@@ -538,6 +545,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     apt clean cache && \
     unset DEBIAN_FRONTEND && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/* /root/.bash_history && \
+    chmod 1777 /tmp && \
     mkdir /var/run/sshd
 
 ENTRYPOINT  service libvirtd start && rm -rf /var/run/rsyslogd.pid && rsyslogd ; chmod 1766 /dev/kvm ; echo "0 2147483647" > /proc/sys/net/ipv4/ping_group_range ; /usr/sbin/sshd -D
