@@ -1,3 +1,7 @@
 #!/bin/bash
 
-curl -sL https://raw.githubusercontent.com/jpmsb/dicas/master/trocadilhos | shuf -n 1
+rm /tmp/kflj.*
+arquivo_de_trocadilhos=$(mktemp /tmp/kflj.XXXXXXX)
+export arquivo_de_trocadilhos=$arquivo_de_trocadilhos
+curl -sL raw.githubusercontent.com/jpmsb/dicas/master/trocadilhos > $arquivo_de_trocadilhos
+sorteador $arquivo_de_trocadilhos
