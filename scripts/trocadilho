@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm /tmp/kflj.*
+rm /tmp/kflj.* 2> /dev/null
 arquivo_de_trocadilhos=$(mktemp /tmp/kflj.XXXXXXX)
 export arquivo_de_trocadilhos=$arquivo_de_trocadilhos
 curl -sL raw.githubusercontent.com/jpmsb/dicas/master/trocadilhos > $arquivo_de_trocadilhos
