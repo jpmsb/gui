@@ -32,7 +32,6 @@ ConditionPathExists=/dev/tty0
 [Service]
 # the VT is cleared by TTYVTDisallocate
 ExecStart=-/sbin/agetty --autologin sdr --noclear %I $TERM
-# ExecStart=/usr/bin/ssh -i /root/labalu-cli-aluno aluno@serverlabalunos.sj.ifsc.edu.br -p 7005
 Type=idle
 Restart=always
 RestartSec=0
