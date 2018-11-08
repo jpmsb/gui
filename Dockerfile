@@ -41,14 +41,14 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 libtool libtool-bin libgamin0 libgtkmm-3.0-dev libpulse-dev libfftw3-dev libncursesw5-dev && \
     \
     # Pacotes principais
-    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles genius gnome-builder gns3-gui && \
+    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles genius gns3-gui mpi-default-dev sqlite3 && \
     \
     # Alguns pacotes de repositorios fora da versao estavel
     apt -y -q install -t stretch-backports octave liboctave-dev tilix golang && \
     cp /usr/lib/i386-linux-gnu/libpng16.so.16 /lib/i386-linux-gnu/libpng12.so.0 && \
     cp /usr/lib/x86_64-linux-gnu/libpng16.so.16 /lib/x86_64-linux-gnu/libpng12.so.0 && \
     apt -y -q purge wireshark wireshark-common && \
-    apt -y -q install -t jessie libssl1.0.0 wireshark wireshark-common eagle flashplugin-nonfree && \ 
+    apt -y -q install -t jessie libssl1.0.0 wireshark wireshark-common eagle && \ 
     apt -y -q install -t wheezy libpng12-0 libpng12-0:i386 && \
     ldconfig && \
     \
@@ -78,6 +78,16 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     wget https://code-industry.net/public/master-pdf-editor-5.1.12_qt5.amd64.deb && \
     bash -c 'echo -e "y\n" |gdebi master-pdf-editor-5.1.12_qt5.amd64.deb' && \
     rm -r master-pdf-editor-5.1.12_qt5.amd64.deb && \
+    \
+    # HUB api do GitHub
+    wget http://ftp.br.debian.org/debian/pool/main/h/hub/hub_2.5.1~ds1-1_amd64.deb -O /hub_2.5.1~ds1-1_amd64.deb && \
+    dpkg -i /hub_2.5.1~ds1-1_amd64.deb && \
+    rm -r hub_2.5.1~ds1-1_amd64.deb && \
+    \
+    # Instalar o Adobe Flash Player
+    wget http://archive.canonical.com/ubuntu/pool/partner/a/adobe-flashplugin/adobe-flashplugin_20180911.1-0ubuntu0.14.04.1_amd64.deb -O /flash.deb && \
+    dpkg -i /flash.deb && \
+    rm /flash.deb && \
     \
     # Script para lidar com o armazenamento
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/armazenamento -O /usr/local/bin/armazenamento && \
@@ -111,7 +121,15 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/trocadilho -O /usr/local/bin/trocadilho && \
     chmod 755 /usr/local/bin/trocadilho && \
     \
-    # Obtendo o Ftool, precisa ser mudado!!
+    # Um sorteador para a minha piadinha
+    wget https://github.com/jpmsb/gui/raw/master/sorteador -O /usr/local/bin/sorteador && \
+    chmod 755 /usr/local/bin/sorteador && \
+    \
+    # Cliente em linha de comando para o Google Drive
+    wget "https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=download" -O /usr/local/bin/gdrive && \
+    chmod 755 /usr/local/bin/gdrive && \
+    \
+    # Obtendo o Ftool, precisa ser mudado!! Meu servidor nao durara para sempre!! A versao para linux nao funciona
     wget jpmsb.sj.ifsc.edu.br/Ftool.exe -O /usr/local/bin/Ftool.exe && \
     wget jpmsb.sj.ifsc.edu.br/ftoolicon.png -O /usr/share/icons/ftoolicon.png && \
     wget jpmsb.sj.ifsc.edu.br/ftool.desktop -O /usr/share/applications/ftool.desktop && \
@@ -146,6 +164,9 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     apt -y -q install mu python-gpiozero python3-gpiozero && \
     echo "# deb http://archive.raspberrypi.org/debian/ stretch main ui" > /etc/apt/sources.list.d/raspi.list && \
     apt update && \
+    \
+    # Remocao da permissao do passwd para usuario comum
+    chmod 500 /usr/bin/passwd && \
     \
     # Feitio do atalhos
     # Atalho do Packet Tracer
