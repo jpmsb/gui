@@ -486,4 +486,6 @@ chmod 550 /home/aluno/.bashrc
 ###########################################################################################
 rm -r /home/aluno/.jpmsb
 rm -r /home/aluno/.x2go
+rm -r /home/aluno/.ssh/known_hosts
+
 tar -zcvf /home/.aluno.tar.gz -C /home aluno
