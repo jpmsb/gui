@@ -371,14 +371,14 @@ elif [ "$nc" = "0" ]; then
                 echo "Restaurando ambiente sem compartilhamento de som"
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
                 sleep 30 && killall -9 yad &
-                x2goclient --sessionid=rancher --add-to-known-hosts
+                x2goclient --sessionid=rancher --add-to-known-hosts --hide
 
             elif [ "$conteudo_arquivo" = "rancher-som" ]; then
                 echo "Restaurando ambiente com compartilhamento de som"
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
                 /opt/SoundWireServer/SoundWireServer &
                 sleep 30 && killall -9 yad &
-                x2goclient --sessionid=rancher-som --add-to-known-hosts
+                x2goclient --sessionid=rancher-som --add-to-known-hosts --hide
 
             fi
     elif [ "$?" = "1" ]; then
@@ -394,13 +394,13 @@ elif [ "$nc" = "0" ]; then
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
                 /opt/SoundWireServer/SoundWireServer &
                 sleep 30 && killall -9 yad &
-                x2goclient --sessionid=rancher-som --add-to-known-hosts
+                x2goclient --sessionid=rancher-som --add-to-known-hosts --hide
 
             elif [ "$?" = "1" ]; then
                 echo "rancher" > /home/aluno/.jpmsb
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
                 sleep 30 && killall -9 yad &
-                x2goclient --sessionid=rancher --add-to-known-hosts
+                x2goclient --sessionid=rancher --add-to-known-hosts --hide
 
             fi
 
