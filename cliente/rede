@@ -43,7 +43,7 @@ speed=3
 pack=16m-jpeg
 quality=9
 fstunnel=true
-export=
+export="/media/aluno:1;"
 iconvto=UTF-8
 iconvfrom=ISO8859-1
 useiconv=false
@@ -57,7 +57,7 @@ width=800
 height=600
 dpi=96
 setdpi=true
-xinerama=false
+xinerama=true
 clipboard=both
 usekbd=true
 type=auto
@@ -102,7 +102,7 @@ speed=3
 pack=16m-jpeg
 quality=9
 fstunnel=true
-export=
+export="/media/aluno:1;"
 iconvto=UTF-8
 iconvfrom=ISO8859-1
 useiconv=false
@@ -116,7 +116,7 @@ width=800
 height=600
 dpi=96
 setdpi=true
-xinerama=false
+xinerama=true
 clipboard=both
 usekbd=true
 type=auto
@@ -189,16 +189,16 @@ cat << EOF >> /etc/init.d/desligar
 # Description:       Prepare /run/network directory, ifstate file and raise network interfaces, or take them down.
 ### END INIT INFO
 
-ssh -p $porta -i /root/.ssh/root root@$ip killall -9 mate-session
+ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip killall -9 mate-session
 # ssh -p $porta -i /root/.ssh/root root@$ip killall -9 mate-session
 # ssh -p $porta -i /root/.ssh/root root@$ip killall -9 mate-session
 # sleep 2
-ssh -p $porta -i /root/.ssh/root root@$ip rm -rf /home/aluno
-ssh -p $porta -i /root/.ssh/root root@$ip tar -zxvf /home/.aluno.tar.gz -C /home
-ssh -p $porta -i /root/.ssh/root root@$ip chown -R aluno:aluno /home/aluno
-ssh -p $porta -i /root/.ssh/root root@$ip chown -R root:root /home/aluno/.ssh/authorized_keys
-ssh -p $porta -i /root/.ssh/root root@$ip chown -R root:root /home/aluno/.jtag.conf
-ssh -p $porta -i /root/.ssh/root root@$ip echo "O sistema foi desligado em $(date)" >> /var/log/desligar.log
+ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip rm -rf /home/aluno
+ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip tar -zxvf /home/.aluno.tar.gz -C /home
+ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip chown -R aluno:aluno /home/aluno
+ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip chown -R root:root /home/aluno/.ssh/authorized_keys
+ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip chown -R root:root /home/aluno/.jtag.conf
+ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip echo "O sistema foi desligado em $(date)" >> /var/log/desligar.log
 rm -rf /home/sdr
 tar -zxvf /home/.sdr.tar.gz -C /home
 rm -rf /home/aluno
@@ -371,14 +371,14 @@ elif [ "$nc" = "0" ]; then
                 echo "Restaurando ambiente sem compartilhamento de som"
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
                 sleep 30 && killall -9 yad &
-                x2goclient --hide --sessionid=rancher
+                x2goclient --sessionid=rancher --add-to-known-hosts
 
             elif [ "$conteudo_arquivo" = "rancher-som" ]; then
                 echo "Restaurando ambiente com compartilhamento de som"
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
                 /opt/SoundWireServer/SoundWireServer &
                 sleep 30 && killall -9 yad &
-                x2goclient --hide --sessionid=rancher-som
+                x2goclient --sessionid=rancher-som --add-to-known-hosts
 
             fi
     elif [ "$?" = "1" ]; then
@@ -394,13 +394,13 @@ elif [ "$nc" = "0" ]; then
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
                 /opt/SoundWireServer/SoundWireServer &
                 sleep 30 && killall -9 yad &
-                x2goclient --hide --sessionid=rancher-som
+                x2goclient --sessionid=rancher-som --add-to-known-hosts
 
             elif [ "$?" = "1" ]; then
                 echo "rancher" > /home/aluno/.jpmsb
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
                 sleep 30 && killall -9 yad &
-                x2goclient --hide --sessionid=rancher
+                x2goclient --sessionid=rancher --add-to-known-hosts
 
             fi
 
