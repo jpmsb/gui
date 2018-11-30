@@ -17,6 +17,7 @@ rm -f /etc/network/interfaces
 rm -f /usr/local/bin/matar
 rm -f /etc/systemd/system/getty@tty6.service
 rm -rf /etc/systemd/system/getty@tty6.service.d
+rm -rf /root/.ssh/known_hosts
 
 ######################################################################
 # criar /etc/network/interfaces
