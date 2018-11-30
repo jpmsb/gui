@@ -46,6 +46,11 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     # Algumas fontes a mais
     apt -y -q install fonts-noto fonts-cantarell fonts-crosextra-caladea fonts-crosextra-carlito fonts-dustin fonts-freefont-ttf fonts-hack-ttf fonts-oxygen fonts-roboto-hinted fonts-seto fonts-tlwg-laksaman fonts-tlwg-laksaman-ttf fonts-tlwg-purisa fonts-tlwg-purisa-ttf fonts-vlgothic ttf-adf-accanthis ttf-adf-baskervald ttf-adf-berenis ttf-adf-gillius ttf-adf-ikarius ttf-adf-irianis ttf-adf-libris ttf-adf-mekanus ttf-adf-switzera ttf-adf-tribun ttf-adf-universalis ttf-adf-verana ttf-engadget ttf-mscorefonts-installer ttf-sjfonts ttf-staypuft ttf-summersby && \
     \
+    # Fonte Open Sans
+    wget "https://fonts.google.com/download?family=Open%20Sans|Open%20Sans%20Condensed" -O open-sans.zip && \
+    unzip open-sans.zip -d /usr/share/fonts/opentype/ && \
+    rm -f open-sans.zip && \
+    \
     # Alguns pacotes de repositorios fora da versao estavel
     apt -y -q install -t stretch-backports octave liboctave-dev tilix golang libreoffice libreoffice-l10n-pt-br libreoffice-help-pt-br libreoffice-officebean libreoffice-mysql-connector libreoffice-java-common libreoffice-avmedia-backend-vlc libreoffice-gtk3 && \
     cp /usr/lib/i386-linux-gnu/libpng16.so.16 /lib/i386-linux-gnu/libpng12.so.0 && \
