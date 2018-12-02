@@ -13,7 +13,11 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     dpkg --add-architecture i386 && \
     \
     # Instalando algumas aplicacoes basicas
-    apt update && apt -y -q install curl dialog gnupg1 apt-utils htop nload nmap arp-scan wget tar unzip lib32z1 lib32ncurses5 nano vim bzip2 libbz2-1.0 locales vlc wireshark gdb tcpdump apt-transport-https traceroute speedtest-cli telnet iperf whois libc6-i386 lzop && \
+    apt update && apt -y -q install curl dialog gnupg1 apt-utils htop wget tar unzip lib32z1 lib32ncurses5 nano vim bzip2 libbz2-1.0 locales vlc wireshark gdb apt-transport-https telnet whois libc6-i386 lzop && \
+    \
+    # Ferramentas para monitoramento da rede
+    apt -y -q install nload traceroute iperf speedtest-cli nmap tcpdump iftop arp-scan iptraf nethogs bmon slurm tcptrack bwm-ng cbm speedometer pktstat netdiag && \
+    \
     # Adicioando fontes de aplicativos
     apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 && \
@@ -529,6 +533,12 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo 'ALL   ALL=(root) NOPASSWD: /bin/chmod 1766 /dev/kvm' >> /etc/sudoers && \
     echo 'ALL   ALL=(root) NOPASSWD: SETENV: /usr/local/bin/aviso' >> /etc/sudoers && \
     echo 'ALL   ALL=(root) NOPASSWD: /bin/chmod 1777 /dev/ttyACM*' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: /usr/sbin/iftop' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: /usr/sbin/iptraf-ng' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: /usr/sbin/nethogs' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: /usr/bin/tcptrack' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: /usr/sbin/pktstat' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: /usr/sbin/trafshow' >> /etc/sudoers && \
     \
     # Script que provavelmente sera descontinuado
     echo "#!/bin/bash" >> /etc/iniciar && \
