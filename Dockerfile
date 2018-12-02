@@ -45,18 +45,13 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 libtool libtool-bin libgamin0 libgtkmm-3.0-dev libpulse-dev libfftw3-dev libncursesw5-dev && \
     \
     # Pacotes principais
-    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles genius gns3-gui mpi-default-dev sqlite3 sqlitebrowser python-pip virtualenv python-virtualenv dh-virtualenv virtualenv-clone virtualenvwrapper kcolorchooser && \
+    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular libreoffice libreoffice-l10n-pt-br fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles genius gns3-gui mpi-default-dev sqlite3 sqlitebrowser python-pip virtualenv python-virtualenv dh-virtualenv virtualenv-clone virtualenvwrapper fonts-noto kcolorchooser && \
     \
     # Algumas fontes a mais
     apt -y -q install fonts-noto fonts-cantarell fonts-crosextra-caladea fonts-crosextra-carlito fonts-dustin fonts-freefont-ttf fonts-hack-ttf fonts-oxygen fonts-roboto-hinted fonts-seto fonts-tlwg-laksaman fonts-tlwg-laksaman-ttf fonts-tlwg-purisa fonts-tlwg-purisa-ttf fonts-vlgothic ttf-adf-accanthis ttf-adf-baskervald ttf-adf-berenis ttf-adf-gillius ttf-adf-ikarius ttf-adf-irianis ttf-adf-libris ttf-adf-mekanus ttf-adf-switzera ttf-adf-tribun ttf-adf-universalis ttf-adf-verana ttf-engadget ttf-mscorefonts-installer ttf-sjfonts ttf-staypuft ttf-summersby && \
     \
-    # Fonte Open Sans
-    wget "https://fonts.google.com/download?family=Open%20Sans|Open%20Sans%20Condensed" -O open-sans.zip && \
-    unzip open-sans.zip -d /usr/share/fonts/opentype/ && \
-    rm -f open-sans.zip && \
-    \
     # Alguns pacotes de repositorios fora da versao estavel
-    apt -y -q install -t stretch-backports octave liboctave-dev tilix golang libreoffice libreoffice-l10n-pt-br libreoffice-help-pt-br libreoffice-officebean libreoffice-mysql-connector libreoffice-java-common libreoffice-avmedia-backend-vlc libreoffice-gtk3 && \
+    apt -y -q install -t stretch-backports octave liboctave-dev tilix golang && \
     cp /usr/lib/i386-linux-gnu/libpng16.so.16 /lib/i386-linux-gnu/libpng12.so.0 && \
     cp /usr/lib/x86_64-linux-gnu/libpng16.so.16 /lib/x86_64-linux-gnu/libpng12.so.0 && \
     apt -y -q purge wireshark wireshark-common && \
@@ -92,12 +87,12 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     rm -r master-pdf-editor-5.1.12_qt5.amd64.deb && \
     \
     # HUB api do GitHub
-    wget http://ftp.br.debian.org/debian/pool/main/h/hub/hub_2.6.0~ds1-1_amd64.deb -O /hub.deb && \
-    dpkg -i /hub.deb && \
-    rm -r hub.deb && \
+    wget http://ftp.br.debian.org/debian/pool/main/h/hub/hub_2.5.1~ds1-1_amd64.deb -O /hub_2.5.1~ds1-1_amd64.deb && \
+    dpkg -i /hub_2.5.1~ds1-1_amd64.deb && \
+    rm -r hub_2.5.1~ds1-1_amd64.deb && \
     \
     # Instalar o Adobe Flash Player
-    wget http://archive.canonical.com/ubuntu/pool/partner/a/adobe-flashplugin/adobe-flashplugin_20181120.1-0ubuntu0.14.04.1_amd64.deb -O /flash.deb && \
+    wget http://archive.canonical.com/ubuntu/pool/partner/a/adobe-flashplugin/adobe-flashplugin_20180911.1-0ubuntu0.14.04.1_amd64.deb -O /flash.deb && \
     dpkg -i /flash.deb && \
     rm /flash.deb && \
     \
