@@ -204,6 +204,7 @@ rm -rf /home/sdr
 tar -zxvf /home/.sdr.tar.gz -C /home
 rm -rf /home/aluno
 tar -zxvf /home/.aluno.tar.gz -C /home
+rm -r /root/.ssh/known_hosts
 echo "O sistema foi desligado em $(date)" >> /var/log/desligar.log
 EOF
 
