@@ -277,8 +277,7 @@ mkdir /etc/systemd/system/getty@tty6.service.d
 ############################################################################################
 cat << EOF >> /etc/systemd/system/getty@tty6.service.d/override.conf
 [Service]
-ExecStart=
-ExecStart=-/usr/bin/ssh -q -oStrictHostKeyChecking=no -i /root/.ssh/labalu-cli-aluno aluno@$ip -p $porta 2> /dev/null
+ExecStart=/usr/bin/ssh -q -oStrictHostKeyChecking=no -i /root/.ssh/labalu-cli-aluno aluno@$ip -p $porta 2> /dev/null
 StandardInput=tty
 StandardOutput=tty
 EOF
