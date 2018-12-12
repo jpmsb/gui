@@ -169,7 +169,7 @@ cat << EOF >> /opt/jtag/iniciar-jtag
 
 /opt/jtag/bin/jtagd
 /opt/jtag/bin/jtagconfig --enableremote rancheros
-/usr/bin/ssh -i /root/.ssh/root -R 60000:localhost:1309 root@$ip -p $porta -N -f
+/usr/bin/ssh -oStrictHostKeyChecking=no -i /root/.ssh/root -R 60000:localhost:1309 root@$ip -p $porta -N -f
 EOF
 
 ###################################################################################
