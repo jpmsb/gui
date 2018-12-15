@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=ModelSim Altera Edition 10.1d
+Comment=A simulation tool for Altera's FPGA
+Exec=/opt/altera/13.0sp1/modelsim_ae/linuxaloem/vsim
+Icon=/opt/altera/13.0sp1/modelsim_ae/modelsim-icon.png
+Terminal=false
+Type=Application
+Categories=Development
