@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Categories=Development;
+Terminal=false
+Exec=/opt/IntelliJ-IDEA/bin/idea.sh
+Name=IntelliJ IDEA
+Comment=Produtividade para codificar em Java.
+Icon=/opt/IntelliJ-IDEA/bin/idea.png
+Name[pt_BR]=IntelliJ IDEA
