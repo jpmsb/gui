@@ -1,17 +1,30 @@
 #!/bin/bash
 
-curl -sL https://download-installer.cdn.mozilla.net/pub/firefox/releases/ >  mozilla
-versao=$(html2text mozilla |cut -f3 -d " " | cut -f1 -d "." | sort -rn | head -n 1)
-versao_estavel=$((versao - 1))
+curl -sL https://download-installer.cdn.mozilla.net/pub/firefox/releases/ >  /mozilla
+versao=$(html2text /mozilla |cut -f3 -d " " | cut -f1 -d "." | sort -rn | head -n 1)
+versao_atual=$((versao - 1))
+rm -r /mozilla
 
-echo -e "\e[1;93mEncontrado \e[1;96mfirefox-$versao_estavel\e[0m \e[1;93mcomo mais recente.\e[0m"
-echo -e "\e[1;93mBaixando \e[1;96mfirefox-$versao_estavel.tar.bz2\e[0m \e[1;93m...\e[0m"
+versao_instalada=$(cat /opt/firefox/versionamento)
 
-wget https://download-installer.cdn.mozilla.net/pub/firefox/releases/$versao_estavel.0/linux-x86_64/pt-BR/firefox-$versao_estavel.0.tar.bz2 firefox -O /firefox-$versao_estavel.tar.bz2
+if [ "$versao_atual" -eq "$versao_instalada" ]; then
+    echo -e "\e[1;32mNada precisa ser feito :)\e[0m"
 
-tar -xvf /firefox-$versao_estavel.tar.bz2 -C /
-rm -r /opt/firefox
-mv /firefox /opt/firefox
-rm -r /firefox-$versao_estavel.tar.bz2
+elif [ "$versao_atual" -gt "$versao_instalada" ]; then
+    echo -e "\e[1;93mEncontrado \e[1;96mfirefox-$versao_atual\e[0m \e[1;93mcomo mais recente.\e[0m"
+    echo -e "\e[1;93mBaixando \e[1;96mfirefox-$versao_atual.tar.bz2\e[0m \e[1;93m...\e[0m"
+    
+    wget https://download-installer.cdn.mozilla.net/pub/firefox/releases/$versao_atual.0/linux-x86_64/pt-BR/firefox-$versao_atual.0.tar.bz2 firefox -O /firefox-$versao_atual.tar.bz2
+    
+    tar -xvf /firefox-$versao_atual.tar.bz2 -C /
+    rm -r /opt/firefox
+    mv /firefox /opt/firefox
+    echo "$versao_atual" > /opt/firefox/versionamento
+    rm -r /firefox-$versao_atual.tar.bz2
+    
+    echo -e "\e[1;32mInstalado com sucesso!!!\e[0m"
 
-echo -e "\e[1;32mInstalado com sucesso!!!\e[0m"
+elif [ "$versao_instalada" -gt "$versao_atual" ]; then
+    echo -e "\e[1;93mOops!! O servidor possui algo mais velho do que o instalado!!!!.\e[0m"
+
+fi
