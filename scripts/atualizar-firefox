@@ -1,11 +1,22 @@
 #!/bin/bash
 
+destino=$1
+
+if [ -z "${destino}" ]; then
+    echo -e "\e[1;31mFalta especificar o destino!!!!\e[0m"
+    echo "Uso: atualizar-firefox destino"
+    echo "Ex.: atualizar-firefox /opt"
+
+    exit 1
+
+fi
+
 curl -sL https://download-installer.cdn.mozilla.net/pub/firefox/releases/ >  /mozilla
 versao=$(html2text /mozilla |cut -f3 -d " " | cut -f1 -d "." | sort -rn | head -n 1)
 versao_atual=$((versao - 1))
 rm -r /mozilla
 
-versao_instalada=$(cat /opt/firefox/versionamento)
+versao_instalada=$(cat $destino/firefox/versionamento)
 
 if [ "$versao_atual" -eq "$versao_instalada" ]; then
     echo -e "\e[1;32mNada precisa ser feito :)\e[0m"
@@ -17,9 +28,9 @@ elif [ "$versao_atual" -gt "$versao_instalada" ]; then
     wget https://download-installer.cdn.mozilla.net/pub/firefox/releases/$versao_atual.0/linux-x86_64/pt-BR/firefox-$versao_atual.0.tar.bz2 firefox -O /firefox-$versao_atual.tar.bz2
     
     tar -xvf /firefox-$versao_atual.tar.bz2 -C /
-    rm -r /opt/firefox
-    mv /firefox /opt/firefox
-    echo "$versao_atual" > /opt/firefox/versionamento
+    rm -r $destino/firefox
+    mv /firefox $destino/firefox
+    echo "$versao_atual" > $destino/firefox/versionamento
     rm -r /firefox-$versao_atual.tar.bz2
     
     echo -e "\e[1;32mInstalado com sucesso!!!\e[0m"
