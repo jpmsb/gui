@@ -16,12 +16,12 @@ versao=$(html2text /mozilla |cut -f3 -d " " | cut -f1 -d "." | sort -rn | head -
 versao_atual=$((versao - 1))
 rm -r /mozilla
 
-versao_instalada=$(cat $destino/firefox/versionamento)
+versao_instalada=$(cat $destino/firefox/versionamento >/dev/null 2>&1 || echo 0)
 
 if [ "$versao_atual" -eq "$versao_instalada" ]; then
     echo -e "\e[1;32mNada precisa ser feito :)\e[0m"
 
-elif [ "$versao_atual" -gt "$versao_instalada" ]; then
+elif [ "$versao_atual" -gt "$versao_instalada" ] || [ -z "${versao_instalada}" ]; then
     echo -e "\e[1;93mEncontrado \e[1;96mfirefox-$versao_atual\e[0m \e[1;93mcomo mais recente.\e[0m"
     echo -e "\e[1;93mBaixando \e[1;96mfirefox-$versao_atual.tar.bz2\e[0m \e[1;93m...\e[0m"
     
