@@ -13,21 +13,22 @@ fi
 
 curl -sL https://download-installer.cdn.mozilla.net/pub/firefox/releases/ >  /mozilla
 versao=$(html2text /mozilla |cut -f3 -d " " | cut -f1 -d "." | sort -rn | head -n 1)
-versao_atual=$((versao - 1))
+versao_corrigida=$((versao - 1))
 rm -r /mozilla
+versao_atual=$(html2text mozilla |cut -f3 -d " " |grep 64 |sort -rn |head -n 1 |cut -f1 -d "/")
 
 versao_instalada=$(cat $destino/firefox/versionamento 2> /dev/null || echo 0)
 
-if [ "$versao_atual" -eq "$versao_instalada" ]; then
+if [ "$versao_atual" = "$versao_instalada" ]; then
     echo -e "\e[1;32mNada precisa ser feito :)\e[0m"
     echo "[$(date +%d/%m/%Y) - $(date +%T)] - Nada precisa ser feito :)" >> /var/log/atualizar-firefox.log
 
-elif [ "$versao_atual" -gt "$versao_instalada" ] || [ -z "${versao_instalada}" ]; then
+else
     echo -e "\e[1;93mEncontrado \e[1;96mfirefox-$versao_atual\e[0m \e[1;93mcomo mais recente.\e[0m"
     echo -e "\e[1;93mBaixando \e[1;96mfirefox-$versao_atual.tar.bz2\e[0m \e[1;93m...\e[0m"
     echo "[$(date +%d/%m/%Y) - $(date +%T)] - Encontrado firefox-$versao_atual como mais recente." >> /var/log/atualizar-firefox.log
     
-    wget https://download-installer.cdn.mozilla.net/pub/firefox/releases/$versao_atual.0/linux-x86_64/pt-BR/firefox-$versao_atual.0.tar.bz2 firefox -O /firefox-$versao_atual.tar.bz2
+    wget https://download-installer.cdn.mozilla.net/pub/firefox/releases/$versao_atual/linux-x86_64/pt-BR/firefox-$versao_atual.tar.bz2 firefox -O /firefox-$versao_atual.tar.bz2
     
     tar -xvf /firefox-$versao_atual.tar.bz2 -C /
     rm -r $destino/firefox
@@ -37,8 +38,5 @@ elif [ "$versao_atual" -gt "$versao_instalada" ] || [ -z "${versao_instalada}" ]
     
     echo -e "\e[1;32mInstalado com sucesso!!!\e[0m"
     echo "[$(date +%d/%m/%Y) - $(date +%T)] - Instalado com sucesso!!!" >> /var/log/atualizar-firefox.log
-
-elif [ "$versao_instalada" -gt "$versao_atual" ]; then
-    echo -e "\e[1;93mOops!! O servidor possui algo mais velho do que o instalado!!!!.\e[0m"
 
 fi
