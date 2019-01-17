@@ -16,7 +16,7 @@ versao=$(html2text /mozilla |cut -f3 -d " " | cut -f1 -d "." | sort -rn | head -
 versao_atual=$((versao - 1))
 rm -r /mozilla
 
-versao_instalada=$(cat $destino/firefox/versionamento >/dev/null 2>&1 || echo 0)
+versao_instalada=$(cat $destino/firefox/versionamento 2> /dev/null || echo 0)
 
 if [ "$versao_atual" -eq "$versao_instalada" ]; then
     echo -e "\e[1;32mNada precisa ser feito :)\e[0m"
