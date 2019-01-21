@@ -35,6 +35,7 @@ else
     mv /firefox $destino/firefox
     echo "$versao_atual" > $destino/firefox/versionamento
     rm -r /firefox-$versao_atual.tar.bz2
+    ln -s $destino/firefox/firefox /usr/local/bin/firefox 2> /dev/null
     
     echo -e "\e[1;32mInstalado com sucesso!!!\e[0m"
     echo "[$(date +%d/%m/%Y) - $(date +%T)] - Instalado com sucesso!!!" >> /var/log/atualizar-firefox.log
