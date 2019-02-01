@@ -27,4 +27,4 @@ verificar_pacote(){
     fi
 }
 
-verificar_pacote $1
+verificar_pacote $1 $2
