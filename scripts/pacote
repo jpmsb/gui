@@ -1,0 +1,30 @@
+#!/bin/bash
+
+verificar_pacote(){
+    local pacote=$1
+    local atitude=$2
+    local id_usuario=$(id -g)
+
+    dpkg -l $pacote &> /dev/null
+
+    if [ $? = 0 ]; then
+        local retorno="\e[1;32mO pacote \e[1;96m"$pacote"\e[0m \e[1;32mestá instalado.\e[0m"
+        echo -e "$retorno"
+
+    elif [ $? = 1 ]; then
+        local retorno="\e[1;31mO pacote \e[1;96m"$pacote"\e[0m \e[1;31mprecisa ser instalado!!!\e[0m"
+        echo  -e "$retorno"
+
+        if [ "$atitude" = "instalar" ]; then
+            if [ id_usuario = 0 ]; then
+                echo -e "\e[1;32mInstalando o pacote \e[1;96m"$pacote"\e[0m \e[1;32m...\e[0m"
+
+            else
+                echo -e "\e[1;31mÉ necessário ser root para instalar o pacote \e[1;96m"$pacote"\e[0m\e[1;31!!!\e[0m"
+
+            fi
+        fi
+    fi
+}
+
+verificar_pacote $1
