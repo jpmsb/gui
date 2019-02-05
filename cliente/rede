@@ -173,6 +173,7 @@ cat << EOF >> /opt/jtag/iniciar-jtag
 EOF
 
 ###################################################################################
+# Faz a configuração do autologin no systemd
 
 sed -i '84s:.*:ExecStart=-/sbin/agetty --autologin sdr --noclear %I $TERM:' /etc/systemd/system/getty.target.wants/getty@tty1.service
 
