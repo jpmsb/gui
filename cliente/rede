@@ -394,7 +394,7 @@ elif [ "$nc" = "0" ]; then
         yad --center --button="Cancelar":1 --button="Entendido":0 --image='/usr/share/images/informativo600.jpg'  --timeout=240 --timeout-indicator=bottom
 
         if [ "$?" = "0" ]; then
-            yad --center --image="/usr/share/images/informativo-audio-permitir.jpg" --button="Recusar":1 --button="Permitir":0
+            yad --center --image="/usr/share/images/informativo-audio-permitir.jpg" --button="Recusar":1 --button="Permitir":0 --timeout=240 --timeout-indicator=bottom
 
             if [ "$?" = "0" ]; then
                 echo "rancher-som" > /home/aluno/.jpmsb
