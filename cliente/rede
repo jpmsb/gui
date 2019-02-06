@@ -175,7 +175,7 @@ EOF
 ###################################################################################
 # Faz a configuração do autologin no systemd
 
-sed -i '34s:.*:ExecStart=-/sbin/agetty --autologin sdr --noclear %I $TERM:' /etc/systemd/system/getty.target.wants/getty@tty1.service
+sed -i '34s:.*:ExecStart=-/sbin/agetty --autologin aluno --noclear %I $TERM:' /etc/systemd/system/getty.target.wants/getty@tty1.service
 
 ###################################################################################
 
