@@ -14,7 +14,7 @@ fi
 curl -sL https://download-installer.cdn.mozilla.net/pub/firefox/releases/ >  /mozilla
 versao=$(html2text /mozilla |cut -f3 -d " " | cut -f1 -d "." | sort -rn | head -n 1)
 versao_corrigida=$((versao - 1))
-versao_atual=$(html2text /mozilla |cut -f3 -d " " |grep 64 |sort -rn |head -n 1 |cut -f1 -d "/")
+versao_atual=$(html2text /mozilla |cut -f3 -d " " |grep $versao_corrigida |sort -rn |head -n 1 |cut -f1 -d "/")
 rm -r /mozilla
 
 versao_instalada=$(cat $destino/firefox/versionamento 2> /dev/null || echo 0)
