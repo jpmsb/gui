@@ -10,7 +10,7 @@ nomedehost=$4
 ######################################################################
 ### Remover alguns arquivos ###
 
-rm -f /home/aluno/.x2goclient/sessions
+rm -f /home/rancher/.x2goclient/sessions
 rm -f /opt/jtag/iniciar-jtag
 rm -f /etc/init.d/desligar
 rm -f /etc/network/interfaces
@@ -36,15 +36,15 @@ iface $interface inet dhcp
 EOF
 
 ####################################################################
-### Criar /home/aluno/.x2goclient/sessions #########################
+### Criar /home/rancher/.x2goclient/sessions #########################
 
-cat << EOF >> /home/aluno/.x2goclient/sessions
+cat << EOF >> /home/rancher/.x2goclient/sessions
 [rancher]
 speed=3
 pack=16m-jpeg
 quality=9
 fstunnel=true
-export="/media/aluno:1;"
+export="/media/rancher:1;"
 iconvto=UTF-8
 iconvfrom=ISO8859-1
 useiconv=false
@@ -73,7 +73,7 @@ name=JPMSB
 icon=:/img/icons/128x128/x2gosession.png
 host=$ip
 user=aluno
-key=/home/aluno/.ssh/labalu-cli-aluno
+key=/home/rancher/.ssh/labalu-cli-aluno
 rdpport=3389
 sshport=$porta
 autologin=false
@@ -103,7 +103,7 @@ speed=3
 pack=16m-jpeg
 quality=9
 fstunnel=true
-export="/media/aluno:1;"
+export="/media/rancher:1;"
 iconvto=UTF-8
 iconvfrom=ISO8859-1
 useiconv=false
@@ -132,7 +132,7 @@ name=JPMSB
 icon=:/img/icons/128x128/x2gosession.png
 host=$ip
 user=aluno
-key=/home/aluno/.ssh/labalu-cli-aluno
+key=/home/rancher/.ssh/labalu-cli-aluno
 rdpport=3389
 sshport=$porta
 autologin=false
@@ -160,7 +160,7 @@ EOF
 
 ###################################################################################
 
-chmod 550 /home/aluno/.x2goclient/sessions
+chmod 550 /home/rancher/.x2goclient/sessions
 
 ###################################################################################
 
@@ -205,10 +205,10 @@ ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip chown -R al
 ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip chown -R root:root /home/aluno/.ssh/authorized_keys
 ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip chown -R root:root /home/aluno/.jtag.conf
 ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip echo "O sistema foi desligado em $(date)" >> /var/log/desligar.log
-rm -rf /home/sdr
-tar -zxvf /home/.sdr.tar.gz -C /home
 rm -rf /home/aluno
 tar -zxvf /home/.aluno.tar.gz -C /home
+rm -rf /home/rancher
+tar -zxvf /home/.rancher.tar.gz -C /home
 rm -r /root/.ssh/known_hosts
 echo "O sistema foi desligado em $(date)" >> /var/log/desligar.log
 EOF
@@ -253,7 +253,7 @@ ConditionPathExists=/dev/tty0
 
 [Service]
 # the VT is cleared by TTYVTDisallocate
-ExecStart=-/sbin/agetty --autologin sdr --noclear %I $TERM
+ExecStart=-/sbin/agetty --autologin aluno --noclear %I $TERM
 Type=idle
 Restart=always
 RestartSec=0
@@ -290,7 +290,7 @@ EOF
 
 ############################################################################################
 
-cp /home/aluno/.ssh/labalu-cli-aluno /root/.ssh/
+cp /home/rancher/.ssh/labalu-cli-aluno /root/.ssh/
 chmod 400 /root/.ssh/labalu-cli-aluno
 
 ############################################################################################
@@ -330,11 +330,11 @@ chmod 500 /usr/local/bin/matar
 
 #########################################################################################
 
-> /home/aluno/.xsession
+> /home/rancher/.xsession
 
 #########################################################################################
 
-cat << EOF >> /home/aluno/.xsession
+cat << EOF >> /home/rancher/.xsession
 #!/bin/bash
 
 xterm -geometry 500x500 -bg black -fg black -e "exit"
@@ -342,16 +342,16 @@ yad --center --image="/usr/share/images/conectando.jpg" --no-buttons --auto-clos
 timeout 1 ping -q -i 0.2 -c 2 $ip
 EOF
 
-cat << \EOF >> /home/aluno/.xsession
+cat << \EOF >> /home/rancher/.xsession
 ping="$?"
 EOF
 
-cat << EOF >> /home/aluno/.xsession
+cat << EOF >> /home/rancher/.xsession
 echo $ping
 nc -z -w5 $ip $porta
 EOF
 
-cat << \EOF >> /home/aluno/.xsession
+cat << \EOF >> /home/rancher/.xsession
 nc="$?"
 killall -9 yad
 
@@ -360,20 +360,20 @@ if [ "$ping" = "124" ] || [ "$ping" = "2" ]; then
     if [ "$?" = "0" ]; then
 EOF
 
-cat << EOF >> /home/aluno/.xsession
+cat << EOF >> /home/rancher/.xsession
         sudo dhclient $interface
-        /home/aluno/.xsession
+        /home/rancher/.xsession
 
     fi
 EOF
 
-cat << \EOF >> /home/aluno/.xsession
+cat << \EOF >> /home/rancher/.xsession
 elif [ "$nc" = "0" ]; then
-    test -e /home/aluno/.jpmsb
+    test -e /home/rancher/.jpmsb
 
     if [ "$?" = "0" ]; then
         echo "Arquivo .jpmsb encontrado!!"
-        conteudo_arquivo=$(cat /home/aluno/.jpmsb)
+        conteudo_arquivo=$(cat /home/rancher/.jpmsb)
             if [ "$conteudo_arquivo" = "rancher" ]; then
                 echo "Restaurando ambiente sem compartilhamento de som"
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
@@ -397,14 +397,14 @@ elif [ "$nc" = "0" ]; then
             yad --center --image="/usr/share/images/informativo-audio-permitir.jpg" --button="Recusar":1 --button="Permitir":0 --timeout=240 --timeout-indicator=bottom
 
             if [ "$?" = "0" ]; then
-                echo "rancher-som" > /home/aluno/.jpmsb
+                echo "rancher-som" > /home/rancher/.jpmsb
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
                 /opt/SoundWireServer/SoundWireServer &
                 sleep 30 && killall -9 yad &
                 x2goclient --sessionid=rancher-som --add-to-known-hosts --hide
 
             elif [ "$?" = "1" ]; then
-                echo "rancher" > /home/aluno/.jpmsb
+                echo "rancher" > /home/rancher/.jpmsb
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
                 sleep 30 && killall -9 yad &
                 x2goclient --sessionid=rancher --add-to-known-hosts --hide
@@ -450,8 +450,8 @@ Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/b
 
 # User privilege specification
 root	ALL=(ALL:ALL) ALL
-sdr     ALL=(ALL) NOPASSWD: /usr/bin/rtl_tcp
-aluno   ALL=(ALL) NOPASSWD: /sbin/dhclient $interface
+aluno     ALL=(ALL) NOPASSWD: /usr/bin/rtl_tcp
+rancher   ALL=(ALL) NOPASSWD: /sbin/dhclient $interface
 
 # Allow members of group sudo to execute any command
 %sudo	ALL=(ALL:ALL) ALL
@@ -472,27 +472,27 @@ echo "$nomedehost" > /etc/hostname
 ##########################################################################################
 
 rm -r /root/.ssh/known_hosts
-rm -r /home/aluno/.x2go
+rm -r /home/rancher/.x2go
 # tar -zcvf /home/.aluno.tar.gz -C /home aluno
 # tar -zxvf /home/.aluno.tar.gz -C /home
-chown root:especial /home/aluno/.profile
-chmod 550 /home/aluno/.profile
-chown root:especial /home/aluno/.bash_profile
-chmod 550 /home/aluno/.bash_profile
-chown root:especial /home/aluno/.xinitrc
-chmod 550 /home/aluno/.xinitrc
-chown root:especial /home/aluno/.xsession
-chmod 550 /home/aluno/.xsession
-chown -R root:especial /home/aluno/.x2goclient
-chmod -R 550 /home/aluno/.x2goclient
-chown root:especial /home/aluno/.ssh/labalu-cli-aluno
-chmod 440 /home/aluno/.ssh/labalu-cli-aluno
-chown root:especial /home/aluno/.bashrc
-chmod 550 /home/aluno/.bashrc
+chown root:especial /home/rancher/.profile
+chmod 550 /home/rancher/.profile
+chown root:especial /home/rancher/.bash_profile
+chmod 550 /home/rancher/.bash_profile
+chown root:especial /home/rancher/.xinitrc
+chmod 550 /home/rancher/.xinitrc
+chown root:especial /home/rancher/.xsession
+chmod 550 /home/rancher/.xsession
+chown -R root:especial /home/rancher/.x2goclient
+chmod -R 550 /home/rancher/.x2goclient
+chown root:especial /home/rancher/.ssh/labalu-cli-aluno
+chmod 440 /home/rancher/.ssh/labalu-cli-aluno
+chown root:especial /home/rancher/.bashrc
+chmod 550 /home/rancher/.bashrc
 
 ###########################################################################################
-rm -r /home/aluno/.jpmsb
-rm -r /home/aluno/.x2go
-rm -r /home/aluno/.ssh/known_hosts
+rm -r /home/rancher/.jpmsb
+rm -r /home/rancher/.x2go
+rm -r /home/rancher/.ssh/known_hosts
 
-tar -zcvf /home/.aluno.tar.gz -C /home aluno
+tar -zcvf /home/.rancher.tar.gz -C /home rancher
