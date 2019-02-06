@@ -1,0 +1,195 @@
+#!/bin/bash
+
+entrada=$1
+tipodevolume=$2
+imagem=$3
+
+if [ -z "${entrada}" ]; then
+    echo "Sem opção válida!"
+    echo "Escolha entre:"
+    echo "    criar"
+    echo "    excluir"
+
+elif [ "$entrada" = "criar" ] && [ -z "${tipodevolume}" ]; then
+    echo "Falta definir o tipo de volume!"
+    echo "Escolha entre:"
+    echo "    montagem"
+    echo "    volume"
+
+elif [ -z "${imagem}" ]; then
+    echo "Falta definir qual imagem será usada!!"
+
+elif [ "$entrada" = "criar" ] && [ "$tipodevolume" = "montagem" ]; then
+    echo "Criação dos contêineres usando ponto de montagem como volume..."
+    echo "Excluindo contêineres antigos..."
+    docker rm -f labint-cli-teste
+    docker rm -f labint-cli0-aluno
+    docker rm -f labint-cli1-aluno
+    docker rm -f labint-cli2-aluno
+    docker rm -f labint-cli3-aluno
+    docker rm -f labint-cli4-aluno
+    docker rm -f labint-cli5-aluno
+    docker rm -f labint-cli6-aluno
+    docker rm -f labint-cli7-aluno
+    docker rm -f labint-cli8-aluno
+    docker rm -f labint-cli9-aluno
+    docker rm -f labint-cli10-aluno
+    docker rm -f labint-cli11-aluno
+    docker rm -f labint-cli12-aluno
+
+    echo "Criando novos contêineres usando a imagem $imagem..."
+    docker run -dit --name labint-cli-teste --restart=always --net faixa10 --ip 10.10.10.200 -h labint-cli --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/cli/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/cli/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    docker run -dit --name labint-cli0-aluno --restart=always --net faixa10 --ip 10.10.10.210 -h labint-cli0 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/labint-cli0/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    docker run -dit --name labint-cli1-aluno --restart=always --net faixa10 --ip 10.10.10.211 -h labint-cli1 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli1/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/labint-cli1/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    docker run -dit --name labint-cli2-aluno --restart=always --net faixa10 --ip 10.10.10.212 -h labint-cli2 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli2/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/labint-cli2/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    docker run -dit --name labint-cli3-aluno --restart=always --net faixa10 --ip 10.10.10.213 -h labint-cli3 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli3/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/labint-cli3/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    docker run -dit --name labint-cli4-aluno --restart=always --net faixa10 --ip 10.10.10.214 -h labint-cli4 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli4/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/labint-cli4/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    docker run -dit --name labint-cli5-aluno --restart=always --net faixa10 --ip 10.10.10.215 -h labint-cli5 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli5/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/labint-cli5/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    docker run -dit --name labint-cli6-aluno --restart=always --net faixa10 --ip 10.10.10.216 -h labint-cli6 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli6/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/labint-cli6/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    docker run -dit --name labint-cli7-aluno --restart=always --net faixa10 --ip 10.10.10.217 -h labint-cli7 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli7/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/labint-cli7/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    docker run -dit --name labint-cli8-aluno --restart=always --net faixa10 --ip 10.10.10.218 -h labint-cli8 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli8/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/labint-cli8/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    docker run -dit --name labint-cli9-aluno --restart=always --net faixa10 --ip 10.10.10.219 -h labint-cli9 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli9/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/labint-cli9/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    docker run -dit --name labint-cli10-aluno --restart=always --net faixa10 --ip 10.10.10.220 -h labint-cli10 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli10/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/labint-cli10/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    docker run -dit --name labint-cli11-aluno --restart=always --net faixa10 --ip 10.10.10.221 -h labint-cli11 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli11/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/labint-cli11/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    docker run -dit --name labint-cli12-aluno --restart=always --net faixa10 --ip 10.10.10.222 -h labint-cli12 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli12/aluno:/home -v /home/conteineres/gui/trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/labint-cli12/trabalhos-aluno:/Trabalhos -v /dev:/dev $imagem
+    
+    
+    echo "Copiando a chave privada de acesso ao cliente..."
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli0-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli1-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli2-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli3-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli4-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli5-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli6-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli7-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli8-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli9-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli10-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli11-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli12-aluno:/root/.ssh/
+    
+    echo "Criando usuário aluno..."
+    docker exec labint-cli0-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli1-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli2-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli3-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli4-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli5-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli6-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli7-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli8-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli9-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli10-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli11-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli12-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+
+elif [ "$entrada" = "criar" ] && [ "$tipodevolume" = "volume" ]; then
+    echo "Criação de contêineres usando volume gerenciado pelo Docker...."
+    echo "Excluindo contêineres antigos..."
+    docker rm -f labint-cli-teste
+    docker rm -f labint-cli0-aluno
+    docker rm -f labint-cli1-aluno
+    docker rm -f labint-cli2-aluno
+    docker rm -f labint-cli3-aluno
+    docker rm -f labint-cli4-aluno
+    docker rm -f labint-cli5-aluno
+    docker rm -f labint-cli6-aluno
+    docker rm -f labint-cli7-aluno
+    docker rm -f labint-cli8-aluno
+    docker rm -f labint-cli9-aluno
+    docker rm -f labint-cli10-aluno
+    docker rm -f labint-cli11-aluno
+    docker rm -f labint-cli12-aluno
+
+    echo "Criando novos contêineres usando a imagem $imagem..."    
+    docker run -dit --name labint-cli-teste --restart=always --net faixa10 --ip 10.10.10.200 -h labint-cli --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/cli/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v /home/conteineres/gui/cli/trabalhos-aluno:/Trabalhos $imagem
+    
+    docker run -dit --name labint-cli0-aluno --restart=always --net faixa10 --ip 10.10.10.210 -h labint-cli0 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-labint-cli0:/Trabalhos $imagem
+    
+    docker run -dit --name labint-cli1-aluno --restart=always --net faixa10 --ip 10.10.10.211 -h labint-cli1 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-labint-cli1:/Trabalhos $imagem
+    
+    docker run -dit --name labint-cli2-aluno --restart=always --net faixa10 --ip 10.10.10.212 -h labint-cli2 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-labint-cli2:/Trabalhos $imagem
+    
+    docker run -dit --name labint-cli3-aluno --restart=always --net faixa10 --ip 10.10.10.213 -h labint-cli3 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-labint-cli3:/Trabalhos $imagem
+    
+    docker run -dit --name labint-cli4-aluno --restart=always --net faixa10 --ip 10.10.10.214 -h labint-cli4 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-labint-cli4:/Trabalhos $imagem
+    
+    docker run -dit --name labint-cli5-aluno --restart=always --net faixa10 --ip 10.10.10.215 -h labint-cli5 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-labint-cli5:/Trabalhos $imagem
+    
+    docker run -dit --name labint-cli6-aluno --restart=always --net faixa10 --ip 10.10.10.216 -h labint-cli6 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-labint-cli6:/Trabalhos $imagem
+    
+    docker run -dit --name labint-cli7-aluno --restart=always --net faixa10 --ip 10.10.10.217 -h labint-cli7 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-labint-cli7:/Trabalhos $imagem
+    
+    docker run -dit --name labint-cli8-aluno --restart=always --net faixa10 --ip 10.10.10.218 -h labint-cli8 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-labint-cli8:/Trabalhos $imagem
+    
+    docker run -dit --name labint-cli9-aluno --restart=always --net faixa10 --ip 10.10.10.219 -h labint-cli9 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-labint-cli9:/Trabalhos $imagem
+    
+    docker run -dit --name labint-cli10-aluno --restart=always --net faixa10 --ip 10.10.10.220 -h labint-cli10 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-labint-cli10:/Trabalhos $imagem
+    
+    docker run -dit --name labint-cli11-aluno --restart=always --net faixa10 --ip 10.10.10.221 -h labint-cli11 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-labint-cli11:/Trabalhos $imagem
+    
+    docker run -dit --name labint-cli12-aluno --restart=always --net faixa10 --ip 10.10.10.222 -h labint-cli12 --privileged -v /dev/shm --tmpfs /dev/shm:rw,nosuid,nodev,exec,size=1g -v /dev/dri:/dev/dri --memory=3g --dns=191.36.8.2 --dns=191.36.8.3 --dns-search=sj.ifsc.edu.br -v /opt/programas:/opt:ro -v /home/conteineres/gui/labint-cli0/aluno:/home -v volume-trabalhos-compartilhados:/Trabalhos-compartilhados -v volume-trabalhos-labint-cli12:/Trabalhos $imagem
+    
+    
+    echo "Copiando a chave privada de acesso ao cliente..."
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli0-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli1-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli2-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli3-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli4-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli5-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli6-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli7-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli8-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli9-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli10-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli11-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/cliente labint-cli12-aluno:/root/.ssh/
+    
+    echo "Criando usuário aluno..."
+    docker exec labint-cli0-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli1-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli2-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli3-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli4-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli5-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli6-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli7-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli8-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli9-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli10-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli11-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+    docker exec labint-cli12-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
+
+elif [ "$entrada" = "excluir" ]; then
+    echo "Excluindo contêineres..."
+    docker rm -f labint-cli-teste
+    docker rm -f labint-cli0-aluno
+    docker rm -f labint-cli1-aluno
+    docker rm -f labint-cli2-aluno
+    docker rm -f labint-cli3-aluno
+    docker rm -f labint-cli4-aluno
+    docker rm -f labint-cli5-aluno
+    docker rm -f labint-cli6-aluno
+    docker rm -f labint-cli7-aluno
+    docker rm -f labint-cli8-aluno
+    docker rm -f labint-cli9-aluno
+    docker rm -f labint-cli10-aluno
+    docker rm -f labint-cli11-aluno
+    docker rm -f labint-cli12-aluno
+
+fi
