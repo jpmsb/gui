@@ -69,18 +69,31 @@ elif [ "$entrada" = "criar" ] && [ "$tipodevolume" = "montagem" ]; then
     
     echo "Copiando a chave privada de acesso ao cliente..."
     docker cp /home/joaopedro/chaves/privadas/cliente labint-cli0-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/labalu-cli-aluno labint-cli0-aluno:/root/.ssh/
     docker cp /home/joaopedro/chaves/privadas/cliente labint-cli1-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/labalu-cli-aluno labint-cli1-aluno:/root/.ssh/
     docker cp /home/joaopedro/chaves/privadas/cliente labint-cli2-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/labalu-cli-aluno labint-cli2-aluno:/root/.ssh/
     docker cp /home/joaopedro/chaves/privadas/cliente labint-cli3-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/labalu-cli-aluno labint-cli3-aluno:/root/.ssh/
     docker cp /home/joaopedro/chaves/privadas/cliente labint-cli4-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/labalu-cli-aluno labint-cli4-aluno:/root/.ssh/
     docker cp /home/joaopedro/chaves/privadas/cliente labint-cli5-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/labalu-cli-aluno labint-cli5-aluno:/root/.ssh/
     docker cp /home/joaopedro/chaves/privadas/cliente labint-cli6-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/labalu-cli-aluno labint-cli6-aluno:/root/.ssh/
     docker cp /home/joaopedro/chaves/privadas/cliente labint-cli7-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/labalu-cli-aluno labint-cli7-aluno:/root/.ssh/
     docker cp /home/joaopedro/chaves/privadas/cliente labint-cli8-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/labalu-cli-aluno labint-cli8-aluno:/root/.ssh/
     docker cp /home/joaopedro/chaves/privadas/cliente labint-cli9-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/labalu-cli-aluno labint-cli9-aluno:/root/.ssh/
     docker cp /home/joaopedro/chaves/privadas/cliente labint-cli10-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/labalu-cli-aluno labint-cli10-aluno:/root/.ssh/
     docker cp /home/joaopedro/chaves/privadas/cliente labint-cli11-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/labalu-cli-aluno labint-cli11-aluno:/root/.ssh/
     docker cp /home/joaopedro/chaves/privadas/cliente labint-cli12-aluno:/root/.ssh/
+    docker cp /home/joaopedro/chaves/privadas/labalu-cli-aluno labint-cli12-aluno:/root/.ssh/
     
     echo "Criando usuário aluno..."
     docker exec labint-cli0-aluno bash -c "echo -e 'aluno\naluno\nAluno\n\n\n\n' | adduser aluno"
