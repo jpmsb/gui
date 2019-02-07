@@ -12,6 +12,7 @@ nomedehost=$4
 
 rm -f /home/rancher/.x2goclient/sessions
 rm -f /opt/jtag/iniciar-jtag
+rm -r /opt/scripts/iniciar-sshfs
 rm -f /etc/init.d/desligar
 rm -f /etc/network/interfaces
 rm -f /usr/local/bin/matar
@@ -170,6 +171,13 @@ cat << EOF >> /opt/jtag/iniciar-jtag
 /opt/jtag/bin/jtagd
 /opt/jtag/bin/jtagconfig --enableremote rancheros
 /usr/bin/ssh -oStrictHostKeyChecking=no -i /root/.ssh/root -R 60000:localhost:1309 root@$ip -p $porta -N -f
+EOF
+
+###################################################################################
+
+cat << EOF >> /opt/scripts/iniciar-sshfs
+# Monta o diretorio remoto da pasta aluno na pasta arduino
+sshfs -o allow_other,nonempty,IdentityFile=/root/.ssh/labalu-cli-aluno aluno@$ip:/home/aluno /home/arduino -p $porta
 EOF
 
 ###################################################################################
