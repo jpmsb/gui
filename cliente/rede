@@ -387,6 +387,7 @@ elif [ "$nc" = "0" ]; then
                 echo "Restaurando ambiente sem compartilhamento de som"
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated &
                 sleep 30 && killall -9 yad &
+                sleep 10 && yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --timeout 20 &
                 x2goclient --sessionid=rancher --add-to-known-hosts --hide
 
             elif [ "$conteudo_arquivo" = "rancher-som" ]; then
