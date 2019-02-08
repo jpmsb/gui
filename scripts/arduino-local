@@ -72,4 +72,4 @@ directxdmcp=false
 EOF
 
 HOME=/root
-x2goclient --hide --sessionid=arduino
+x2goclient --hide --add-to-known-hosts --sessionid=arduino
