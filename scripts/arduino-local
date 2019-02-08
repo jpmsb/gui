@@ -72,4 +72,7 @@ directxdmcp=false
 EOF
 
 HOME=/root
+
+yad --center --fore=WHITE --text='<span font="30">'Aguarde..."${Revision}"'</span>' --no-buttons --auto-close --no-escape --undecorated --timeout 20 &
+
 x2goclient --hide --add-to-known-hosts --sessionid=arduino
