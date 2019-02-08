@@ -73,6 +73,6 @@ EOF
 
 HOME=/root
 
-yad --title="Aguarde..." --center --fore=WHITE --text='<span font="30">'Aguarde..."${Revision}"'</span>' --no-buttons --auto-close --no-escape --undecorated --timeout 20 &
+yad --title="Aguarde..." --center --fore=WHITE --text='<span font="30">'Aguarde..."${Revision}"'</span>' --no-buttons --auto-close --no-escape --undecorated --timeout 20 --skip-taskbar &
 
 x2goclient --hide --add-to-known-hosts --sessionid=arduino
