@@ -387,6 +387,7 @@ elif [ "$nc" = "0" ]; then
                 echo "Restaurando ambiente sem compartilhamento de som"
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top &
                 sleep 30 && killall -9 yad &
+                sleep 10 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top --timeout 15 &
                 x2goclient --sessionid=rancher --add-to-known-hosts --hide
 
             elif [ "$conteudo_arquivo" = "rancher-som" ]; then
@@ -394,6 +395,7 @@ elif [ "$nc" = "0" ]; then
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top &
                 /opt/SoundWireServer/SoundWireServer &
                 sleep 30 && killall -9 yad &
+                sleep 10 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top --timeout 15 &
                 x2goclient --sessionid=rancher-som --add-to-known-hosts --hide
 
             fi
@@ -410,12 +412,14 @@ elif [ "$nc" = "0" ]; then
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top &
                 /opt/SoundWireServer/SoundWireServer &
                 sleep 30 && killall -9 yad &
+                sleep 10 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top --timeout 15 &
                 x2goclient --sessionid=rancher-som --add-to-known-hosts --hide
 
             elif [ "$?" = "1" ]; then
                 echo "rancher" > /home/rancher/.jpmsb
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top &
                 sleep 30 && killall -9 yad &
+                sleep 10 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top --timeout 15 &
                 x2goclient --sessionid=rancher --add-to-known-hosts --hide
 
             fi
