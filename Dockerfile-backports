@@ -13,7 +13,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     dpkg --add-architecture i386 && \
     \
     # Instalando algumas aplicacoes basicas
-    apt update && apt -y -q install curl dialog gnupg1 apt-utils htop wget tar unzip lib32z1 lib32ncurses5 nano vim bzip2 libbz2-1.0 locales vlc wireshark gdb apt-transport-https telnet whois libc6-i386 lzop && \
+    apt update && apt -y -q install curl dialog gnupg1 apt-utils htop wget tar unzip lib32z1 lib32ncurses5 nano vim bzip2 libbz2-1.0 locales vlc wireshark gdb apt-transport-https telnet whois libc6-i386 lzop aptitude aptitude-robot && \
     \
     # Ferramentas para monitoramento da rede
     apt -y -q install nload traceroute iperf speedtest-cli nmap tcpdump iftop arp-scan iptraf nethogs bmon slurm tcptrack bwm-ng cbm speedometer pktstat netdiag && \
@@ -50,7 +50,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 libtool libtool-bin libgamin0 libgtkmm-3.0-dev libpulse-dev libfftw3-dev libncursesw5-dev && \
     \
     # Pacotes principais
-    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles genius gns3-gui mpi-default-dev sqlite3 sqlitebrowser python-pip virtualenv python-virtualenv dh-virtualenv virtualenv-clone virtualenvwrapper kcolorchooser hunspell hunspell-pt-br aspell-pt-br && \
+    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles genius gns3-gui mpi-default-dev sqlite3 sqlitebrowser python-pip virtualenv python-virtualenv dh-virtualenv virtualenv-clone virtualenvwrapper kcolorchooser hunspell hunspell-pt-br aspell-pt-br kalgebra libreoffice-lightproof-pt-br xscreensaver-screensaver-bsod && \
     \
     # Instalando o VirtualBox
     apt -y -q install virtualbox-6.0 && \
@@ -100,14 +100,18 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     rm -r /masterpdf.deb && \
     \
     # HUB api do GitHub
-    wget http://ftp.br.debian.org/debian/pool/main/h/hub/hub_2.6.0~ds1-1_amd64.deb -O /hub.deb && \
+    wget http://ftp.br.debian.org/debian/pool/main/h/hub/hub_2.7.0~ds1-1_amd64.deb -O /hub.deb && \
     dpkg -i /hub.deb && \
     rm -r hub.deb && \
     \
     # Instalar o Adobe Flash Player
-    wget http://archive.canonical.com/ubuntu/pool/partner/a/adobe-flashplugin/adobe-flashplugin_20181205.1-0ubuntu0.14.04.1_amd64.deb -O /flash.deb && \
+    wget http://archive.canonical.com/ubuntu/pool/partner/a/adobe-flashplugin/adobe-flashplugin_20190212.1-0ubuntu0.14.04.1_amd64.deb -O /flash.deb && \
     dpkg -i /flash.deb && \
     rm /flash.deb && \
+    \
+    # Script para arduino local
+    wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/arduino-local -O /usr/local/bin/arduino-local && \
+    chmod 700 /usr/local/bin/arduino-local && \
     \
     # Script para lidar com o armazenamento
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/armazenamento -O /usr/local/bin/armazenamento && \
@@ -132,10 +136,6 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     # Script para iniciar a IDE do Arduino
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/arduino -O /usr/local/bin/arduino && \
     chmod 755 /usr/local/bin/arduino && \
-    \
-    # Script que muda as permissoes da porta do Arduino
-    wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/habilitar-arduino -O /usr/local/bin/habilitar-arduino && \
-    chmod 755 /usr/local/bin/habilitar-arduino && \
     \
     # Uma piadinha minha
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/trocadilho -O /usr/local/bin/trocadilho && \
@@ -214,7 +214,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo "Name=Arduino IDE" >> /usr/share/applications/arduino.desktop && \
     echo "GenericName=Create physical computing projects" >> /usr/share/applications/arduino.desktop && \
     echo "Exec=arduino" >> /usr/share/applications/arduino.desktop && \
-    echo "Icon=/opt/arduino-1.8.5/lib/icons/256x256/apps/arduino.png" >> /usr/share/applications/arduino.desktop && \
+    echo "Icon=/opt/arduino/lib/icons/256x256/apps/arduino.png" >> /usr/share/applications/arduino.desktop && \
     echo "Terminal=false" >> /usr/share/applications/arduino.desktop && \
     echo "Categories=Development;Engineering;Electronics;" >> /usr/share/applications/arduino.desktop && \
     echo "MimeType=text/x-arduino" >> /usr/share/applications/arduino.desktop && \
@@ -547,6 +547,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     echo 'ALL   ALL=(root) NOPASSWD: /usr/bin/tcptrack' >> /etc/sudoers && \
     echo 'ALL   ALL=(root) NOPASSWD: /usr/sbin/pktstat' >> /etc/sudoers && \
     echo 'ALL   ALL=(root) NOPASSWD: /usr/sbin/trafshow' >> /etc/sudoers && \
+    echo 'ALL   ALL=(root) NOPASSWD: SETENV: /usr/local/bin/arduino-local' >> /etc/sudoers && \
     \
     # Script que provavelmente sera descontinuado
     echo "#!/bin/bash" >> /etc/iniciar && \
@@ -591,7 +592,7 @@ apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i3
     apt clean && \
     apt clean cache && \
     unset DEBIAN_FRONTEND && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/* /root/.bash_history && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /root/.bash_history && \
     chmod 1777 /tmp && \
     mkdir /var/run/sshd
 
