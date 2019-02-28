@@ -388,7 +388,7 @@ elif [ "$nc" = "0" ]; then
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top &
                 sleep 30 && killall -9 yad &
                 sleep 10 && yad --center --image="/usr/share/images/aguarde-o-ambiente-de-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top --timeout 10 &
-                x2goclient --sessionid=rancher --add-to-known-hosts --no-menu --no-session-edit --thinclient --hide-foldersharing --close-disconnect --hide
+                x2goclient --sessionid=rancher --add-to-known-hosts --no-menu --no-session-edit --hide-foldersharing --close-disconnect --hide
 
             elif [ "$conteudo_arquivo" = "rancher-som" ]; then
                 echo "Restaurando ambiente com compartilhamento de som"
@@ -396,7 +396,7 @@ elif [ "$nc" = "0" ]; then
                 /opt/SoundWireServer/SoundWireServer &
                 sleep 30 && killall -9 yad &
                 sleep 10 && yad --center --image="/usr/share/images/aguarde-o-ambiente-de-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top --timeout 10 &
-                x2goclient --sessionid=rancher-som --add-to-known-hosts --no-menu --no-session-edit --thinclient --hide-foldersharing --close-disconnect --hide
+                x2goclient --sessionid=rancher-som --add-to-known-hosts --no-menu --no-session-edit --hide-foldersharing --close-disconnect --hide
 
             fi
     elif [ "$?" = "1" ]; then
@@ -413,14 +413,14 @@ elif [ "$nc" = "0" ]; then
                 /opt/SoundWireServer/SoundWireServer &
                 sleep 30 && killall -9 yad &
                 sleep 10 && yad --center --image="/usr/share/images/aguarde-o-ambiente-de-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top --timeout 10 &
-                x2goclient --sessionid=rancher-som --add-to-known-hosts --no-menu --no-session-edit --thinclient --hide-foldersharing --close-disconnect --hide
+                x2goclient --sessionid=rancher-som --add-to-known-hosts --no-menu --no-session-edit --hide-foldersharing --close-disconnect --hide
 
             elif [ "$?" = "1" ]; then
                 echo "rancher" > /home/rancher/.jpmsb
                 yad --center --image="/usr/share/images/conectando-ambiente-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top &
                 sleep 30 && killall -9 yad &
                 sleep 10 && yad --center --image="/usr/share/images/aguarde-o-ambiente-de-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top --timeout 10 &
-                x2goclient --sessionid=rancher --add-to-known-hosts --no-menu --no-session-edit --thinclient --hide-foldersharing --close-disconnect --hide
+                x2goclient --sessionid=rancher --add-to-known-hosts --no-menu --no-session-edit --hide-foldersharing --close-disconnect --hide
 
             fi
 
