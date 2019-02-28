@@ -212,8 +212,8 @@ ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip tar -zxvf /
 ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip chown -R aluno:aluno /home/aluno
 ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip chown -R root:root /home/aluno/.ssh/authorized_keys
 ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip chown -R root:root /home/aluno/.jtag.conf
-ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip rm -rf /root/.ssh/known_hosts
-ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip echo "O sistema foi desligado em $(date)" >> /var/log/desligar.log
+ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip rm -rf /root/.ssh/known_hostsz
+ssh -oStrictHostKeyChecking=no -p $porta -i /root/.ssh/root root@$ip echo 'O sistema foi desligado em $(date)' >> /var/log/desligar.log
 rm -rf /home/aluno
 tar -zxvf /home/.aluno.tar.gz -C /home
 rm -rf /home/rancher
