@@ -389,6 +389,9 @@ elif [ "$nc" = "0" ]; then
                 sleep 30 && killall -9 yad &
                 sleep 10 && yad --center --image="/usr/share/images/aguarde-o-ambiente-de-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top --timeout 10 &
                 x2goclient --sessionid=rancher --add-to-known-hosts --no-menu --no-session-edit --hide-foldersharing --close-disconnect --hide
+                if [ "$?" -ne "0" ]; then
+                    x2goclient --sessionid=rancher --add-to-known-hosts --no-menu --no-session-edit --hide-foldersharing --close-disconnect --hide
+                fi
 
             elif [ "$conteudo_arquivo" = "rancher-som" ]; then
                 echo "Restaurando ambiente com compartilhamento de som"
@@ -397,6 +400,9 @@ elif [ "$nc" = "0" ]; then
                 sleep 30 && killall -9 yad &
                 sleep 10 && yad --center --image="/usr/share/images/aguarde-o-ambiente-de-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top --timeout 10 &
                 x2goclient --sessionid=rancher-som --add-to-known-hosts --no-menu --no-session-edit --hide-foldersharing --close-disconnect --hide
+                if [ "$?" -ne "0" ]; then
+                    x2goclient --sessionid=rancher-som --add-to-known-hosts --no-menu --no-session-edit --hide-foldersharing --close-disconnect --hide
+                fi
 
             fi
     elif [ "$?" = "1" ]; then
@@ -414,6 +420,9 @@ elif [ "$nc" = "0" ]; then
                 sleep 30 && killall -9 yad &
                 sleep 10 && yad --center --image="/usr/share/images/aguarde-o-ambiente-de-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top --timeout 10 &
                 x2goclient --sessionid=rancher-som --add-to-known-hosts --no-menu --no-session-edit --hide-foldersharing --close-disconnect --hide
+                if [ "$?" -ne "0" ]; then
+                    x2goclient --sessionid=rancher-som --add-to-known-hosts --no-menu --no-session-edit --hide-foldersharing --close-disconnect --hide
+                fi
 
             elif [ "$?" = "1" ]; then
                 echo "rancher" > /home/rancher/.jpmsb
@@ -421,6 +430,9 @@ elif [ "$nc" = "0" ]; then
                 sleep 30 && killall -9 yad &
                 sleep 10 && yad --center --image="/usr/share/images/aguarde-o-ambiente-de-trabalho.jpg" --no-buttons --auto-close --no-escape --undecorated --on-top --timeout 10 &
                 x2goclient --sessionid=rancher --add-to-known-hosts --no-menu --no-session-edit --hide-foldersharing --close-disconnect --hide
+                if [ "$?" -ne "0" ]; then
+                    x2goclient --sessionid=rancher --add-to-known-hosts --no-menu --no-session-edit --hide-foldersharing --close-disconnect --hide
+                fi
 
             fi
 
