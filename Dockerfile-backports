@@ -31,6 +31,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F88F6D313016330404F710FC9A2FD067A2E3EF7B && \
     wget -O - https://download.opensuse.org/repositories/shells:fish:release:3/Debian_9.0/Release.key | apt-key add - && \
     curl -o /etc/apt/trusted.gpg.d/agp-debian-key.gpg http://download.ag-projects.com/agp-debian-key.gpg && \
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A && \
     \
     # Adicionando as fontes de aplicativos
     echo "deb https://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera-stable.list && \
@@ -38,29 +39,88 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     echo "deb http://repo.vivaldi.com/stable/deb/ stable main" > /etc/apt/sources.list.d/vivaldi.list && \
     echo "deb http://packages.x2go.org/debian stretch main" > /etc/apt/sources.list.d/x2go.list && \
     echo "deb-src http://packages.x2go.org/debian stretch main" >> /etc/apt/sources.list.d/x2go.list && \
-    echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list && \
+    echo "# deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list && \
+    echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu bionic main" >> /etc/apt/sources.list && \
     echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list && \
     echo "deb http://debian.pop-sc.rnp.br/debian stretch-backports main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://debian.pop-sc.rnp.br/debian/ jessie main contrib non-free" >> /etc/apt/sources.list && \
-    echo "deb http://debian.pop-sc.rnp.br/debian/ wheezy main" >> /etc/apt/sources.list && \
     echo "deb http://ppa.launchpad.net/gns3/ppa/ubuntu xenial main" >> /etc/apt/sources.list.d/gns3.list && \
-    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
     echo "deb https://download.virtualbox.org/virtualbox/debian stretch contrib" > /etc/apt/sources.list.d/virtualbox.list && \
     echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_9.0/ /' > /etc/apt/sources.list.d/shells:fish:release:3.list && \
     echo 'deb http://ag-projects.com/debian stretch main' > /etc/apt/sources.list.d/ag-projects.list && \
     apt update && \
     \
+    # Aceitar a licenca do Java automaticamente
+    echo oracle-java11-installer shared/accepted-oracle-licence-v1-2 boolean true | sudo /usr/bin/debconf-set-selections && \
+    echo oracle-java12-installer shared/accepted-oracle-licence-v1-2 boolean true | sudo /usr/bin/debconf-set-selections && \
+    \
     # Instalando algumas bibliotecas
     apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 libtool libtool-bin libgamin0 libgtkmm-3.0-dev libpulse-dev libfftw3-dev libncursesw5-dev libcurl4-openssl-dev libpcre++-dev && \
     \
     # Pacotes principais
-    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java8-installer oracle-java8-set-default fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles genius gns3-gui mpi-default-dev sqlite3 sqlitebrowser python-pip virtualenv python-virtualenv dh-virtualenv virtualenv-clone virtualenvwrapper kcolorchooser hunspell hunspell-pt-br aspell-pt-br kalgebra libreoffice-lightproof-pt-br xscreensaver-screensaver-bsod gnome-calculator fish blink && \
+    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java11-installer oracle-java11-set-default oracle-java12-installer fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles genius gns3-gui mpi-default-dev sqlite3 sqlitebrowser python-pip virtualenv python-virtualenv dh-virtualenv virtualenv-clone virtualenvwrapper kcolorchooser hunspell hunspell-pt-br aspell-pt-br kalgebra libreoffice-lightproof-pt-br xscreensaver-screensaver-bsod gnome-calculator fish blink distcc gradle pdfshuffler pdfsam kbibtex qalculate && \
     \
     # Instalando o VirtualBox
     apt -y -q install virtualbox-6.0 && \
     \
     # Algumas fontes a mais
     apt -y -q install fonts-noto fonts-cantarell fonts-crosextra-caladea fonts-crosextra-carlito fonts-dustin fonts-freefont-ttf fonts-hack-ttf fonts-oxygen fonts-roboto-hinted fonts-seto fonts-tlwg-laksaman fonts-tlwg-laksaman-ttf fonts-tlwg-purisa fonts-tlwg-purisa-ttf fonts-vlgothic ttf-adf-accanthis ttf-adf-baskervald ttf-adf-berenis ttf-adf-gillius ttf-adf-ikarius ttf-adf-irianis ttf-adf-libris ttf-adf-mekanus ttf-adf-switzera ttf-adf-tribun ttf-adf-universalis ttf-adf-verana ttf-engadget ttf-mscorefonts-installer ttf-sjfonts ttf-staypuft ttf-summersby && \
+    \
+    # Instalar Oracle Java 8. Isso depende do meu servidor!!!!, que pode desaparecer a qualquer momento!!!!
+    apt -y -q install java-common && \
+    update-java-alternatives -s java-8-oracle && \
+    wget https://jpmsb.sj.ifsc.edu.br/java8.tar.gz -O /java8.tar.gz && \
+    tar -xvf /java8.tar.gz -C /usr/lib/jvm/ && \
+    rm -r /java8.tar.gz && \
+    update-alternatives --install /usr/bin/ControlPanel ControlPanel /usr/lib/jvm/java-8-oracle/jre/bin/ControlPanel 180 && \
+    update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-oracle/jre/bin/java 180 && \
+    update-alternatives --install /usr/bin/javaws javaws /usr/lib/jvm/java-8-oracle/jre/bin/javaws 180 && \
+    update-alternatives --install /usr/bin/jcontrol jcontrol /usr/lib/jvm/java-8-oracle/jre/bin/jcontrol 180 && \
+    update-alternatives --install /usr/bin/jjs jjs /usr/lib/jvm/java-8-oracle/jre/bin/jjs 180 && \
+    update-alternatives --install /usr/bin/keytool keytool /usr/lib/jvm/java-8-oracle/jre/bin/keytool 180 && \
+    update-alternatives --install /usr/bin/orbd orbd /usr/lib/jvm/java-8-oracle/jre/bin/orbd 180 && \
+    update-alternatives --install /usr/bin/pack200 pack200 /usr/lib/jvm/java-8-oracle/jre/bin/pack200 180 && \
+    update-alternatives --install /usr/bin/policytool policytool /usr/lib/jvm/java-8-oracle/jre/bin/policytool 180 && \
+    update-alternatives --install /usr/bin/rmid rmid /usr/lib/jvm/java-8-oracle/jre/bin/rmid 180 && \
+    update-alternatives --install /usr/bin/rmiregistry rmiregistry /usr/lib/jvm/java-8-oracle/jre/bin/rmiregistry 180 && \
+    update-alternatives --install /usr/bin/servertool servertool /usr/lib/jvm/java-8-oracle/jre/bin/servertool 180 && \
+    update-alternatives --install /usr/bin/tnameserv tnameserv /usr/lib/jvm/java-8-oracle/jre/bin/tnameserv 180 && \
+    update-alternatives --install /usr/bin/unpack200 unpack200 /usr/lib/jvm/java-8-oracle/jre/bin/unpack200 180 && \
+    update-alternatives --install /usr/lib/jexec jexec /usr/lib/jvm/java-8-oracle/jre/lib/jexec 180 && \
+    update-alternatives --install /usr/bin/appletviewer appletviewer /usr/lib/jvm/java-8-oracle/bin/appletviewer 180 && \
+    update-alternatives --install /usr/bin/extcheck extcheck /usr/lib/jvm/java-8-oracle/bin/extcheck 180 && \
+    update-alternatives --install /usr/bin/idlj idlj /usr/lib/jvm/java-8-oracle/bin/idlj 180 && \
+    update-alternatives --install /usr/bin/jar jar /usr/lib/jvm/java-8-oracle/bin/jar 180 && \
+    update-alternatives --install /usr/bin/jarsigner jarsigner /usr/lib/jvm/java-8-oracle/bin/jarsigner 180 && \
+    update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/java-8-oracle/bin/javac 180 && \
+    update-alternatives --install /usr/bin/javadoc javadoc /usr/lib/jvm/java-8-oracle/bin/javadoc 180 && \
+    update-alternatives --install /usr/bin/javafxpackager javafxpackager /usr/lib/jvm/java-8-oracle/bin/javafxpackager 180 && \
+    update-alternatives --install /usr/bin/javah javah /usr/lib/jvm/java-8-oracle/bin/javah 180 && \
+    update-alternatives --install /usr/bin/javap javap /usr/lib/jvm/java-8-oracle/bin/javap 180 && \
+    update-alternatives --install /usr/bin/javapackager javapackager /usr/lib/jvm/java-8-oracle/bin/javapackager 180 && \
+    update-alternatives --install /usr/bin/jcmd jcmd /usr/lib/jvm/java-8-oracle/bin/jcmd 180 && \
+    update-alternatives --install /usr/bin/jconsole jconsole /usr/lib/jvm/java-8-oracle/bin/jconsole 180 && \
+    update-alternatives --install /usr/bin/jdb jdb /usr/lib/jvm/java-8-oracle/bin/jdb 180 && \
+    update-alternatives --install /usr/bin/jdeps jdeps /usr/lib/jvm/java-8-oracle/bin/jdeps 180 && \
+    update-alternatives --install /usr/bin/jhat jhat /usr/lib/jvm/java-8-oracle/bin/jhat 180 && \
+    update-alternatives --install /usr/bin/jinfo jinfo /usr/lib/jvm/java-8-oracle/bin/jinfo 180 && \
+    update-alternatives --install /usr/bin/jmap jmap /usr/lib/jvm/java-8-oracle/bin/jmap 180 && \
+    update-alternatives --install /usr/bin/jmc jmc /usr/lib/jvm/java-8-oracle/bin/jmc 180 && \
+    update-alternatives --install /usr/bin/jps jps /usr/lib/jvm/java-8-oracle/bin/jps 180 && \
+    update-alternatives --install /usr/bin/jrunscript jrunscript /usr/lib/jvm/java-8-oracle/bin/jrunscript 180 && \
+    update-alternatives --install /usr/bin/jsadebugd jsadebugd /usr/lib/jvm/java-8-oracle/bin/jsadebugd 180 && \
+    update-alternatives --install /usr/bin/jstack jstack /usr/lib/jvm/java-8-oracle/bin/jstack 180 && \
+    update-alternatives --install /usr/bin/jstat jstat /usr/lib/jvm/java-8-oracle/bin/jstat 180 && \
+    update-alternatives --install /usr/bin/jstatd jstatd /usr/lib/jvm/java-8-oracle/bin/jstatd 180 && \
+    update-alternatives --install /usr/bin/jvisualvm jvisualvm /usr/lib/jvm/java-8-oracle/bin/jvisualvm 180 && \
+    update-alternatives --install /usr/bin/native2ascii native2ascii /usr/lib/jvm/java-8-oracle/bin/native2ascii 180 && \
+    update-alternatives --install /usr/bin/rmic rmic /usr/lib/jvm/java-8-oracle/bin/rmic 180 && \
+    update-alternatives --install /usr/bin/schemagen schemagen /usr/lib/jvm/java-8-oracle/bin/schemagen 180 && \
+    update-alternatives --install /usr/bin/serialver serialver /usr/lib/jvm/java-8-oracle/bin/serialver 180 && \
+    update-alternatives --install /usr/bin/wsgen wsgen /usr/lib/jvm/java-8-oracle/bin/wsgen 180 && \
+    update-alternatives --install /usr/bin/wsimport wsimport /usr/lib/jvm/java-8-oracle/bin/wsimport 180 && \
+    update-alternatives --install /usr/bin/xjc xjc /usr/lib/jvm/java-8-oracle/bin/xjc 180 && \
+    update-java-alternatives -s java-8-oracle && \
     \
     # skel com fontes modificadas
     mkdir -p /etc/skel/.config/xfce4/terminal/ && \
@@ -103,7 +163,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     cp /usr/lib/x86_64-linux-gnu/libpng16.so.16 /lib/x86_64-linux-gnu/libpng12.so.0 && \
     apt -y -q purge wireshark wireshark-common && \
     apt -y -q install -t jessie libssl1.0.0 wireshark wireshark-common eagle && \ 
-    apt -y -q install -t wheezy libpng12-0 libpng12-0:i386 && \
+    apt -y -q install -t jessie libpng12-0 libpng12-0:i386 && \
     ldconfig && \
     \
     # Refazendo a lista de repositorios
@@ -134,12 +194,12 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     rm -r /masterpdf.deb && \
     \
     # HUB api do GitHub
-    wget http://ftp.br.debian.org/debian/pool/main/h/hub/hub_2.7.0~ds1-1_amd64.deb -O /hub.deb && \
+    wget http://ftp.br.debian.org/debian/pool/main/h/hub/hub_2.7.0~ds1-1+b10_amd64.deb -O /hub.deb && \
     dpkg -i /hub.deb && \
     rm -r hub.deb && \
     \
     # Instalar o Adobe Flash Player
-    wget http://archive.canonical.com/ubuntu/pool/partner/a/adobe-flashplugin/adobe-flashplugin_20190212.1-0ubuntu0.14.04.1_amd64.deb -O /flash.deb && \
+    wget http://archive.canonical.com/ubuntu/pool/partner/a/adobe-flashplugin/adobe-flashplugin_20170314.1-0ubuntu0.14.04.1_amd64.deb -O /flash.deb && \
     dpkg -i /flash.deb && \
     rm /flash.deb && \
     \
@@ -528,6 +588,44 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     echo "Name=Android Studio" >> /usr/share/applications/android-studio.desktop && \
     echo "Comment=Desenvolvimento de aplicativos para Smartphones Android" >> /usr/share/applications/android-studio.desktop && \
     echo "Icon=/opt/ANDROID3/android-studio/bin/studio.png" >> /usr/share/applications/android-studio.desktop && \
+    \
+    # Atalho para o Visual Studio Code
+    echo "[Desktop Entry]" >> /usr/share/applications/vscode.desktop && \
+    echo "Version=1.0" >> /usr/share/applications/vscode.desktop && \
+    echo "Encoding=UTF-8" >> /usr/share/applications/vscode.desktop && \
+    echo "Name=Microsoft Visual Studio Code" >> /usr/share/applications/vscode.desktop && \
+    echo "Comment=IDE Microsoft Visual Studio Code" >> /usr/share/applications/vscode.desktop && \
+    echo "Exec=/opt/opt/VSCode-linux-x64/code" >> /usr/share/applications/vscode.desktop && \
+    echo "Icon=/opt/VSCode-linux-x64/resources/app/resources/linux/code.png" >> /usr/share/applications/vscode.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/vscode.desktop && \
+    echo "Type=Application" >> /usr/share/applications/vscode.desktop && \
+    echo "Categories=Development" >> /usr/share/applications/vscode.desktop && \
+    \
+    # Atalho para o Foxit Reader
+    echo "[Desktop Entry]" > /usr/share/applications/foxit.desktop && \
+    echo "Name=Foxit Reader" >> /usr/share/applications/foxit.desktop && \
+    echo "Comment=View pdf documents" >> /usr/share/applications/foxit.desktop && \
+    echo "Keywords=pdf;octet-stream;" >> /usr/share/applications/foxit.desktop && \
+    echo "StartupNotify=true" >> /usr/share/applications/foxit.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/foxit.desktop && \
+    echo "Type=Application" >> /usr/share/applications/foxit.desktop && \
+    echo "Categories=Application;Office;Viewer;X-Red-Hat-Base;" >> /usr/share/applications/foxit.desktop && \
+    echo "MimeType=application/pdf;application/octet-stream;" >> /usr/share/applications/foxit.desktop && \
+    echo "Icon=/opt/foxitsoftware/images/FoxitReader-64x64.png" >> /usr/share/applications/foxit.desktop && \
+    echo "Exec=/opt/foxitsoftware/FoxitReader.sh %F" >> /usr/share/applications/foxit.desktop && \
+    \
+    # Atalho para o Tracker
+    echo "[Desktop Entry]" > /usr/share/applications/tracker.desktop && \
+    echo "Encoding=UTF-8" >> /usr/share/applications/tracker.desktop && \
+    echo "Version=1.0" >> /usr/share/applications/tracker.desktop && \
+    echo "Type=Application" >> /usr/share/applications/tracker.desktop && \
+    echo "Terminal=false" >> /usr/share/applications/tracker.desktop && \
+    echo "Exec=/opt/tracker/tracker.sh" >> /usr/share/applications/tracker.desktop && \
+    echo "Name=Tracker" >> /usr/share/applications/tracker.desktop && \
+    echo "Comment=Tracker video analysis and modeling tool" >> /usr/share/applications/tracker.desktop && \
+    echo "Icon=/opt/tracker/tracker_icon48.png" >> /usr/share/applications/tracker.desktop && \
+    echo "Categories=Education;" >> /usr/share/applications/tracker.desktop && \
+    echo "MimeType=application/x-osptracker" >> /usr/share/applications/tracker.desktop && \
     \
     # Atalho para a pasta /Trabalhos-compartilhados
     echo "[Desktop Entry]" >> /usr/share/applications/trabalhos-compartilhados.desktop && \
