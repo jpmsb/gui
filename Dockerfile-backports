@@ -5,8 +5,8 @@ MAINTAINER João Pedro Menegali Salvan Bitencourt (joao.ms@aluno.ifsc.edu.br)
 RUN export DEBIAN_FRONTEND=noninteractive && \
     \
     # Adicionando os repos da RNP por ser mais rapido
-    echo "deb http://debian.pop-sc.rnp.br/debian stretch main contrib non-free" > /etc/apt/sources.list && \
-    echo "deb http://debian.pop-sc.rnp.br/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://ftp.br.debian.org/debian stretch main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb http://ftp.br.debian.org/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
     echo "deb http://security.debian.org stretch/updates main contrib non-free" >> /etc/apt/sources.list && \
     apt update && \
     apt -y -q upgrade && \
@@ -51,14 +51,14 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt update && \
     \
     # Aceitar a licenca do Java automaticamente
-    echo oracle-java11-installer shared/accepted-oracle-licence-v1-2 boolean true | sudo /usr/bin/debconf-set-selections && \
-    echo oracle-java12-installer shared/accepted-oracle-licence-v1-2 boolean true | sudo /usr/bin/debconf-set-selections && \
+    echo oracle-java11-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
+    echo oracle-java12-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
     \
     # Instalando algumas bibliotecas
     apt -y -q install libglu1-mesa lib32z1 lib32ncurses5 libfreetype6:i386 libsm6:i386 libxrender1:i386 libfontconfig1:i386 libxext6:i386 libappindicator1 libdbusmenu-glib4 libdbusmenu-gtk4 libindicator7 libvirt0 libxft2:i386 libpng16-16 libpng16-16:i386 libtool libtool-bin libgamin0 libgtkmm-3.0-dev libpulse-dev libfftw3-dev libncursesw5-dev libcurl4-openssl-dev libpcre++-dev && \
     \
     # Pacotes principais
-    apt -y -q install x2go-keyring x2goserver x2goserver-xsession mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core x2goclient x2gousbmount x2goserver-fmbindings xournal kolourpaint4 oracle-java11-installer oracle-java11-set-default oracle-java12-installer fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles genius gns3-gui mpi-default-dev sqlite3 sqlitebrowser python-pip virtualenv python-virtualenv dh-virtualenv virtualenv-clone virtualenvwrapper kcolorchooser hunspell hunspell-pt-br aspell-pt-br kalgebra libreoffice-lightproof-pt-br xscreensaver-screensaver-bsod gnome-calculator fish blink distcc gradle pdfshuffler pdfsam kbibtex qalculate && \
+    apt -y -q install x2goserver x2goserver-xsession x2goclient x2goserver-fmbindings mate-desktop-environment qasmixer qashctl qasconfig pavucontrol mate-themes okular fluidsynth vlc-plugin-fluidsynth qsynth fluid-soundfont-gm audacity gdebi-core xournal kolourpaint4 fritzing fritzing-data fritzing-parts kicad ipython ipython3 glade python-glade2 geogebra latexila dia inkscape kdenlive gimp kile pinta gajim gajim-omemo gajim-triggers gajim-httpupload gajim-urlimagepreview pulseaudio-equalizer pitivi gnuradio gqrx-sdr virt-manager spotify-client playonlinux wine winetricks git clementine r-base r-base-dev less cmake vivaldi-stable unrar cutecom graphviz python-vte bridge-utils uml-utilities ipython3-qtconsole scratch squeak-vm squeak-plugins-scratch geany mcu8051ide qt4-designer spyder3 kalzium logisim grass tracker wxmaxima prerex vprerex rsyslog pcb maxima cantor google-chrome-stable opera-stable googleearth-package hexchat hexchat-otr hexchat-perl hexchat-plugins hexchat-python3 qgis qgis-common qgis-providers-common qgis-server ipython-qtconsole distcc nemiver mysql-workbench yad aqemu bluefish xemacs21 anjuta kmag mercurial gnome-subtitles genius gns3-gui mpi-default-dev sqlite3 sqlitebrowser python-pip virtualenv python-virtualenv dh-virtualenv virtualenv-clone virtualenvwrapper kcolorchooser hunspell hunspell-pt-br aspell-pt-br kalgebra libreoffice-lightproof-pt-br xscreensaver-screensaver-bsod gnome-calculator fish distcc gradle pdfshuffler pdfsam kbibtex qalculate blink rabbitmq-server && \
     \
     # Instalando o VirtualBox
     apt -y -q install virtualbox-6.0 && \
@@ -68,7 +68,6 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     \
     # Instalar Oracle Java 8. Isso depende do meu servidor!!!!, que pode desaparecer a qualquer momento!!!!
     apt -y -q install java-common && \
-    update-java-alternatives -s java-8-oracle && \
     wget https://jpmsb.sj.ifsc.edu.br/java8.tar.gz -O /java8.tar.gz && \
     tar -xvf /java8.tar.gz -C /usr/lib/jvm/ && \
     rm -r /java8.tar.gz && \
@@ -122,36 +121,6 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     update-alternatives --install /usr/bin/xjc xjc /usr/lib/jvm/java-8-oracle/bin/xjc 180 && \
     update-java-alternatives -s java-8-oracle && \
     \
-    # skel com fontes modificadas
-    mkdir -p /etc/skel/.config/xfce4/terminal/ && \
-    echo "[Configuration]" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "FontName=NotoMono Nerd Font 12" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscAlwaysShowTabs=FALSE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscBell=FALSE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscBellUrgent=FALSE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscBordersDefault=TRUE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscCursorBlinks=FALSE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscDefaultGeometry=80x24" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscInheritGeometry=FALSE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscMenubarDefault=TRUE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscMouseAutohide=FALSE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscMouseWheelZoom=TRUE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscToolbarDefault=FALSE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscConfirmClose=TRUE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscCycleTabs=TRUE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscTabCloseButtons=TRUE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscTabCloseMiddleClick=TRUE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscTabPosition=GTK_POS_TOP" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscHighlightUrls=TRUE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscMiddleClickOpensUri=FALSE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscCopyOnSelect=FALSE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscDefaultWorkingDir=" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscRewrapOnResize=TRUE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscUseShiftArrowsToScroll=FALSE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "MiscSlimTabs=FALSE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    echo "ScrollingUnlimited=TRUE" >> /etc/skel/.config/xfce4/terminal/terminalrc && \
-    \
     # Fonte Open Sans
     wget "https://fonts.google.com/download?family=Open%20Sans|Open%20Sans%20Condensed" -O open-sans.zip && \
     unzip open-sans.zip -d /usr/share/fonts/opentype/ && \
@@ -199,9 +168,12 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     rm -r hub.deb && \
     \
     # Instalar o Adobe Flash Player
-    wget http://archive.canonical.com/ubuntu/pool/partner/a/adobe-flashplugin/adobe-flashplugin_20170314.1-0ubuntu0.14.04.1_amd64.deb -O /flash.deb && \
+    wget http://archive.canonical.com/ubuntu/pool/partner/a/adobe-flashplugin/adobe-flashplugin_20190409.1-0ubuntu0.14.04.1_amd64.deb -O /flash.deb && \
     dpkg -i /flash.deb && \
     rm /flash.deb && \
+    wget http://archive.canonical.com/ubuntu/pool/partner/a/adobe-flashplugin/adobe-flash-properties-gtk_20190409.1-0ubuntu0.14.04.1_amd64.deb -O /flash-gtk.deb && \
+    dpkg -i /flash-gtk.deb && \
+    rm /flash-gtk.deb && \
     \
     # Script para arduino local
     wget https://raw.githubusercontent.com/jpmsb/gui/master/scripts/arduino-local -O /usr/local/bin/arduino-local && \
@@ -728,4 +700,4 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     chmod 1777 /tmp && \
     mkdir /var/run/sshd
 
-ENTRYPOINT  service libvirtd start && rm -rf /var/run/rsyslogd.pid && rsyslogd ; chmod 1766 /dev/kvm ; echo "0 2147483647" > /proc/sys/net/ipv4/ping_group_range ; /usr/sbin/sshd -D
+ENTRYPOINT  service libvirtd start && rm -rf /var/run/rsyslogd.pid && rsyslogd ; service dbus start ; chmod 1766 /dev/kvm ; echo "0 2147483647" > /proc/sys/net/ipv4/ping_group_range ; /usr/sbin/sshd -D
