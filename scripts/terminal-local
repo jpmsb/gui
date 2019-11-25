@@ -1,0 +1,12 @@
+#!/bin/bash
+
+IP=`echo $SSH_CONNECTION | cut -f1 -d " "`
+USUARIO=$(echo $PWD |cut -f3 -d "/")
+
+if [ -z "$1" ]; then
+     echo "Nenhum comando foi especificado para ser executado localmente. Saindo..."
+
+elif [ ! -z "$1" ]; then
+    ssh -o StrictHostKeyChecking=no -o SendEnv=PATH -o LogLevel=QUIET -i /root/.ssh/labalu-cli-aluno arduino@$IP -t "$1"
+
+fi
