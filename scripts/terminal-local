@@ -7,6 +7,6 @@ if [ -z "$1" ]; then
      echo "Nenhum comando foi especificado para ser executado localmente. Saindo..."
 
 elif [ ! -z "$1" ]; then
-    ssh -o StrictHostKeyChecking=no -o SendEnv=PATH -o LogLevel=QUIET -i /root/.ssh/labalu-cli-aluno arduino@$IP -t "$1"
+    ssh -o StrictHostKeyChecking=no -o SendEnv=PATH -o LogLevel=QUIET -i /root/.ssh/labalu-cli-aluno arduino@$IP -t "bash -c 'PATH=/etc/programas/arduino ; $1'"
 
 fi
