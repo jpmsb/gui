@@ -1,0 +1,71 @@
+#!/bin/bash
+
+usuario=$1
+
+echo "Criando o usuário $usuario localmente..."
+docker exec gui bash -c "useradd -m -d /home/$usuario -s /bin/bash $usuario"
+
+echo ""
+echo "Alterando a senha do usuario $usuario..."
+docker exec gui bash -c "echo $usuario:$usuario |chpasswd"
+
+echo""
+echo "Criando o diretório .ssh local..."
+docker exec gui mkdir -p /home/$usuario/.ssh
+
+echo""
+echo "Criando a chave privada local..."
+ssh-keygen -t rsa -b 4096 -f $HOME/$usuario -q -N ""
+
+echo""
+echo "Copiando a chave privada para dentro do contêiner de SSH..."
+docker cp $HOME/$usuario gui:/home/$usuario/.ssh/$usuario
+
+echo""
+echo "Ajustando as permissões locais..."
+docker exec gui bash -c "chown -R $usuario: /home/$usuario/.ssh"
+
+echo ""
+echo "Dando chmod 400..."
+docker exec gui bash -c "chmod 400 /home/$usuario/.ssh/$usuario"
+
+echo""
+echo "Criando contêiner para o usuário $usuario..."
+docker run -dit --name $usuario -h $usuario --net faixa192 --privileged -v /sys/fs/cgroup:/sys/fs/cgroup jpmsb/debian-systemd-extras:buster
+
+echo""
+echo "Criando o usuário $usuario dentro do contêiner..."
+docker exec $usuario bash -c "useradd -m -d /home/$usuario -s /bin/bash $usuario"
+
+echo ""
+echo "Alterando a senha do usuario $usuario..."
+docker exec $usuario bash -c "echo $usuario:$usuario |chpasswd"
+
+echo""
+echo "Criando o diretório .ssh remoto..."
+docker exec $usuario mkdir -p /home/$usuario/.ssh
+
+echo""
+echo "Copiando a chave pública para authorized_keys dentro do contêiner..."
+docker cp $HOME/$usuario.pub $usuario:/home/$usuario/.ssh/authorized_keys
+
+echo""
+echo "Ajustando as permissões remotas..."
+docker exec $usuario bash -c "chown -R $usuario: /home/$usuario/.ssh"
+
+echo ""
+echo "Dando chmod 400..."
+docker exec $usuario bash -c "chmod 400 /home/$usuario/.ssh/authorized_keys"
+
+echo ""
+echo "Fazendo o ssh automático..."
+docker exec gui bash -c "cp /etc/bash.bashrc /home/$usuario/.bashrc"
+docker exec gui bash -c "chown -R $usuario: /home/$usuario/"
+docker exec gui bash -c "echo 'ssh -XC -oStrictHostKeyChecking=no -i /home/\$USER/.ssh/\$USER \$USER@\$USER' >> /home/$usuario/.bashrc"
+docker exec gui bash -c "echo 'exit' >> /home/$usuario/.bashrc"
+
+if [ "$2" = "sudo" ]; then
+    echo ""
+    echo "Adicionando ao grupo sudo..."
+    docker exec $usuario addgroup $usuario sudo
+fi
