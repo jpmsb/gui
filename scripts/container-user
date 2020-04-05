@@ -2,6 +2,12 @@
 
 usuario=$1
 
+if [ "$3" = "limpar" ]; then
+    echo "Limpando tudo que poderia existir..."
+    docker rm -f $usuario ; rm $usuario* ; docker exec gui userdel $usuario ; docker exec gui rm -r /home/$usuario
+    echo ""
+fi
+
 echo "Criando o usuário $usuario localmente..."
 docker exec gui bash -c "useradd -m -d /home/$usuario -s /bin/bash $usuario"
 
